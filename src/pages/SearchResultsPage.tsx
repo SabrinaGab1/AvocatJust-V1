@@ -206,77 +206,77 @@ export default function SearchResultsPage() {
           </div>
         </div>
 
-        {/* Search and Stats Section */}
+        {/* Search and Stats Section - Reduced size */}
         <div className="relative -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+          <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
             {/* Search Bar */}
-            <div className="max-w-4xl mx-auto mb-8">
-              <div className="bg-gray-50 rounded-2xl p-2 border border-gray-200">
+            <div className="max-w-3xl mx-auto mb-6">
+              <div className="bg-gray-50 rounded-xl p-2 border border-gray-200">
                 <div className="flex items-center">
                   <div className="flex-1 relative">
-                    <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Recherchez par spécialité, nom d'avocat ou problématique..."
-                      className="w-full pl-16 pr-6 py-4 text-lg bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none"
+                      className="w-full pl-12 pr-4 py-3 text-base bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none"
                     />
                   </div>
                   <button
                     onClick={() => setIsFilterModalOpen(true)}
-                    className="flex items-center px-8 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-medium"
+                    className="flex items-center px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
                   >
-                    <Filter className="h-5 w-5 mr-2" />
+                    <Filter className="h-4 w-4 mr-2" />
                     Filtres
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {/* Stats - Reduced size */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
               <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Users className="h-8 w-8 text-orange-500 mr-2" />
-                  <div className="text-4xl font-bold text-gray-900">{totalLawyers}+</div>
+                <div className="flex items-center justify-center mb-2">
+                  <Users className="h-6 w-6 text-orange-500 mr-2" />
+                  <div className="text-3xl font-bold text-gray-900">{totalLawyers}+</div>
                 </div>
-                <p className="text-gray-900 font-medium">Avocats experts</p>
-                <p className="text-gray-600 text-sm">dans toute la France</p>
+                <p className="text-gray-900 font-medium text-sm">Avocats experts</p>
+                <p className="text-gray-600 text-xs">dans toute la France</p>
               </div>
               
               <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Star className="h-8 w-8 text-yellow-400 mr-2" />
-                  <div className="text-4xl font-bold text-gray-900">{averageRating}</div>
+                <div className="flex items-center justify-center mb-2">
+                  <Star className="h-6 w-6 text-yellow-400 mr-2" />
+                  <div className="text-3xl font-bold text-gray-900">{averageRating}</div>
                 </div>
-                <p className="text-gray-900 font-medium">Note moyenne</p>
-                <p className="text-gray-600 text-sm">satisfaction client</p>
+                <p className="text-gray-900 font-medium text-sm">Note moyenne</p>
+                <p className="text-gray-600 text-xs">satisfaction client</p>
               </div>
               
               <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Award className="h-8 w-8 text-orange-500 mr-2" />
-                  <div className="text-4xl font-bold text-gray-900">{totalExperience}+</div>
+                <div className="flex items-center justify-center mb-2">
+                  <Award className="h-6 w-6 text-orange-500 mr-2" />
+                  <div className="text-3xl font-bold text-gray-900">{totalExperience}+</div>
                 </div>
-                <p className="text-gray-900 font-medium">Années d'expérience</p>
-                <p className="text-gray-600 text-sm">cumulées</p>
+                <p className="text-gray-900 font-medium text-sm">Années d'expérience</p>
+                <p className="text-gray-600 text-xs">cumulées</p>
               </div>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-8 text-gray-600">
+            {/* Trust Indicators - Reduced size */}
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-gray-600">
               <div className="flex items-center">
-                <Clock className="h-5 w-5 mr-2 text-orange-500" />
-                <span className="text-sm">Réponse sous 24h</span>
+                <Clock className="h-4 w-4 mr-2 text-orange-500" />
+                <span className="text-xs">Réponse sous 24h</span>
               </div>
               <div className="flex items-center">
-                <Scale className="h-5 w-5 mr-2 text-orange-500" />
-                <span className="text-sm">Avocats certifiés</span>
+                <Scale className="h-4 w-4 mr-2 text-orange-500" />
+                <span className="text-xs">Avocats certifiés</span>
               </div>
               <div className="flex items-center">
-                <Star className="h-5 w-5 mr-2 text-yellow-400" />
-                <span className="text-sm">Satisfaction garantie</span>
+                <Star className="h-4 w-4 mr-2 text-yellow-400" />
+                <span className="text-xs">Satisfaction garantie</span>
               </div>
             </div>
           </div>
