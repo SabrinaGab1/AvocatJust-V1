@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Filter, MapPin, Star, Phone, Video, Building2, ChevronDown, X } from 'lucide-react';
+import { Search, Filter, MapPin, Star, Phone, Video, Building2, ChevronDown, X, Scale, Users, Award, Clock } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import AnimatedPage from '../components/AnimatedPage';
 
@@ -171,47 +171,162 @@ export default function SearchResultsPage() {
     navigate(`/avocat/${lawyerId}`);
   };
 
+  // Calculate stats for hero
+  const totalLawyers = mockLawyers.length;
+  const averageRating = (mockLawyers.reduce((acc, lawyer) => acc + lawyer.rating, 0) / mockLawyers.length).toFixed(1);
+  const totalExperience = mockLawyers.reduce((acc, lawyer) => acc + lawyer.experience, 0);
+
   return (
     <AnimatedPage>
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <div className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Décrivez votre problématique juridique..."
-                    className="w-full pl-12 pr-4 py-3 text-lg border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  />
+        {/* Hero Section */}
+        <div 
+          className="relative bg-gradient-to-br from-orange-600 via-orange-500 to-red-500 overflow-hidden"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundBlendMode: 'overlay'
+          }}
+        >
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-600/90 via-orange-500/85 to-red-500/90"></div>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div className="text-center">
+              {/* Main Title */}
+              <div className="flex items-center justify-center mb-6">
+                <Scale className="h-12 w-12 text-white mr-4" />
+                <h1 className="text-4xl lg:text-6xl font-bold text-white">
+                  Nos Avocats
+                </h1>
+              </div>
+              
+              <p className="text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Découvrez notre communauté d'avocats experts, sélectionnés pour leur compétence, 
+                leur réactivité et leur engagement pour une justice accessible
+              </p>
+
+              {/* Search Bar */}
+              <div className="max-w-4xl mx-auto mb-12">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-2 border border-white/20">
+                  <div className="flex items-center">
+                    <div className="flex-1 relative">
+                      <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 h-6 w-6 text-white/70" />
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Recherchez par spécialité, nom d'avocat ou problématique..."
+                        className="w-full pl-16 pr-6 py-4 text-lg bg-transparent text-white placeholder-white/70 focus:outline-none"
+                      />
+                    </div>
+                    <button
+                      onClick={() => setIsFilterModalOpen(true)}
+                      className="flex items-center px-8 py-4 bg-white text-orange-500 rounded-xl hover:bg-gray-50 transition-colors font-medium"
+                    >
+                      <Filter className="h-5 w-5 mr-2" />
+                      Filtres
+                    </button>
+                  </div>
                 </div>
               </div>
-              <button
-                onClick={() => setIsFilterModalOpen(true)}
-                className="flex items-center px-6 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors"
-              >
-                <Filter className="h-5 w-5 mr-2" />
-                Filtres
-              </button>
+
+              {/* Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-3">
+                    <Users className="h-8 w-8 text-white/80 mr-2" />
+                    <div className="text-4xl font-bold text-white">{totalLawyers}+</div>
+                  </div>
+                  <p className="text-white/90 font-medium">Avocats experts</p>
+                  <p className="text-white/70 text-sm">dans toute la France</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-3">
+                    <Star className="h-8 w-8 text-yellow-300 mr-2" />
+                    <div className="text-4xl font-bold text-white">{averageRating}</div>
+                  </div>
+                  <p className="text-white/90 font-medium">Note moyenne</p>
+                  <p className="text-white/70 text-sm">satisfaction client</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-3">
+                    <Award className="h-8 w-8 text-white/80 mr-2" />
+                    <div className="text-4xl font-bold text-white">{totalExperience}+</div>
+                  </div>
+                  <p className="text-white/90 font-medium">Années d'expérience</p>
+                  <p className="text-white/70 text-sm">cumulées</p>
+                </div>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/80">
+                <div className="flex items-center">
+                  <Clock className="h-5 w-5 mr-2" />
+                  <span className="text-sm">Réponse sous 24h</span>
+                </div>
+                <div className="flex items-center">
+                  <Scale className="h-5 w-5 mr-2" />
+                  <span className="text-sm">Avocats certifiés</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="h-5 w-5 mr-2 text-yellow-300" />
+                  <span className="text-sm">Satisfaction garantie</span>
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Decorative Elements */}
+          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-300/20 rounded-full blur-lg"></div>
         </div>
 
-        {/* Results */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">
-              {filteredLawyers.length} avocat{filteredLawyers.length > 1 ? 's' : ''} trouvé{filteredLawyers.length > 1 ? 's' : ''}
-            </h1>
-            {searchQuery && (
-              <p className="text-gray-600 mt-1">
-                Résultats pour "{searchQuery}"
-              </p>
-            )}
+        {/* Results Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mb-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {filteredLawyers.length} avocat{filteredLawyers.length > 1 ? 's' : ''} trouvé{filteredLawyers.length > 1 ? 's' : ''}
+                </h2>
+                {searchQuery && (
+                  <p className="text-gray-600 mt-1">
+                    Résultats pour "{searchQuery}"
+                  </p>
+                )}
+              </div>
+              
+              {/* Quick Filters */}
+              <div className="hidden lg:flex items-center space-x-4">
+                <select
+                  value={filters.ville}
+                  onChange={(e) => setFilters({ ...filters, ville: e.target.value })}
+                  className="rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                >
+                  <option value="">Toutes les villes</option>
+                  {villes.map((ville) => (
+                    <option key={ville} value={ville}>{ville}</option>
+                  ))}
+                </select>
+                
+                <select
+                  value={filters.specialite}
+                  onChange={(e) => setFilters({ ...filters, specialite: e.target.value })}
+                  className="rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                >
+                  <option value="">Toutes les spécialités</option>
+                  {specialites.map((specialite) => (
+                    <option key={specialite} value={specialite}>{specialite}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -219,14 +334,14 @@ export default function SearchResultsPage() {
               <div
                 key={lawyer.id}
                 onClick={() => handleLawyerClick(lawyer.id)}
-                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
+                className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border border-gray-100 hover:border-orange-200"
               >
                 <div className="p-6">
                   <div className="flex items-start space-x-4">
                     <img
                       src={lawyer.photo}
                       alt={`${lawyer.prenom} ${lawyer.nom}`}
-                      className="w-16 h-16 rounded-full object-cover"
+                      className="w-16 h-16 rounded-full object-cover ring-2 ring-orange-100"
                     />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg font-semibold text-gray-900">
@@ -298,16 +413,32 @@ export default function SearchResultsPage() {
           </div>
 
           {filteredLawyers.length === 0 && (
-            <div className="text-center py-12">
+            <div className="text-center py-16">
               <div className="text-gray-400 mb-4">
-                <Search className="h-12 w-12 mx-auto" />
+                <Search className="h-16 w-16 mx-auto" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-xl font-medium text-gray-900 mb-2">
                 Aucun avocat trouvé
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 mb-6">
                 Essayez de modifier vos critères de recherche ou vos filtres.
               </p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setFilters({
+                    ville: '',
+                    specialite: '',
+                    priceRange: '',
+                    rating: '',
+                    acceptsLegalAid: false,
+                    consultationType: ''
+                  });
+                }}
+                className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+              >
+                Réinitialiser les filtres
+              </button>
             </div>
           )}
         </div>
