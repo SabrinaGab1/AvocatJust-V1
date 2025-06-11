@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
+import LawyerBookingPage from './pages/LawyerBookingPage';
 import AnimatedPage from './components/AnimatedPage';
 import { useLanguage } from './contexts/LanguageContext';
 
@@ -1066,6 +1067,7 @@ export default function App() {
         } />
         <Route path="/recherche" element={<SearchResultsPage />} />
         <Route path="/avocat/:id" element={<LawyerProfilePage />} />
+        <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />} />
