@@ -179,116 +179,111 @@ export default function SearchResultsPage() {
   return (
     <AnimatedPage>
       <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
+        {/* Hero Section - Matching signup page dimensions */}
         <div 
-          className="relative bg-gradient-to-br from-orange-600 via-orange-500 to-red-500 overflow-hidden"
+          className="relative bg-cover bg-center py-24"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundBlendMode: 'overlay'
+            backgroundImage: 'url(https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000&h=600)',
           }}
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-600/90 via-orange-500/85 to-red-500/90"></div>
-          <div className={`absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30`}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40"></div>
           
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-            <div className="text-center">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl">
               {/* Main Title */}
-              <div className="flex items-center justify-center mb-6">
+              <div className="flex items-center mb-6">
                 <Scale className="h-12 w-12 text-white mr-4" />
-                <h1 className="text-4xl lg:text-6xl font-bold text-white">
+                <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
                   Nos Avocats
                 </h1>
               </div>
               
-              <p className="text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="mt-6 text-xl text-gray-300">
                 Découvrez notre communauté d'avocats experts, sélectionnés pour leur compétence, 
-                leur réactivité et leur engagement pour une justice accessible
+                leur réactivité et leur engagement pour une justice accessible et équitable.
               </p>
+            </div>
+          </div>
+        </div>
 
-              {/* Search Bar */}
-              <div className="max-w-4xl mx-auto mb-12">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-2 border border-white/20">
-                  <div className="flex items-center">
-                    <div className="flex-1 relative">
-                      <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 h-6 w-6 text-white/70" />
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Recherchez par spécialité, nom d'avocat ou problématique..."
-                        className="w-full pl-16 pr-6 py-4 text-lg bg-transparent text-white placeholder-white/70 focus:outline-none"
-                      />
-                    </div>
-                    <button
-                      onClick={() => setIsFilterModalOpen(true)}
-                      className="flex items-center px-8 py-4 bg-white text-orange-500 rounded-xl hover:bg-gray-50 transition-colors font-medium"
-                    >
-                      <Filter className="h-5 w-5 mr-2" />
-                      Filtres
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-3">
-                    <Users className="h-8 w-8 text-white/80 mr-2" />
-                    <div className="text-4xl font-bold text-white">{totalLawyers}+</div>
-                  </div>
-                  <p className="text-white/90 font-medium">Avocats experts</p>
-                  <p className="text-white/70 text-sm">dans toute la France</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-3">
-                    <Star className="h-8 w-8 text-yellow-300 mr-2" />
-                    <div className="text-4xl font-bold text-white">{averageRating}</div>
-                  </div>
-                  <p className="text-white/90 font-medium">Note moyenne</p>
-                  <p className="text-white/70 text-sm">satisfaction client</p>
-                </div>
-                
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-3">
-                    <Award className="h-8 w-8 text-white/80 mr-2" />
-                    <div className="text-4xl font-bold text-white">{totalExperience}+</div>
-                  </div>
-                  <p className="text-white/90 font-medium">Années d'expérience</p>
-                  <p className="text-white/70 text-sm">cumulées</p>
-                </div>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/80">
+        {/* Search and Stats Section */}
+        <div className="relative -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            {/* Search Bar */}
+            <div className="max-w-4xl mx-auto mb-8">
+              <div className="bg-gray-50 rounded-2xl p-2 border border-gray-200">
                 <div className="flex items-center">
-                  <Clock className="h-5 w-5 mr-2" />
-                  <span className="text-sm">Réponse sous 24h</span>
-                </div>
-                <div className="flex items-center">
-                  <Scale className="h-5 w-5 mr-2" />
-                  <span className="text-sm">Avocats certifiés</span>
-                </div>
-                <div className="flex items-center">
-                  <Star className="h-5 w-5 mr-2 text-yellow-300" />
-                  <span className="text-sm">Satisfaction garantie</span>
+                  <div className="flex-1 relative">
+                    <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Recherchez par spécialité, nom d'avocat ou problématique..."
+                      className="w-full pl-16 pr-6 py-4 text-lg bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none"
+                    />
+                  </div>
+                  <button
+                    onClick={() => setIsFilterModalOpen(true)}
+                    className="flex items-center px-8 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-medium"
+                  >
+                    <Filter className="h-5 w-5 mr-2" />
+                    Filtres
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Decorative Elements */}
-          <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-          <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-yellow-300/20 rounded-full blur-lg"></div>
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <Users className="h-8 w-8 text-orange-500 mr-2" />
+                  <div className="text-4xl font-bold text-gray-900">{totalLawyers}+</div>
+                </div>
+                <p className="text-gray-900 font-medium">Avocats experts</p>
+                <p className="text-gray-600 text-sm">dans toute la France</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <Star className="h-8 w-8 text-yellow-400 mr-2" />
+                  <div className="text-4xl font-bold text-gray-900">{averageRating}</div>
+                </div>
+                <p className="text-gray-900 font-medium">Note moyenne</p>
+                <p className="text-gray-600 text-sm">satisfaction client</p>
+              </div>
+              
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <Award className="h-8 w-8 text-orange-500 mr-2" />
+                  <div className="text-4xl font-bold text-gray-900">{totalExperience}+</div>
+                </div>
+                <p className="text-gray-900 font-medium">Années d'expérience</p>
+                <p className="text-gray-600 text-sm">cumulées</p>
+              </div>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-8 text-gray-600">
+              <div className="flex items-center">
+                <Clock className="h-5 w-5 mr-2 text-orange-500" />
+                <span className="text-sm">Réponse sous 24h</span>
+              </div>
+              <div className="flex items-center">
+                <Scale className="h-5 w-5 mr-2 text-orange-500" />
+                <span className="text-sm">Avocats certifiés</span>
+              </div>
+              <div className="flex items-center">
+                <Star className="h-5 w-5 mr-2 text-yellow-400" />
+                <span className="text-sm">Satisfaction garantie</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Results Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
           <div className="mb-8">
             <div className="flex items-center justify-between">
               <div>
