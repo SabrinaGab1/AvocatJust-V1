@@ -6,6 +6,8 @@ import { AnimatePresence } from 'framer-motion';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import SearchResultsPage from './pages/SearchResultsPage';
+import LawyerProfilePage from './pages/LawyerProfilePage';
 import AnimatedPage from './components/AnimatedPage';
 import { useLanguage } from './contexts/LanguageContext';
 
@@ -190,6 +192,13 @@ function HomePage() {
     setSuggestions(matches);
   }, [searchQuery]);
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/recherche?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
   return (
     <AnimatedPage>
       <div className="min-h-screen bg-white">
@@ -320,7 +329,7 @@ function HomePage() {
               </p>
               
               <div className="mt-8 max-w-3xl mx-auto">
-                <div className="bg-white p-2 rounded-full shadow-lg flex items-center">
+                <form onSubmit={handleSearch} className="bg-white p-2 rounded-full shadow-lg flex items-center">
                   <div className="flex-1 px-4 py-2">
                     <div className="relative">
                       <div className="flex items-center">
@@ -363,10 +372,13 @@ function HomePage() {
                     </div>
                   </div>
 
-                  <button className="ml-2 p-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors">
+                  <button 
+                    type="submit"
+                    className="ml-2 p-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors"
+                  >
                     <Search className="h-5 w-5" />
                   </button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -514,7 +526,10 @@ function HomePage() {
                   <p className="text-lg font-medium text-gray-900 italic mb-6">
                     Nos avocats de confiance vous conseillent et vous défendent au quotidien
                   </p>
-                  <button className="px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors text-lg font-medium">
+                  <button 
+                    onClick={() => navigate('/recherche')}
+                    className="px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors text-lg font-medium"
+                  >
                     Trouver mon Avocat
                   </button>
                 </div>
@@ -795,6 +810,10 @@ function HomePage() {
                           {language === 'fr' ? 'Annuler' : 'Cancel'}
                         </button>
                         <button
+                          onClick={() => {
+                            setIsSearchModalOpen(false);
+                            navigate('/recherche');
+                          }}
                           className="px-6 py-2.5 text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 rounded-lg transition-colors"
                         >
                           {language === 'fr' ? 'Rechercher' : 'Search'}
@@ -924,9 +943,9 @@ function Footer() {
             <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link to="/recherche" className="text-gray-400 hover:text-orange-500 transition-colors">
                   Trouver un avocat
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
@@ -1045,6 +1064,8 @@ export default function App() {
             <Footer />
           </>
         } />
+        <Route path="/recherche" element={<SearchResultsPage />} />
+        <Route path="/avocat/:id" element={<LawyerProfilePage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />} />
