@@ -393,7 +393,7 @@ function HomePage() {
                 ? 'TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS'
                 : 'FIND A LAWYER ONLINE NEAR YOU'}
             </h2>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-bold text-gray-900 mb-8">
               {language === 'fr' ? (
                 <>
                   Sur <span>AVOCAJUST</span>, ce ne sont pas juste des avocats.
@@ -407,6 +407,17 @@ function HomePage() {
                   They're <span className="text-orange-500">just lawyers</span> for your rights!
                 </>
               )}
+            </div>
+            
+            {/* Bouton "Nos avocats" */}
+            <div className="mb-12">
+              <button
+                onClick={() => navigate('/recherche')}
+                className="inline-flex items-center px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors text-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+              >
+                <Search className="h-5 w-5 mr-2" />
+                {language === 'fr' ? 'Nos avocats' : 'Our lawyers'}
+              </button>
             </div>
           </div>
 
