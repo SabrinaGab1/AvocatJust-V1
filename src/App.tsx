@@ -1077,10 +1077,126 @@ export default function App() {
             <Footer />
           </>
         } />
-        <Route path="/recherche" element={<SearchResultsPage />} />
-        <Route path="/avocat/:id" element={<LawyerProfilePage />} />
-        <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
-        <Route path="/avocat/:id/formulaire" element={<BookingFormPage />} />
+        <Route path="/recherche" element={
+          <>
+            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                  <Link to="/" className="flex items-center">
+                    <Scale className="h-8 w-8 text-orange-500" />
+                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
+                  </Link>
+                  <div className="flex items-center space-x-4">
+                    <Link 
+                      to="/login"
+                      className="text-gray-700 hover:text-orange-500 transition-colors"
+                    >
+                      Connexion
+                    </Link>
+                    <Link 
+                      to="/signup"
+                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                    >
+                      Je suis avocat
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <SearchResultsPage />
+            <Footer />
+          </>
+        } />
+        <Route path="/avocat/:id" element={
+          <>
+            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                  <Link to="/" className="flex items-center">
+                    <Scale className="h-8 w-8 text-orange-500" />
+                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
+                  </Link>
+                  <div className="flex items-center space-x-4">
+                    <Link 
+                      to="/login"
+                      className="text-gray-700 hover:text-orange-500 transition-colors"
+                    >
+                      Connexion
+                    </Link>
+                    <Link 
+                      to="/signup"
+                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                    >
+                      Je suis avocat
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <LawyerProfilePage />
+            <Footer />
+          </>
+        } />
+        <Route path="/avocat/:id/reservation" element={
+          <>
+            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                  <Link to="/" className="flex items-center">
+                    <Scale className="h-8 w-8 text-orange-500" />
+                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
+                  </Link>
+                  <div className="flex items-center space-x-4">
+                    <Link 
+                      to="/login"
+                      className="text-gray-700 hover:text-orange-500 transition-colors"
+                    >
+                      Connexion
+                    </Link>
+                    <Link 
+                      to="/signup"
+                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                    >
+                      Je suis avocat
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <LawyerBookingPage />
+            <Footer />
+          </>
+        } />
+        <Route path="/avocat/:id/formulaire" element={
+          <>
+            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                  <Link to="/" className="flex items-center">
+                    <Scale className="h-8 w-8 text-orange-500" />
+                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
+                  </Link>
+                  <div className="flex items-center space-x-4">
+                    <Link 
+                      to="/login"
+                      className="text-gray-700 hover:text-orange-500 transition-colors"
+                    >
+                      Connexion
+                    </Link>
+                    <Link 
+                      to="/signup"
+                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                    >
+                      Je suis avocat
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <BookingFormPage />
+            <Footer />
+          </>
+        } />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />} />
