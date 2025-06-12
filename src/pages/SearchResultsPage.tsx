@@ -171,15 +171,10 @@ export default function SearchResultsPage() {
     navigate(`/avocat/${lawyerId}`);
   };
 
-  // Calculate stats for hero
-  const totalLawyers = mockLawyers.length;
-  const averageRating = (mockLawyers.reduce((acc, lawyer) => acc + lawyer.rating, 0) / mockLawyers.length).toFixed(1);
-  const totalExperience = mockLawyers.reduce((acc, lawyer) => acc + lawyer.experience, 0);
-
   return (
     <AnimatedPage>
       <div className="min-h-screen bg-gray-50">
-        {/* Hero Section - Matching signup page dimensions */}
+        {/* Hero Section */}
         <div 
           className="relative bg-cover bg-center py-24"
           style={{
@@ -206,11 +201,11 @@ export default function SearchResultsPage() {
           </div>
         </div>
 
-        {/* Search and Stats Section - Reduced size */}
+        {/* Search Section - Compact */}
         <div className="relative -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+          <div className="bg-white rounded-2xl shadow-xl p-4 mb-6">
             {/* Search Bar */}
-            <div className="max-w-3xl mx-auto mb-6">
+            <div className="max-w-3xl mx-auto">
               <div className="bg-gray-50 rounded-xl p-2 border border-gray-200">
                 <div className="flex items-center">
                   <div className="flex-1 relative">
@@ -231,52 +226,6 @@ export default function SearchResultsPage() {
                     Filtres
                   </button>
                 </div>
-              </div>
-            </div>
-
-            {/* Stats - Reduced size */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-2">
-                  <Users className="h-6 w-6 text-orange-500 mr-2" />
-                  <div className="text-3xl font-bold text-gray-900">{totalLawyers}+</div>
-                </div>
-                <p className="text-gray-900 font-medium text-sm">Avocats experts</p>
-                <p className="text-gray-600 text-xs">dans toute la France</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-2">
-                  <Star className="h-6 w-6 text-yellow-400 mr-2" />
-                  <div className="text-3xl font-bold text-gray-900">{averageRating}</div>
-                </div>
-                <p className="text-gray-900 font-medium text-sm">Note moyenne</p>
-                <p className="text-gray-600 text-xs">satisfaction client</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-2">
-                  <Award className="h-6 w-6 text-orange-500 mr-2" />
-                  <div className="text-3xl font-bold text-gray-900">{totalExperience}+</div>
-                </div>
-                <p className="text-gray-900 font-medium text-sm">Années d'expérience</p>
-                <p className="text-gray-600 text-xs">cumulées</p>
-              </div>
-            </div>
-
-            {/* Trust Indicators - Reduced size */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-gray-600">
-              <div className="flex items-center">
-                <Clock className="h-4 w-4 mr-2 text-orange-500" />
-                <span className="text-xs">Réponse sous 24h</span>
-              </div>
-              <div className="flex items-center">
-                <Scale className="h-4 w-4 mr-2 text-orange-500" />
-                <span className="text-xs">Avocats certifiés</span>
-              </div>
-              <div className="flex items-center">
-                <Star className="h-4 w-4 mr-2 text-yellow-400" />
-                <span className="text-xs">Satisfaction garantie</span>
               </div>
             </div>
           </div>
