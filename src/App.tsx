@@ -1,636 +1,357 @@
-import React, { useState, Fragment, useEffect } from 'react';
-import { Scale, Phone, Search, ChevronDown, X, Facebook, Twitter, Linkedin, Instagram, Mail, MapPin, Globe, Filter, Clock, Video, Building2 } from 'lucide-react';
-import { Menu, Transition, Dialog } from '@headlessui/react';
-import { Routes, Route, useNavigate, Link } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
-import SignupPage from './pages/SignupPage';
+import React, { useState } from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2 } from 'lucide-react';
+import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
 import BookingFormPage from './pages/BookingFormPage';
-import AnimatedPage from './components/AnimatedPage';
-import { useLanguage } from './contexts/LanguageContext';
+import SignupModal from './components/signup/SignupModal';
 
-const avocats = [
-  {
-    nom: 'Dupont',
-    prenom: 'Marie',
-    ville: 'Paris',
-    specialites: ['Droit des affaires', 'Droit commercial'],
-    photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=500'
-  },
-  {
-    nom: 'Martin',
-    prenom: 'Thomas',
-    ville: 'Lyon',
-    specialites: ['Droit du travail', 'Droit social'],
-    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=500'
-  },
-  {
-    nom: 'Bernard',
-    prenom: 'Sophie',
-    ville: 'Marseille',
-    specialites: ['Droit de la famille', 'Droit immobilier'],
-    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=500'
-  },
-  {
-    nom: 'Petit',
-    prenom: 'Lucas',
-    ville: 'Bordeaux',
-    specialites: ['Droit pénal', 'Droit des sociétés'],
-    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=500'
-  }
-];
-
-const problematiques = {
-  'entreprise': {
-    domaines: ['Droit des affaires', 'Droit commercial', 'Droit des sociétés'],
-    exemples: ['Création d\'entreprise', 'Contrats commerciaux', 'Litiges entre associés'],
-    motsClefs: ['entreprise', 'société', 'commerce', 'contrat', 'litige', 'associé', 'business']
-  },
-  'travail': {
-    domaines: ['Droit du travail', 'Droit social'],
-    exemples: ['Licenciement', 'Harcèlement', 'Contrat de travail'],
-    motsClefs: ['travail', 'emploi', 'patron', 'employeur', 'salaire', 'licenciement', 'harcèlement', 'collègue']
-  },
-  'famille': {
-    domaines: ['Droit de la famille'],
-    exemples: ['Divorce', 'Garde d\'enfants', 'Succession'],
-    motsClefs: ['famille', 'mariage', 'divorce', 'enfant', 'garde', 'succession', 'héritage', 'conjoint', 'époux', 'épouse', 'mari', 'femme']
-  },
-  'immobilier': {
-    domaines: ['Droit immobilier'],
-    exemples: ['Bail', 'Copropriété', 'Vente immobilière'],
-    motsClefs: ['immobilier', 'maison', 'appartement', 'bail', 'loyer', 'propriétaire', 'locataire', 'voisin', 'copropriété', 'bruit']
-  },
-  'pénal': {
-    domaines: ['Droit pénal'],
-    exemples: ['Défense pénale', 'Garde à vue', 'Comparution immédiate'],
-    motsClefs: ['pénal', 'délit', 'crime', 'police', 'plainte', 'victime', 'accusation']
-  }
-};
-
-const villes = [
-  'Paris',
-  'Lyon',
-  'Marseille',
-  'Bordeaux',
-  'Toulouse',
-  'Nantes',
-  'Strasbourg',
-  'Lille',
-  'Nice',
-  'Rennes'
-];
-
-const specialites = [
-  'Droit des affaires',
-  'Droit commercial',
-  'Droit du travail',
-  'Droit social',
-  'Droit de la famille',
-  'Droit immobilier',
-  'Droit pénal',
-  'Droit des sociétés',
-  'Droit fiscal',
-  'Droit de la propriété intellectuelle'
-];
-
-const langues = [
-  'Français',
-  'Anglais',
-  'Espagnol',
-  'Allemand',
-  'Italien',
-  'Arabe',
-  'Chinois',
-  'Portugais'
-];
-
-type ConsultationType = 'cabinet' | 'visio' | 'telephone';
-
-function HomePage() {
+const HomePage = () => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
-  const { language, setLanguage, t } = useLanguage();
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [isUrgenceModalOpen, setIsUrgenceModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<Array<{ type: string; value: string; description?: string }>>([]);
-  const [selectedFilters, setSelectedFilters] = useState({
-    ville: '',
-    specialite: '',
-    langue: '',
-    disponibilite: false
-  });
-  const [selectedConsultationType, setSelectedConsultationType] = useState<ConsultationType | null>(null);
+  const [selectedSpecialty, setSelectedSpecialty] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
-  const consultationTypes = [
+  const specialties = [
+    'Droit des affaires',
+    'Droit de la famille',
+    'Droit pénal',
+    'Droit immobilier',
+    'Droit du travail',
+    'Droit fiscal'
+  ];
+
+  const locations = [
+    'Paris',
+    'Lyon',
+    'Marseille',
+    'Toulouse',
+    'Nice',
+    'Nantes'
+  ];
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.append('q', searchQuery);
+    if (selectedSpecialty) params.append('specialty', selectedSpecialty);
+    if (selectedLocation) params.append('location', selectedLocation);
+    
+    navigate(`/search?${params.toString()}`);
+  };
+
+  const mockLawyers = [
     {
-      id: 'cabinet',
-      icon: Building2,
-      title: language === 'fr' ? 'Au cabinet' : 'Office',
-      description: language === 'fr' ? 'Rendez-vous en personne' : 'In-person meeting'
+      id: '1',
+      nom: 'Dupont',
+      prenom: 'Marie',
+      ville: 'Paris',
+      specialites: ['Droit des affaires', 'Droit commercial'],
+      photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300',
+      rating: 4.8,
+      reviewCount: 24
     },
     {
-      id: 'visio',
-      icon: Video,
-      title: language === 'fr' ? 'Visioconférence' : 'Video call',
-      description: language === 'fr' ? 'Consultation en ligne' : 'Online consultation'
+      id: '2',
+      nom: 'Martin',
+      prenom: 'Thomas',
+      ville: 'Lyon',
+      specialites: ['Droit du travail', 'Droit social'],
+      photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300',
+      rating: 4.6,
+      reviewCount: 18
     },
     {
-      id: 'telephone',
-      icon: Phone,
-      title: language === 'fr' ? 'Téléphone' : 'Phone call',
-      description: language === 'fr' ? 'Appel téléphonique' : 'Phone consultation'
+      id: '3',
+      nom: 'Bernard',
+      prenom: 'Sophie',
+      ville: 'Marseille',
+      specialites: ['Droit de la famille', 'Droit immobilier'],
+      photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300',
+      rating: 4.9,
+      reviewCount: 31
+    },
+    {
+      id: '4',
+      nom: 'Petit',
+      prenom: 'Lucas',
+      ville: 'Bordeaux',
+      specialites: ['Droit pénal', 'Droit des sociétés'],
+      photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300',
+      rating: 4.7,
+      reviewCount: 22
     }
   ];
 
-  const findSuggestions = (query: string) => {
-    if (!query.trim()) return [];
-    const searchTerm = query.toLowerCase();
-    const results: Array<{ type: string; value: string; description?: string }> = [];
-    const words = searchTerm.split(/\s+/);
-
-    Object.entries(problematiques).forEach(([key, { domaines, exemples, motsClefs }]) => {
-      const matchesKeywords = words.some(word => 
-        motsClefs.some(motClef => motClef.includes(word) || word.includes(motClef))
-      );
-
-      if (matchesKeywords) {
-        domaines.forEach(domaine => {
-          results.push({
-            type: 'problématique',
-            value: domaine,
-            description: `Suggestions: ${exemples.join(', ')}`
-          });
-        });
-      }
-    });
-
-    if (results.length === 0 && searchTerm.length > 10) {
-      if (searchTerm.includes('voisin') || searchTerm.includes('bruit')) {
-        results.push({
-          type: 'problématique',
-          value: 'Droit immobilier',
-          description: 'Problèmes de voisinage, nuisances sonores'
-        });
-      }
-      if (searchTerm.includes('femme') || searchTerm.includes('mari') || searchTerm.includes('divorce')) {
-        results.push({
-          type: 'problématique',
-          value: 'Droit de la famille',
-          description: 'Divorce, séparation, garde d\'enfants'
-        });
-      }
-    }
-
-    return results.slice(0, 10);
-  };
-
-  useEffect(() => {
-    const matches = findSuggestions(searchQuery);
-    setSuggestions(matches);
-  }, [searchQuery]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/recherche?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
-
   return (
-    <AnimatedPage>
-      <div className="min-h-screen bg-white">
-        <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center">
-              <div className="flex items-center">
-                <Scale className="h-8 w-8 text-orange-500" />
-                <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
-              </div>
-
-              <div className="hidden md:flex items-center space-x-8">
-                <button
-                  onClick={() => setIsSearchModalOpen(true)}
-                  className="flex items-center text-gray-700 hover:text-orange-500"
-                >
-                  <Search className="h-5 w-5 mr-1 text-orange-500" />
-                  {language === 'fr' ? 'Trouver un avocat' : 'Find a lawyer'}
-                </button>
-
-                <button
-                  onClick={() => setIsUrgenceModalOpen(true)}
-                  className="flex items-center text-gray-700 hover:text-orange-500"
-                >
-                  <Phone className="h-5 w-5 mr-1 text-orange-500" />
-                  {language === 'fr' ? 'Urgence Avocat' : 'Emergency Lawyer'}
-                </button>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <Menu as="div" className="relative">
-                  <Menu.Button className="flex items-center text-gray-700 hover:text-orange-500">
-                    <div className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
-                      <img 
-                        src={language === 'fr' 
-                          ? "https://flagcdn.com/w40/fr.png"
-                          : "https://flagcdn.com/w40/gb.png"
-                        }
-                        alt={language === 'fr' ? "Français" : "English"}
-                        className="w-6 h-4 object-cover rounded"
-                      />
-                      <span className="text-sm font-medium">{language.toUpperCase()}</span>
-                      <ChevronDown className="h-4 w-4 text-gray-400" />
-                    </div>
-                  </Menu.Button>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="py-1">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              onClick={() => setLanguage('fr')}
-                              className={`${
-                                active ? 'bg-orange-50 text-orange-500' : 'text-gray-700'
-                              } flex items-center w-full px-4 py-2 text-sm`}
-                            >
-                              <img 
-                                src="https://flagcdn.com/w40/fr.png"
-                                alt="Français"
-                                className="w-6 h-4 object-cover rounded mr-2"
-                              />
-                              Français
-                            </button>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              onClick={() => setLanguage('en')}
-                              className={`${
-                                active ? 'bg-orange-50 text-orange-500' : 'text-gray-700'
-                              } flex items-center w-full px-4 py-2 text-sm`}
-                            >
-                              <img 
-                                src="https://flagcdn.com/w40/gb.png"
-                                alt="English"
-                                className="w-6 h-4 object-cover rounded mr-2"
-                              />
-                              English
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </div>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-
-                <Link 
-                  to="/login"
-                  className="text-gray-700 hover:text-orange-500 transition-colors"
-                >
-                  {language === 'fr' ? 'Connexion' : 'Login'}
-                </Link>
-                <button 
-                  onClick={() => navigate('/signup')}
-                  className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-                >
-                  {language === 'fr' ? 'Vous êtes avocat ?' : 'Create account'}
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-
-        <div className="bg-gradient-to-br from-orange-50 to-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div className="text-center">
-              <h1 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl md:text-5xl">
-                <span className="inline">
-                  {language === 'fr' ? 'Trouvez votre ' : 'Find your '}
-                </span>
-                <span className="inline text-orange-500">
-                  {language === 'fr' ? 'avocat de confiance' : 'trusted lawyer'}
-                </span>
-              </h1>
-              <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                {language === 'fr' 
-                  ? 'La plateforme qui vous met en relation avec les avocats justes'
-                  : 'The platform that connects you with the right lawyers'}
-              </p>
-              
-              <div className="mt-8 max-w-3xl mx-auto">
-                <form onSubmit={handleSearch} className="bg-white p-2 rounded-full shadow-lg flex items-center">
-                  <div className="flex-1 px-4 py-2">
-                    <div className="relative">
-                      <div className="flex items-center">
-                        <input
-                          type="text"
-                          className="w-full focus:outline-none text-gray-600 text-lg"
-                          placeholder={language === 'fr' 
-                            ? "Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
-                            : "Describe your issue (e.g., dismissal, divorce, business creation, etc)"}
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                      </div>
-                      {suggestions.length > 0 && (
-                        <div className="absolute left-0 mt-1 w-full bg-white rounded-md shadow-lg z-10">
-                          <ul className="max-h-60 rounded-md py-1 text-base overflow-auto">
-                            {suggestions.map((suggestion, index) => (
-                              <li
-                                key={index}
-                                className="cursor-pointer select-none py-2 px-3 text-gray-900 hover:bg-orange-100"
-                                onClick={() => {
-                                  setSearchQuery(suggestion.value);
-                                  setSuggestions([]);
-                                }}
-                              >
-                                <div>
-                                  <span className="inline-block px-2 py-0.5 text-xs font-medium bg-orange-100 text-orange-800 rounded-full mr-2">
-                                    {suggestion.type}
-                                  </span>
-                                  <span className="font-medium">{suggestion.value}</span>
-                                </div>
-                                {suggestion.description && (
-                                  <p className="mt-1 text-sm text-gray-500">{suggestion.description}</p>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <button 
-                    type="submit"
-                    className="ml-2 p-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors"
-                  >
-                    <Search className="h-5 w-5" />
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-sm tracking-wider text-gray-600 mb-4">
-              {language === 'fr' 
-                ? 'TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS'
-                : 'FIND A LAWYER ONLINE NEAR YOU'}
-            </h2>
-            <div className="text-2xl font-bold text-gray-900 mb-8">
-              {language === 'fr' ? (
-                <>
-                  Sur <span>AVOCAJUST</span>, ce ne sont pas juste des avocats.
-                  <br />
-                  Ce sont des <span className="text-orange-500">avocats justes</span> pour vos droits !
-                </>
-              ) : (
-                <>
-                  On <span>AVOCAJUST</span>, they're not just lawyers.
-                  <br />
-                  They're <span className="text-orange-500">just lawyers</span> for your rights!
-                </>
-              )}
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center">
+              <Scale className="h-8 w-8 text-orange-500" />
+              <span className="ml-2 text-xl font-bold text-gray-900">AvocaJust</span>
             </div>
             
-            {/* Bouton "Nos avocats" */}
-            <div className="mb-12">
-              <button
-                onClick={() => navigate('/recherche')}
-                className="inline-flex items-center px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors text-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+            <nav className="hidden md:flex space-x-8">
+              <button 
+                onClick={() => navigate('/search')}
+                className="flex items-center text-gray-700 hover:text-orange-500 transition-colors"
               >
-                <Search className="h-5 w-5 mr-2" />
-                {language === 'fr' ? 'Nos avocats' : 'Our lawyers'}
+                <Search className="h-4 w-4 mr-2" />
+                Trouver un avocat
+              </button>
+              <Link to="/urgence" className="flex items-center text-gray-700 hover:text-orange-500 transition-colors">
+                <Phone className="h-4 w-4 mr-2" />
+                Urgence Avocat
+              </Link>
+            </nav>
+
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Globe className="h-4 w-4 text-gray-500" />
+                <span className="text-sm text-gray-700">FR</span>
+                <ChevronDown className="h-3 w-3 text-gray-500" />
+              </div>
+              
+              <Link 
+                to="/login"
+                className="text-gray-700 hover:text-orange-500 transition-colors"
+              >
+                Connexion
+              </Link>
+              
+              <button
+                onClick={() => setIsSignupModalOpen(true)}
+                className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+              >
+                Vous êtes avocat ?
               </button>
             </div>
           </div>
+        </div>
+      </header>
 
-          <div className="relative overflow-hidden">
-            <div className="flex animate-scroll">
-              {avocats.map((avocat, index) => (
-                <div
-                  key={`${avocat.nom}-${index}-1`}
-                  className="lawyer-card flex-none relative border border-orange-500 rounded-lg overflow-hidden mx-6"
-                  style={{
-                    backgroundImage: `url(${avocat.photo})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    width: '300px',
-                    height: '300px'
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
-                  
-                  <div className="relative h-full flex flex-col justify-between p-4 text-white">
-                    <div>
-                      <div className="mb-3">
-                        <h3 className="text-xl font-bold">{avocat.nom}</h3>
-                        <p className="text-lg">{avocat.prenom}</p>
-                      </div>
-                      <div className="flex items-center mb-3">
-                        <span className="ml-2 font-medium">{avocat.ville}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <button className="p-1.5 rounded-full bg-orange-500/20 hover:bg-orange-500/30 transition-colors">
-                          <Phone className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
+      {/* Hero Section */}
+      <section className="py-20 bg-gradient-to-br from-orange-50 to-red-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+              Trouvez votre <span className="text-orange-500">avocat de confiance</span>
+            </h1>
+            <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+              La plateforme qui vous met en relation avec les avocats justes
+            </p>
 
-                    <div className="flex flex-wrap gap-2">
-                      {avocat.specialites.map((specialite, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-white/10 rounded-full text-sm"
-                        >
-                          {specialite}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {avocats.map((avocat, index) => (
-                <div
-                  key={`${avocat.nom}-${index}-2`}
-                  className="lawyer-card flex-none relative border border-orange-500 rounded-lg overflow-hidden mx-6"
-                  style={{
-                    backgroundImage: `url(${avocat.photo})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    width: '300px',
-                    height: '300px'
-                  }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30"></div>
-                  
-                  <div className="relative h-full flex flex-col justify-between p-4 text-white">
-                    <div>
-                      <div className="mb-3">
-                        <h3 className="text-xl font-bold">{avocat.nom}</h3>
-                        <p className="text-lg">{avocat.prenom}</p>
-                      </div>
-                      <div className="flex items-center mb-3">
-                        <span className="ml-2 font-medium">{avocat.ville}</span>
-                      </div>
-                      <div className="flex gap-2">
-                        <button className="p-1.5 rounded-full bg-orange-500/20 hover:bg-orange-500/30 transition-colors">
-                          <Phone className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
+            {/* Search Bar */}
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
+              <div className="relative mb-6">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-12 pr-4 py-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                />
+              </div>
+              
+              <button
+                onClick={handleSearch}
+                className="w-full bg-orange-500 text-white py-4 px-8 rounded-xl hover:bg-orange-600 transition-colors font-semibold text-lg"
+              >
+                TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
+              </button>
+            </div>
 
-                    <div className="flex flex-wrap gap-2">
-                      {avocat.specialites.map((specialite, index) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-white/10 rounded-full text-sm"
-                        >
-                          {specialite}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="mt-8">
+              <p className="text-lg text-gray-700">
+                Sur <span className="font-bold text-orange-500">AvocaJust</span>, ce ne sont pas juste des avocats.
+              </p>
+              <p className="text-lg font-bold text-gray-900 mt-2">
+                Ce sont des avocats justes pour vos droits !
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="bg-gradient-to-br from-orange-50/50 to-white py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <h2 className="text-3xl font-bold text-gray-900">
-                  AVOCAJUST est votre <span className="text-orange-500">allié</span> pour vous permettre d'avancer <span className="text-orange-500">en toute sérénité</span>
-                </h2>
+      {/* Lawyers Carousel */}
+      <section className="py-16 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+          <h2 className="text-3xl font-bold text-center text-gray-900">Nos avocats</h2>
+        </div>
+        
+        <div className="relative">
+          <div className="flex animate-scroll">
+            {[...mockLawyers, ...mockLawyers].map((lawyer, index) => (
+              <div
+                key={`${lawyer.id}-${index}`}
+                className="lawyer-card bg-white rounded-xl shadow-lg p-6 mx-3 flex-shrink-0"
+              >
+                <div className="text-center">
+                  <img
+                    src={lawyer.photo}
+                    alt={`${lawyer.prenom} ${lawyer.nom}`}
+                    className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                  />
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {lawyer.nom}
+                  </h3>
+                  <p className="text-lg font-medium text-gray-700 mb-2">
+                    {lawyer.prenom}
+                  </p>
+                  <div className="flex items-center justify-center mb-3">
+                    <MapPin className="h-4 w-4 text-gray-400 mr-1" />
+                    <span className="text-sm text-gray-600">{lawyer.ville}</span>
+                  </div>
+                  <div className="flex items-center justify-center mb-4">
+                    <Star className="h-4 w-4 text-yellow-400 mr-1" />
+                    <span className="text-sm font-medium">{lawyer.rating}</span>
+                    <span className="text-sm text-gray-500 ml-1">({lawyer.reviewCount})</span>
+                  </div>
+                  <div className="space-y-1">
+                    {lawyer.specialites.map((specialite, idx) => (
+                      <div key={idx} className="text-sm text-gray-600">
+                        {specialite}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                <p className="text-2xl text-gray-900">
-                  Nos avocats sont sélectionnés sur la base de leur expertise, leur réactivité et leur humanité. <span className="text-orange-500">Ce sont nos héros du droit !</span>
+      {/* About Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous permettre d'avancer <span className="text-orange-500">en toute sérénité</span>
+              </h2>
+              
+              <div className="space-y-4 text-gray-600">
+                <p>
+                  Nos avocats sont sélectionnés sur la base de leur expertise, leur réactivité et leur humanité. <span className="text-orange-500 font-semibold">Ce sont nos héros du droit !</span>
                 </p>
-
-                <div className="space-y-4 text-gray-600">
-                  <p>
-                    Prendre conseil auprès d'un avocat est la seule façon de vous éviter plus de tracas ! Trouver votre avocat de confiance n'a jamais été aussi simple.
-                  </p>
-                  
-                  <p>
-                    La transparence est notre priorité : vous connaissez le montant exact que vous devez payer. Et parce que nos avocats sont justes, ils déduisent le montant de la 1ère consultation si vous leur confiez votre dossier. Pour savoir si vous pouvez bénéficier de l'aide juridictionnelle après votre 1er rendez-vous.
-                  </p>
-                </div>
-
-                <div className="text-center lg:text-left">
-                  <p className="text-lg font-medium text-gray-900 italic mb-6">
-                    Nos avocats de confiance vous conseillent et vous défendent au quotidien
-                  </p>
-                  <button 
-                    onClick={() => navigate('/recherche')}
-                    className="px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors text-lg font-medium"
-                  >
-                    Trouver mon Avocat
-                  </button>
-                </div>
+                
+                <p>
+                  Prendre conseil auprès d'un avocat est la seule façon de vous éviter plus de tracas ! Trouver votre avocat de confiance n'a jamais été aussi simple.
+                </p>
+                
+                <p>
+                  La transparence est notre priorité : vous connaissez le montant exact que vous devez payer. Et parce que nos avocats sont justes, ils déduisent le montant de la 1ère consultation si vous leur confiez votre dossier. Pour savoir si vous pouvez bénéficier de l'aide juridictionnelle après votre 1er rendez-vous.
+                </p>
               </div>
-
-              <div className="relative">
-                <img
-                  src="https://i.imgur.com/XkiH6P4.png"
-                  alt="Avocat Super Héros"
-                  className="w-full max-w-lg mx-auto"
-                />
-                <div className="absolute -bottom-12 -right-8 text-orange-300/20 transform rotate-45">
-                  <div className="w-24 h-24 border-2 border-dashed rounded-full" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold">Ils parlent de nous</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center justify-items-center">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/BFM_Business_logo_2019.svg/1200px-BFM_Business_logo_2019.svg.png" alt="BFM Business" className="h-16 object-contain" />
-              <img src="https://i.imgur.com/YLInLOY.png" alt="Amy Karnov Group" className="h-16 object-contain" />
-              <img src="https://i.imgur.com/8jcYrD6.png" alt="Village de la Justice" className="h-16 object-contain" />
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-orange-50 py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="relative order-2 lg:order-1">
-                <img 
-                  src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=1920"
-                  alt="Enfants à l'école"
-                  className="rounded-2xl shadow-xl"
-                />
-              </div>
-              <div className="order-1 lg:order-2">
-                <div className="text-orange-500 font-medium mb-4">NOTRE FORMATION OFFERTE !</div>
-                <h2 className="text-4xl font-bold mb-8">
-                  Le harcèlement scolaire touche <span className="text-orange-500">1 élève sur 10</span> en France
-                </h2>
-                <div className="prose prose-lg">
-                  <p>Le harcèlement scolaire a des conséquences graves sur le bien-être et la réussite scolaire de nos enfants (anxiété, dépression, échec scolaire). Il est essentiel de connaître les signes avant-coureurs et de savoir comment réagir. AVOCAJUST vous offre une formation en ligne conçue par des avocats pour vous aider à protéger vos enfants.</p>
-                </div>
-                <button className="mt-8 px-8 py-3 bg-orange-500 text-white rounded-full hover:bg-orange-600 transition-colors text-lg font-medium">
-                  En savoir plus
+              
+              <div className="mt-8">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  <span className="text-orange-500">Nos avocats de confiance</span> vous conseillent et vous défendent au quotidien
+                </h3>
+                
+                <button
+                  onClick={() => navigate('/search')}
+                  className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold"
+                >
+                  Trouver mon Avocat
                 </button>
               </div>
             </div>
+            
+            <div className="text-center">
+              <img
+                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600"
+                alt="Avocat Super Héros"
+                className="rounded-lg shadow-lg mx-auto"
+              />
+              <p className="mt-4 text-sm text-gray-500">Avocat Super Héros</p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="bg-orange-50/50 py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-orange-500">COUP DE CŒUR ASSOCIATIF</h2>
-              <p className="mt-4 text-gray-600">
-                Tout le monde mérite d'être entendu, d'être reconnu.
-                <br />
-                AVOCAJUST, c'est un projet engagé !
-                <br />
-                Nous soutenons les associations qui œuvrent pour une société plus juste.
+      {/* Press Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">Ils parlent de nous</h2>
+          <div className="flex justify-center items-center space-x-12 opacity-60">
+            <img src="https://via.placeholder.com/120x40/666666/FFFFFF?text=BFM+Business" alt="BFM Business" className="h-10" />
+            <img src="https://via.placeholder.com/120x40/666666/FFFFFF?text=Amy+Karnov" alt="Amy Karnov Group" className="h-10" />
+            <img src="https://via.placeholder.com/120x40/666666/FFFFFF?text=Village+Justice" alt="Village de la Justice" className="h-10" />
+          </div>
+        </div>
+      </section>
+
+      {/* Formation Section */}
+      <section className="py-20 bg-orange-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <img
+                src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&q=80&w=600"
+                alt="Enfants à l'école"
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+            
+            <div>
+              <div className="text-orange-500 font-semibold mb-2">NOTRE FORMATION OFFERTE !</div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Le harcèlement scolaire touche <span className="text-orange-500">1 élève sur 10</span> en France
+              </h2>
+              
+              <p className="text-gray-600 mb-6">
+                Le harcèlement scolaire a des conséquences graves sur le bien-être et la réussite scolaire de nos enfants (anxiété, dépression, échec scolaire). Il est essentiel de connaître les signes avant-coureurs et de savoir comment réagir. AVOCAJUST vous offre une formation en ligne conçue par des avocats pour vous aider à protéger vos enfants.
               </p>
+              
+              <button className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold">
+                En savoir plus
+              </button>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold text-orange-500">
-                Cette année, nous soutenons l'association « élève ta voix ».
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="flex justify-center">
-                <img 
-                  src="https://i.imgur.com/XkiH6P4.png" 
+      {/* Association Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="text-orange-500 font-semibold mb-4">COUP DE CŒUR ASSOCIATIF</div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Tout le monde mérite d'être entendu, d'être reconnu.
+          </h2>
+          <p className="text-lg text-gray-600 mb-2">
+            <span className="font-bold text-orange-500">AVOCAJUST</span>, c'est un projet engagé !
+          </p>
+          <p className="text-gray-600 mb-8">
+            Nous soutenons les associations qui œuvrent pour une société plus juste.
+          </p>
+          
+          <div className="bg-gray-50 rounded-xl p-8 max-w-4xl mx-auto">
+            <h3 className="text-xl font-bold text-orange-500 mb-6">
+              Cette année, nous soutenons l'association « élève ta voix ».
+            </h3>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <img
+                  src="https://via.placeholder.com/200x100/FF6B35/FFFFFF?text=Logo+élève+ta+voix"
                   alt="Logo élève ta voix"
-                  className="w-64 h-64 object-contain"
+                  className="mx-auto mb-4"
                 />
               </div>
-              <div>
-                <h4 className="text-xl font-bold text-gray-900 mb-4">Sa mission</h4>
+              
+              <div className="text-left">
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">Sa mission</h4>
                 <p className="text-gray-600">
                   Aider les enfants pour qu'aucun d'entre eux ne rejoigne nos anges partis trop tôt. C'est la raison pour laquelle nous nous engageons à aider davantage de personnes, jour après jour.
                 </p>
@@ -638,569 +359,131 @@ function HomePage() {
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="bg-white py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <span className="text-orange-500 font-medium">FAQ</span>
-              <h2 className="mt-2 text-3xl font-bold">Questions fréquentes</h2>
-              <p className="mt-4 text-gray-600">
-                Voici la liste des questions les plus fréquemment posées
-              </p>
-            </div>
-
-            <div className="mt-12 max-w-3xl mx-auto space-y-4">
-              <div className="bg-white rounded-lg border border-gray-200">
-                <button className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                  <span className="font-medium text-gray-900">Comment prendre un rendez-vous avec un avocat sur AVOCAJUST ?</span>
+      {/* FAQ Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="text-orange-500 font-semibold mb-2">FAQ</div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Questions fréquentes</h2>
+            <p className="text-gray-600">Voici la liste des questions les plus fréquemment posées</p>
+          </div>
+          
+          <div className="space-y-4">
+            {[
+              "Comment prendre un rendez-vous avec un avocat sur AVOCAJUST ?",
+              "Comment puis-je m'assurer que les honoraires des avocats sur AVOCAJUST correspondront à mon budget ?",
+              "Est-ce qu'AVOCAJUST convient pour tous types de problèmes juridiques ?",
+              "Comment est-ce qu'AVOCAJUST assure la qualité des avocats sur sa plateforme ?",
+              "Les avocats d'AVOCAJUST sont-ils disponibles partout en France ?",
+              "Je suis Avocat. Comment rejoindre la communauté AVOCAJUST ?"
+            ].map((question, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-medium text-gray-900">{question}</h3>
                   <ChevronDown className="h-5 w-5 text-gray-400" />
-                </button>
+                </div>
               </div>
-
-              <div className="bg-white rounded-lg border border-gray-200">
-                <button className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                  <span className="font-medium text-gray-900">Comment puis-je m'assurer que les honoraires des avocats sur AVOCAJUST correspondront à mon budget ?</span>
-                  <ChevronDown className="h-5 w-5 text-gray-400" />
-                </button>
-              </div>
-
-              <div className="bg-white rounded-lg border border-gray-200">
-                <button className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                  <span className="font-medium text-gray-900">Est-ce qu'AVOCAJUST convient pour tous types de problèmes juridiques ?</span>
-                  <ChevronDown className="h-5 w-5 text-gray-400" />
-                </button>
-              </div>
-
-              <div className="bg-white rounded-lg border border-gray-200">
-                <button className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                  <span className="font-medium text-gray-900">Comment est-ce qu'AVOCAJUST assure la qualité des avocats sur sa plateforme ?</span>
-                  <ChevronDown className="h-5 w-5 text-gray-400" />
-                </button>
-              </div>
-
-              <div className="bg-white rounded-lg border border-gray-200">
-                <button className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                  <span className="font-medium text-gray-900">Les avocats d'AVOCAJUST sont-ils disponibles partout en France ?</span>
-                  <ChevronDown className="h-5 w-5 text-gray-400" />
-                </button>
-              </div>
-
-              <div className="bg-white rounded-lg border border-gray-200">
-                <button className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors flex items-center justify-between">
-                  <span className="font-medium text-gray-900">Je suis Avocat. Comment rejoindre la communauté AVOCAJUST ?</span>
-                  <ChevronDown className="h-5 w-5 text-gray-400" />
-                </button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Search Modal */}
-        <Dialog
-          open={isSearchModalOpen}
-          onClose={() => setIsSearchModalOpen(false)}
-          className="relative z-50"
-        >
-          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          <div className="fixed inset-0 flex items-center justify-center p-4">
-            <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white shadow-xl transition-all">
-              <div className="relative">
-                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-br from-orange-500 to-orange-600" />
-                
-                <div className="relative px-8 pt-8 pb-6">
-                  <div className="flex items-center justify-between mb-8">
-                    <Dialog.Title className="text-2xl font-bold text-white">
-                      {language === 'fr' ? 'Trouver votre avocat' : 'Find your lawyer'}
-                    </Dialog.Title>
-                    <button
-                      onClick={() => setIsSearchModalOpen(false)}
-                      className="text-white/80 hover:text-white transition-colors"
-                    >
-                      <X className="h-6 w-6" />
-                    </button>
-                  </div>
-
-                  <div className="bg-white rounded-xl shadow-lg p-6 space-y-8">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                        {language === 'fr' ? 'Type de consultation' : 'Consultation type'}
-                      </h3>
-                      <div className="grid grid-cols-3 gap-4">
-                        {consultationTypes.map((type) => (
-                          <button
-                            key={type.id}
-                            onClick={() => setSelectedConsultationType(type.id as ConsultationType)}
-                            className={`relative flex flex-col items-center p-4 rounded-xl border-2 transition-all ${
-                              selectedConsultationType === type.id
-                                ? 'border-orange-500 bg-orange-50'
-                                : 'border-gray-200 hover:border-orange-200'
-                            }`}
-                          >
-                            <div className={`p-3 rounded-full mb-2 ${
-                              selectedConsultationType === type.id
-                                ? 'bg-orange-100 text-orange-600'
-                                : 'bg-gray-100 text-gray-600'
-                            }`}>
-                              <type.icon className="h-6 w-6" />
-                            </div>
-                            <h4 className="font-medium text-gray-900">{type.title}</h4>
-                            <p className="text-sm text-gray-500 text-center mt-1">
-                              {type.description}
-                            </p>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          {language === 'fr' ? 'Ville' : 'City'}
-                        </label>
-                        <select
-                          value={selectedFilters.ville}
-                          onChange={(e) => setSelectedFilters({ ...selectedFilters, ville: e.target.value })}
-                          className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        >
-                          <option value="">{language === 'fr' ? 'Toutes les villes' : 'All cities'}</option>
-                          {villes.map((ville) => (
-                            <option key={ville} value={ville}>{ville}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          {language === 'fr' ? 'Langue' : 'Language'}
-                        </label>
-                        <select
-                          value={selectedFilters.langue}
-                          onChange={(e) => setSelectedFilters({ ...selectedFilters, langue: e.target.value })}
-                          className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        >
-                          <option value="">{language === 'fr' ? 'Toutes les langues' : 'All languages'}</option>
-                          {langues.map((langue) => (
-                            <option key={langue} value={langue}>{langue}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        {language === 'fr' ? 'Spécialité' : 'Specialty'}
-                      </label>
-                      <select
-                        value={selectedFilters.specialite}
-                        onChange={(e) => setSelectedFilters({ ...selectedFilters, specialite: e.target.value })}
-                        className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                      >
-                        <option value="">{language === 'fr' ? 'Toutes les spécialités' : 'All specialties'}</option>
-                        {specialites.map((specialite) => (
-                          <option key={specialite} value={specialite}>{specialite}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4">
-                      <label className="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          checked={selectedFilters.disponibilite}
-                          onChange={(e) => setSelectedFilters({ ...selectedFilters, disponibilite: e.target.checked })}
-                          className="rounded border-gray-300 text-orange-500 focus:ring-orange-500"
-                        />
-                        <span className="text-sm text-gray-700">
-                          {language === 'fr' ? 'Disponible maintenant' : 'Available now'}
-                        </span>
-                      </label>
-
-                      <div className="flex space-x-3">
-                        <button
-                          onClick={() => setIsSearchModalOpen(false)}
-                          className="px-6 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-                        >
-                          {language === 'fr' ? 'Annuler' : 'Cancel'}
-                        </button>
-                        <button
-                          onClick={() => {
-                            setIsSearchModalOpen(false);
-                            navigate('/recherche');
-                          }}
-                          className="px-6 py-2.5 text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 rounded-lg transition-colors"
-                        >
-                          {language === 'fr' ? 'Rechercher' : 'Search'}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center mb-4">
+                <Scale className="h-8 w-8 text-orange-500" />
+                <span className="ml-2 text-xl font-bold">AvocaJust</span>
               </div>
-            </Dialog.Panel>
-          </div>
-        </Dialog>
-
-        {/* Emergency Modal */}
-        <Dialog
-          open={isUrgenceModalOpen}
-          onClose={() => setIsUrgenceModalOpen(false)}
-          className="relative z-50"
-        >
-          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          <div className="fixed inset-0 flex items-center justify-center p-4">
-            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
-              <div className="flex items-center justify-between mb-6">
-                <Dialog.Title className="text-lg font-semibold text-gray-900">
-                  {language === 'fr' ? 'Urgence 24h/24' : '24/7 Emergency'}
-                </Dialog.Title>
-                <button
-                  onClick={() => setIsUrgenceModalOpen(false)}
-                  className="text-gray-400 hover:text-gray-500"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-
-              <div className="space-y-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
-                    <Phone className="h-8 w-8 text-orange-500" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mt-4">
-                    06.17.32.44.68
-                  </h3>
-                  <p className="text-gray-600 mt-2">
-                    {language === 'fr' 
-                      ? 'Appelez-nous ou décrivez votre situation ci-dessous'
-                      : 'Call us or describe your situation below'}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <textarea
-                    rows={4}
-                    placeholder={language === 'fr' 
-                      ? "Décrivez brièvement votre situation d'urgence..."
-                      : "Briefly describe your emergency situation..."}
-                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  />
-                  <button
-                    className="w-full mt-3 px-4 py-2.5 text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 rounded-lg transition-colors"
-                  >
-                    {language === 'fr' ? 'Envoyer' : 'Send'}
-                  </button>
-                </div>
-
-                <div className="border-t pt-4 text-sm text-gray-500">
-                  <p>
-                    {language === 'fr'
-                      ? "Vous êtes avocat et souhaitez rejoindre notre liste d'avocats à contacter en urgence ?"
-                      : "Are you a lawyer and want to join our emergency contact list?"}
-                  </p>
-                  <a 
-                    href="mailto:hello@avocajust.com"
-                    className="text-orange-500 hover:text-orange-600 inline-flex items-center mt-1"
-                  >
-                    <Mail className="h-4 w-4 mr-1" />
-                    hello@avocajust.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <button
-                  onClick={() => setIsUrgenceModalOpen(false)}
-                  className="w-full px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-                >
-                  {language === 'fr' ? 'Fermer' : 'Close'}
-                </button>
-              </div>
-            </Dialog.Panel>
-          </div>
-        </Dialog>
-      </div>
-    </AnimatedPage>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center mb-6">
-              <Scale className="h-8 w-8 text-orange-500" />
-              <span className="ml-2 text-xl font-semibold">AvocaJust</span>
-            </div>
-            <p className="text-gray-400 mb-6">
-              La première communauté d'avocats engagés pour une justice accessible et équitable.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/recherche" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Trouver un avocat
-                </Link>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Urgence 24/7
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Consultation en ligne
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Devis personnalisé
-                </a>
-              </li>
-              <li>
-                <Link to="/login" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Connexion
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Informations</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  À propos
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400  hover:text-orange-500 transition-colors">
-                  Conditions d'utilisation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Politique de confidentialité
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center text-gray-400">
-                <MapPin className="h-5 w-5 mr-2 text-orange-500" />
-                <span>123 rue de la Justice, 75001 Paris</span>
-              </li>
-              <li className="flex items-center text-gray-400">
-                <Phone className="h-5 w-5 mr-2 text-orange-500" />
-                <span>01 23 45 67 89</span>
-              </li>
-              <li className="flex items-center text-gray-400">
-                <Mail className="h-5 w-5 mr-2 text-orange-500" />
-                <span>contact@avocajust.fr</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center">
               <p className="text-gray-400 text-sm">
-                © {new Date().getFullYear()} AvocaJust. Tous droits réservés.
+                La première communauté d'avocats engagés pour une justice accessible et équitable.
               </p>
-              <p className="text-gray-400 text-sm md:ml-8">
-                Vous êtes avocat et souhaitez rejoindre notre liste d'avocats à contacter en urgence ?{' '}
-                <a href="mailto:hello@avocajust.com" className="text-orange-500 hover:text-orange-400">
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Services</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li><Link to="/search" className="hover:text-white transition-colors">Trouver un avocat</Link></li>
+                <li><Link to="/urgence" className="hover:text-white transition-colors">Urgence 24/7</Link></li>
+                <li><Link to="/consultation" className="hover:text-white transition-colors">Consultation en ligne</Link></li>
+                <li><Link to="/devis" className="hover:text-white transition-colors">Devis personnalisé</Link></li>
+                <li><Link to="/login" className="hover:text-white transition-colors">Connexion</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Informations</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li><Link to="/about" className="hover:text-white transition-colors">À propos</Link></li>
+                <li><Link to="/terms" className="hover:text-white transition-colors">Conditions d'utilisation</Link></li>
+                <li><Link to="/privacy" className="hover:text-white transition-colors">Politique de confidentialité</Link></li>
+                <li><Link to="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <div className="space-y-2 text-gray-400 text-sm">
+                <div className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2" />
+                  <span>123 rue de la Justice, 75001 Paris</span>
+                </div>
+                <div className="flex items-center">
+                  <Phone className="h-4 w-4 mr-2" />
+                  <span>01 23 45 67 89</span>
+                </div>
+                <div className="flex items-center">
+                  <span>contact@avocajust.fr</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-8 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 text-sm">© 2025 AvocaJust. Tous droits réservés.</p>
+              <p className="text-gray-400 text-sm mt-4 md:mt-0">
+                Vous êtes avocat et souhaitez rejoindre notre liste d'avocats à contacter en urgence ? 
+                <a href="mailto:contact@avocajust.fr" className="text-orange-500 hover:text-orange-400 ml-1">
                   Envoyez-nous un e-mail
                 </a>
               </p>
-            </div>
-            <div className="mt-4 md:mt-0">
-              <ul className="flex space-x-6">
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                    Mentions légales
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                    CGV
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                    Cookies
-                  </a>
-                </li>
-              </ul>
+              <div className="flex space-x-4 mt-4 md:mt-0">
+                <Link to="/mentions" className="text-gray-400 hover:text-white text-sm">Mentions légales</Link>
+                <Link to="/cgv" className="text-gray-400 hover:text-white text-sm">CGV</Link>
+                <Link to="/cookies" className="text-gray-400 hover:text-white text-sm">Cookies</Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* Signup Modal */}
+      <SignupModal 
+        isOpen={isSignupModalOpen} 
+        onClose={() => setIsSignupModalOpen(false)} 
+      />
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/dashboard/*" element={<DashboardPage />} />
+      <Route path="/search" element={<SearchResultsPage />} />
+      <Route path="/avocat/:id" element={<LawyerProfilePage />} />
+      <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
+      <Route path="/avocat/:id/formulaire" element={<BookingFormPage />} />
+    </Routes>
   );
 }
 
-export default function App() {
-  return (
-    <AnimatePresence mode="wait">
-      <Routes>
-        <Route path="/" element={
-          <>
-            <HomePage />
-            <Footer />
-          </>
-        } />
-        <Route path="/recherche" element={
-          <>
-            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
-                  <Link to="/" className="flex items-center">
-                    <Scale className="h-8 w-8 text-orange-500" />
-                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
-                  </Link>
-                  <div className="flex items-center space-x-4">
-                    <Link 
-                      to="/login"
-                      className="text-gray-700 hover:text-orange-500 transition-colors"
-                    >
-                      Connexion
-                    </Link>
-                    <Link 
-                      to="/signup"
-                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-                    >
-                      Je suis avocat
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </nav>
-            <SearchResultsPage />
-            <Footer />
-          </>
-        } />
-        <Route path="/avocat/:id" element={
-          <>
-            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
-                  <Link to="/" className="flex items-center">
-                    <Scale className="h-8 w-8 text-orange-500" />
-                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
-                  </Link>
-                  <div className="flex items-center space-x-4">
-                    <Link 
-                      to="/login"
-                      className="text-gray-700 hover:text-orange-500 transition-colors"
-                    >
-                      Connexion
-                    </Link>
-                    <Link 
-                      to="/signup"
-                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-                    >
-                      Je suis avocat
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </nav>
-            <LawyerProfilePage />
-            <Footer />
-          </>
-        } />
-        <Route path="/avocat/:id/reservation" element={
-          <>
-            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
-                  <Link to="/" className="flex items-center">
-                    <Scale className="h-8 w-8 text-orange-500" />
-                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
-                  </Link>
-                  <div className="flex items-center space-x-4">
-                    <Link 
-                      to="/login"
-                      className="text-gray-700 hover:text-orange-500 transition-colors"
-                    >
-                      Connexion
-                    </Link>
-                    <Link 
-                      to="/signup"
-                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-                    >
-                      Je suis avocat
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </nav>
-            <LawyerBookingPage />
-            <Footer />
-          </>
-        } />
-        <Route path="/avocat/:id/formulaire" element={
-          <>
-            <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
-                  <Link to="/" className="flex items-center">
-                    <Scale className="h-8 w-8 text-orange-500" />
-                    <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
-                  </Link>
-                  <div className="flex items-center space-x-4">
-                    <Link 
-                      to="/login"
-                      className="text-gray-700 hover:text-orange-500 transition-colors"
-                    >
-                      Connexion
-                    </Link>
-                    <Link 
-                      to="/signup"
-                      className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-                    >
-                      Je suis avocat
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </nav>
-            <BookingFormPage />
-            <Footer />
-          </>
-        } />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard/*" element={<DashboardPage />} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
+export default App;
