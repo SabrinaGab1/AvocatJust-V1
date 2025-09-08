@@ -410,7 +410,7 @@ export default function HomePage() {
             <div className="mt-8 pt-8 border-t border-gray-800 text-center">
               <Link
                 to="/signup"
-                className="inline-block bg-blue-500 text-white px-8 py-3 rounded-full hover:bg-blue-600 transition-colors font-semibold text-lg"
+                className="inline-block bg-blue-500 text-white px-8 py-3 rounded-full hover:bg-blue-600 transition-colors font-semibold text-lg mb-6"
               >
                 Rejoindre AvocaJust
               </Link>
