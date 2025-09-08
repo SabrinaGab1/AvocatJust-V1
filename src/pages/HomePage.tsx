@@ -136,12 +136,6 @@ export default function HomePage() {
                   Connexion Client
                 </Link>
                 <Link 
-                  to="/connexion-client"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                  Connexion Client
-                </Link>
-                <Link 
                   to="/connexion-avocat"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
                 >
