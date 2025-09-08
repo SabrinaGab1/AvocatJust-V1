@@ -42,7 +42,7 @@ export default function LoginPage() {
             <div className="flex justify-between h-16 items-center">
               <Link to="/" className="flex items-center">
                 <Scale className="h-8 w-8 text-orange-500" />
-                <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
+                Vous êtes avocat ?
               </Link>
 
               <div className="flex items-center space-x-4">
@@ -127,7 +127,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
               >
                 Se connecter
               </button>
