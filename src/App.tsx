@@ -200,18 +200,53 @@ const HomePage = () => {
         
         <div className="relative">
           <div className="flex animate-scroll">
-            {[...mockLawyers, ...mockLawyers].map((lawyer, index) => (
+            {[...mockLawyers, ...mockLawyers, ...mockLawyers].map((lawyer, index) => (
               <div
                 key={`${lawyer.id}-${index}`}
-                className="lawyer-card bg-white rounded-xl shadow-lg p-6 mx-3 flex-shrink-0"
+                className="relative w-80 h-96 mx-3 flex-shrink-0 rounded-xl overflow-hidden"
+                style={{
+                  backgroundImage: `url(${lawyer.photo})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
               >
-                <div className="text-center">
-                  <img
-                    src={lawyer.photo}
-                    alt={`${lawyer.prenom} ${lawyer.nom}`}
-                    className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                  />
-                  <h3 className="text-lg font-semibold text-gray-900">
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
+                
+                {/* Content */}
+                <div className="relative h-full flex flex-col justify-between p-6 text-white">
+                  {/* Top section - Name and location */}
+                  <div>
+                    <h3 className="text-xl font-bold mb-1">
+                      {lawyer.nom}
+                    </h3>
+                    <p className="text-lg font-medium mb-2">
+                      {lawyer.prenom}
+                    </p>
+                    <p className="text-sm opacity-90 mb-4">
+                      {lawyer.ville}
+                    </p>
+                    
+                    {/* Phone icon */}
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <Phone className="h-4 w-4" />
+                    </div>
+                  </div>
+                  
+                  {/* Bottom section - Specialties */}
+                  <div className="space-y-2">
+                    {lawyer.specialites.slice(0, 2).map((specialite, idx) => (
+                      <div key={idx} className="text-sm font-medium">
+                        {specialite}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
                     {lawyer.nom}
                   </h3>
                   <p className="text-lg font-medium text-gray-700 mb-2">
