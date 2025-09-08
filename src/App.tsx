@@ -56,6 +56,78 @@ const HomePage = () => {
     'Rupture conventionnelle',
     'Accident du travail'
   ];
+
+  // Mapping intelligent pour reconnaître le langage naturel
+  const intelligentMapping = {
+    // Famille et relations
+    'papa': 'Droit de la famille - Garde d\'enfants',
+    'maman': 'Droit de la famille - Garde d\'enfants',
+    'enfant': 'Droit de la famille - Garde d\'enfants',
+    'divorce': 'Droit de la famille - Divorce',
+    'séparation': 'Droit de la famille - Divorce',
+    'mariage': 'Droit de la famille',
+    'pension': 'Droit de la famille - Pension alimentaire',
+    'garde': 'Droit de la famille - Garde d\'enfants',
+    'héritage': 'Droit de la famille - Succession',
+    'succession': 'Droit de la famille - Succession',
+    
+    // Accidents et responsabilité
+    'accident': 'Droit de la responsabilité - Accident',
+    'blessé': 'Droit de la responsabilité - Dommages corporels',
+    'voiture': 'Droit de la responsabilité - Accident de la route',
+    'route': 'Droit de la responsabilité - Accident de la route',
+    'assurance': 'Droit des assurances',
+    'indemnisation': 'Droit de la responsabilité - Indemnisation',
+    
+    // Travail
+    'travail': 'Droit du travail',
+    'patron': 'Droit du travail - Relations employeur',
+    'chef': 'Droit du travail - Relations employeur',
+    'licencié': 'Droit du travail - Licenciement',
+    'licenciement': 'Droit du travail - Licenciement',
+    'salaire': 'Droit du travail - Rémunération',
+    'harcèlement': 'Droit du travail - Harcèlement',
+    'discrimination': 'Droit du travail - Discrimination',
+    'congé': 'Droit du travail - Congés',
+    'maladie': 'Droit du travail - Arrêt maladie',
+    
+    // Immobilier
+    'maison': 'Droit immobilier - Achat/Vente',
+    'appartement': 'Droit immobilier - Achat/Vente',
+    'logement': 'Droit immobilier',
+    'propriétaire': 'Droit immobilier - Relations locatives',
+    'locataire': 'Droit immobilier - Relations locatives',
+    'loyer': 'Droit immobilier - Relations locatives',
+    'voisin': 'Droit immobilier - Troubles de voisinage',
+    'construction': 'Droit de la construction',
+    
+    // Entreprise
+    'entreprise': 'Droit des affaires - Création d\'entreprise',
+    'société': 'Droit des sociétés',
+    'associé': 'Droit des sociétés - Relations entre associés',
+    'client': 'Droit commercial - Relations clients',
+    'fournisseur': 'Droit commercial - Relations fournisseurs',
+    'contrat': 'Droit des contrats',
+    'facture': 'Droit commercial - Recouvrement',
+    'impayé': 'Droit commercial - Recouvrement',
+    
+    // Pénal
+    'police': 'Droit pénal',
+    'commissariat': 'Droit pénal',
+    'tribunal': 'Droit pénal',
+    'procès': 'Droit pénal',
+    'plainte': 'Droit pénal - Dépôt de plainte',
+    'vol': 'Droit pénal - Vol',
+    'agression': 'Droit pénal - Violences',
+    'violence': 'Droit pénal - Violences',
+    
+    // Situations courantes
+    'problème': 'Consultation juridique générale',
+    'conseil': 'Consultation juridique générale',
+    'aide': 'Consultation juridique générale',
+    'question': 'Consultation juridique générale'
+  };
+
   const locations = [
     'Paris',
     'Lyon',
@@ -70,10 +142,27 @@ const HomePage = () => {
     setSearchQuery(value);
     
     if (value.length > 0) {
-      const filtered = searchSuggestions.filter(suggestion =>
-        suggestion.toLowerCase().includes(value.toLowerCase())
+      const lowerValue = value.toLowerCase();
+      
+      // Recherche intelligente basée sur les mots-clés
+      const intelligentSuggestions = [];
+      
+      // Vérifier les mappings intelligents
+      for (const [keyword, suggestion] of Object.entries(intelligentMapping)) {
+        if (lowerValue.includes(keyword)) {
+          intelligentSuggestions.push(suggestion);
+        }
+      }
+      
+      // Recherche classique dans les suggestions existantes
+      const classicSuggestions = searchSuggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(lowerValue)
       );
-      setFilteredSuggestions(filtered.slice(0, 8)); // Limiter à 8 suggestions
+      
+      // Combiner les suggestions (intelligentes en premier)
+      const allSuggestions = [...new Set([...intelligentSuggestions, ...classicSuggestions])];
+      
+      setFilteredSuggestions(allSuggestions.slice(0, 8)); // Limiter à 8 suggestions
       setShowSuggestions(true);
     } else {
       setShowSuggestions(false);
@@ -239,11 +328,11 @@ const HomePage = () => {
                       <button
                         key={index}
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="w-full text-left px-6 py-3 hover:bg-orange-50 transition-colors border-b border-gray-100 last:border-b-0 first:rounded-t-2xl last:rounded-b-2xl"
+                        className="w-full text-left px-6 py-3 hover:bg-orange-50 transition-colors border-b border-gray-100 last:border-b-0 first:rounded-t-2xl last:rounded-b-2xl group"
                       >
                         <div className="flex items-center">
-                          <Search className="h-4 w-4 text-gray-400 mr-3" />
-                          <span className="text-gray-700">{suggestion}</span>
+                          <Search className="h-4 w-4 text-gray-400 group-hover:text-orange-500 mr-3 transition-colors" />
+                          <span className="text-gray-700 group-hover:text-gray-900 transition-colors">{suggestion}</span>
                         </div>
                       </button>
                     ))}
