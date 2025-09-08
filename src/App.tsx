@@ -203,7 +203,7 @@ const HomePage = () => {
             {[...mockLawyers, ...mockLawyers, ...mockLawyers].map((lawyer, index) => (
               <div
                 key={`${lawyer.id}-${index}`}
-                className="relative w-80 h-88 mx-3 flex-shrink-0 rounded-xl overflow-hidden"
+                className="relative w-80 h-80 mx-3 flex-shrink-0 rounded-xl overflow-hidden"
                 style={{
                   backgroundImage: `url(${lawyer.photo})`,
                   backgroundSize: 'cover',
