@@ -140,7 +140,7 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-yellow-50">
+      <section className="py-20 bg-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
