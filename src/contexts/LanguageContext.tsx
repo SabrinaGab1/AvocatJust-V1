@@ -35,7 +35,7 @@ const translations = {
     'find_lawyer': 'Find a lawyer',
     'emergency_lawyer': 'Emergency Lawyer',
     'login': 'Login',
-    'create_account': 'Create account',
+    'create_account': 'Are you a lawyer ?',
     
     // Home
     'find_your': 'Find your',
