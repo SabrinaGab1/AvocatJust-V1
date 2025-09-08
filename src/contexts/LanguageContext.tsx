@@ -12,7 +12,7 @@ const translations = {
     'find_lawyer': 'Trouver un avocat',
     'emergency_lawyer': 'Urgence Avocat',
     'login': 'Connexion',
-    'create_account': 'Créer un compte',
+    'create_account': 'Vous êtes un avocat ?',
     
     // Home
     'find_your': 'Trouvez votre',
