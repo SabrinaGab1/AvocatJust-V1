@@ -247,33 +247,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-                    {lawyer.nom}
-                  </h3>
-                  <p className="text-lg font-medium text-gray-700 mb-2">
-                    {lawyer.prenom}
-                  </p>
-                  <div className="flex items-center justify-center mb-3">
-                    <MapPin className="h-4 w-4 text-gray-400 mr-1" />
-                    <span className="text-sm text-gray-600">{lawyer.ville}</span>
-                  </div>
-                  <div className="flex items-center justify-center mb-4">
-                    <Star className="h-4 w-4 text-yellow-400 mr-1" />
-                    <span className="text-sm font-medium">{lawyer.rating}</span>
-                    <span className="text-sm text-gray-500 ml-1">({lawyer.reviewCount})</span>
-                  </div>
-                  <div className="space-y-1">
-                    {lawyer.specialites.map((specialite, idx) => (
-                      <div key={idx} className="text-sm text-gray-600">
-                        {specialite}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* About Section */}
       <section className="py-20 bg-gray-50">
