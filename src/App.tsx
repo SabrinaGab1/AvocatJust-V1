@@ -18,6 +18,8 @@ const HomePage = () => {
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
 
   const specialties = [
     'Droit des affaires',
@@ -28,6 +30,32 @@ const HomePage = () => {
     'Droit fiscal'
   ];
 
+  const searchSuggestions = [
+    'Droit de la famille',
+    'Droit des affaires',
+    'Droit du travail',
+    'Droit pénal',
+    'Droit immobilier',
+    'Droit fiscal',
+    'Droit commercial',
+    'Droit des sociétés',
+    'Droit social',
+    'Divorce',
+    'Licenciement',
+    'Création d\'entreprise',
+    'Contrat de travail',
+    'Garde d\'enfants',
+    'Pension alimentaire',
+    'Succession',
+    'Achat immobilier',
+    'Vente immobilier',
+    'Bail commercial',
+    'Contentieux commercial',
+    'Droit pénal des affaires',
+    'Harcèlement au travail',
+    'Rupture conventionnelle',
+    'Accident du travail'
+  ];
   const locations = [
     'Paris',
     'Lyon',
@@ -37,6 +65,40 @@ const HomePage = () => {
     'Nantes'
   ];
 
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    
+    if (value.length > 0) {
+      const filtered = searchSuggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredSuggestions(filtered.slice(0, 8)); // Limiter à 8 suggestions
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+      setFilteredSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearchQuery(suggestion);
+    setShowSuggestions(false);
+    setFilteredSuggestions([]);
+  };
+
+  const handleSearchFocus = () => {
+    if (searchQuery.length > 0 && filteredSuggestions.length > 0) {
+      setShowSuggestions(true);
+    }
+  };
+
+  const handleSearchBlur = () => {
+    // Délai pour permettre le clic sur les suggestions
+    setTimeout(() => {
+      setShowSuggestions(false);
+    }, 200);
+  };
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.append('q', searchQuery);
@@ -158,7 +220,9 @@ const HomePage = () => {
                   type="text"
                   placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={handleSearchInputChange}
+                  onFocus={handleSearchFocus}
+                  onBlur={handleSearchBlur}
                   className="w-full pl-12 pr-16 py-4 text-lg border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-lg bg-white"
                 />
                 <button
@@ -167,6 +231,24 @@ const HomePage = () => {
                 >
                   <Search className="h-5 w-5" />
                 </button>
+                
+                {/* Suggestions dropdown */}
+                {showSuggestions && filteredSuggestions.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 max-h-80 overflow-y-auto">
+                    {filteredSuggestions.map((suggestion, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                        className="w-full text-left px-6 py-3 hover:bg-orange-50 transition-colors border-b border-gray-100 last:border-b-0 first:rounded-t-2xl last:rounded-b-2xl"
+                      >
+                        <div className="flex items-center">
+                          <Search className="h-4 w-4 text-gray-400 mr-3" />
+                          <span className="text-gray-700">{suggestion}</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
