@@ -140,7 +140,7 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yellow-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
@@ -159,7 +159,7 @@ const HomePage = () => {
                   placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-16 py-4 text-lg border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-lg"
+                  className="w-full pl-12 pr-16 py-4 text-lg border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-lg bg-white"
                 />
                 <button
                   onClick={handleSearch}
