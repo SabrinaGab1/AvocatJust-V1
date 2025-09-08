@@ -400,6 +400,15 @@ export default function HomePage() {
               </div>
             </div>
 
+            <div className="mt-8 pt-8 border-t border-gray-800 text-center">
+              <Link
+                to="/signup"
+                className="inline-block bg-blue-500 text-white px-8 py-3 rounded-full hover:bg-blue-600 transition-colors font-semibold text-lg"
+              >
+                Rejoindre AvocaJust
+              </Link>
+            </div>
+
             <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
               <p>&copy; 2024 AvocaJust. {t('all_rights_reserved')}</p>
             </div>
