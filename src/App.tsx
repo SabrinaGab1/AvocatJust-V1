@@ -169,46 +169,34 @@ const HomePage = () => {
                 </button>
               </div>
             </div>
-
-            <div className="text-center mb-8">
-              <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
-                TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
-              </p>
-              <p className="text-xl text-gray-900 mb-2">
-                Sur <span className="font-bold">AVOCAJUST</span>, ce ne sont pas juste des avocats.
-              </p>
-              <p className="text-xl text-gray-900">
-                Ce sont des <span className="text-orange-500 font-bold">avocats justes</span> pour vos droits !
-              </p>
-            </div>
-
-            <div className="text-center mb-8">
-              <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
-                TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
-              </p>
-              <p className="text-xl text-gray-900 mb-2">
-                Sur <span className="font-bold">AVOCAJUST</span>, ce ne sont pas juste des avocats.
-              </p>
-              <p className="text-xl text-gray-900">
-                Ce sont des <span className="text-orange-500 font-bold">avocats justes</span> pour vos droits !
-              </p>
-            </div>
-
-            <div className="text-center">
-              <button
-                onClick={() => navigate('/search')}
-                className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
-              >
-                <Search className="h-5 w-5 mr-2" />
-                Nos avocats
-              </button>
-            </div>
           </div>
         </div>
       </section>
 
+      {/* Text Section before Carousel */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
+            TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
+          </p>
+          <p className="text-xl text-gray-900 mb-2">
+            Sur <span className="font-bold">AVOCAJUST</span>, ce ne sont pas juste des avocats.
+          </p>
+          <p className="text-xl text-gray-900 mb-8">
+            Ce sont des <span className="text-orange-500 font-bold">avocats justes</span> pour vos droits !
+          </p>
+          
+          <button
+            onClick={() => navigate('/search')}
+            className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
+          >
+            <Search className="h-5 w-5 mr-2" />
+            Nos avocats
+          </button>
+        </div>
+      </section>
       {/* Lawyers Carousel */}
-      <section className="py-16 bg-orange-50 overflow-hidden">
+      <section className="py-16 bg-white overflow-hidden">
         
         <div className="relative">
           <div className="flex animate-scroll">
