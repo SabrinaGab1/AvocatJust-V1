@@ -137,6 +137,45 @@ const HomePage = () => {
             >
               {t('search_lawyers')}
             </button>
+
+            {/* Quick consultation type buttons */}
+            <div className="flex justify-center space-x-4 mt-6">
+              <button
+                onClick={() => {
+                  const params = new URLSearchParams();
+                  params.append('type', 'visio');
+                  navigate(`/search?${params.toString()}`);
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <Video className="h-5 w-5 text-purple-500 mr-2" />
+                <span className="text-gray-700 font-medium">Visio</span>
+              </button>
+              
+              <button
+                onClick={() => {
+                  const params = new URLSearchParams();
+                  params.append('type', 'telephone');
+                  navigate(`/search?${params.toString()}`);
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <Phone className="h-5 w-5 text-green-500 mr-2" />
+                <span className="text-gray-700 font-medium">Téléphone</span>
+              </button>
+              
+              <button
+                onClick={() => {
+                  const params = new URLSearchParams();
+                  params.append('type', 'zone');
+                  navigate(`/search?${params.toString()}`);
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <MapPin className="h-5 w-5 text-blue-500 mr-2" />
+                <span className="text-gray-700 font-medium">Zone</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
