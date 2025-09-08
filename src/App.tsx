@@ -140,7 +140,7 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-orange-50 to-red-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
@@ -150,34 +150,46 @@ const HomePage = () => {
               La plateforme qui vous met en relation avec les avocats justes
             </p>
 
-            {/* Search Bar */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-              <div className="relative mb-6">
+            {/* Search Bar - Style simplifié */}
+            <div className="max-w-4xl mx-auto mb-8">
+              <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full pl-12 pr-16 py-4 text-lg border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-lg"
                 />
+                <button
+                  onClick={handleSearch}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-500 text-white p-3 rounded-full hover:bg-orange-600 transition-colors"
+                >
+                  <Search className="h-5 w-5" />
+                </button>
               </div>
-              
-              <button
-                onClick={handleSearch}
-                className="w-full bg-orange-500 text-white py-4 px-8 rounded-xl hover:bg-orange-600 transition-colors font-semibold text-lg"
-              >
-                TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
-              </button>
             </div>
 
-            <div className="mt-8">
-              <p className="text-lg text-gray-700">
-                Sur <span className="font-bold text-orange-500">AvocaJust</span>, ce ne sont pas juste des avocats.
+            <div className="text-center mb-8">
+              <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
+                TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
               </p>
-              <p className="text-lg font-bold text-gray-900 mt-2">
-                Ce sont des avocats justes pour vos droits !
+              <p className="text-xl text-gray-900 mb-2">
+                Sur <span className="font-bold">AVOCAJUST</span>, ce ne sont pas juste des avocats.
               </p>
+              <p className="text-xl text-gray-900">
+                Ce sont des <span className="text-orange-500 font-bold">avocats justes</span> pour vos droits !
+              </p>
+            </div>
+
+            <div className="text-center">
+              <button
+                onClick={() => navigate('/search')}
+                className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
+              >
+                <Search className="h-5 w-5 mr-2" />
+                Nos avocats
+              </button>
             </div>
           </div>
         </div>
