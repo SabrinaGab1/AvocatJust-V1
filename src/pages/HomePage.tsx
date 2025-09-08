@@ -159,7 +159,7 @@ export default function HomePage() {
                   {t('login')}
                 </Link>
                 <Link 
-                  to="/signup" 
+                  to="/register" 
                   className="text-gray-700 hover:text-orange-500 transition-colors"
                 >
                   Créer un compte
