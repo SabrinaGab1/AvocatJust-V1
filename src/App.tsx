@@ -500,55 +500,6 @@ const HomePage = () => {
                 onClick={() => navigate(`/avocat/${lawyer.id}`)}
               >
                 <div className="aspect-[3/4] relative">
-                  <img
-                    src={lawyer.photo}
-                    alt={`${lawyer.prenom} ${lawyer.nom}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  
-                  {/* Dark overlay */}
-                  <div className="absolute inset-0 bg-black/40"></div>
-                  
-                  {/* Content overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <div className="flex items-center mb-2">
-                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                        <Star className="h-4 w-4 text-yellow-400" />
-                      </div>
-                      <span className="text-sm font-medium">{lawyer.rating}</span>
-                      <span className="text-xs text-white/80 ml-1">({lawyer.reviewCount} avis)</span>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold mb-1">
-                      {lawyer.prenom} {lawyer.nom}
-                    </h3>
-                    
-                    <p className="text-white/90 text-sm mb-3 flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      {lawyer.ville}
-                    </p>
-                    
-                    <div className="space-y-1">
-                      {lawyer.specialites.slice(0, 2).map((specialite, idx) => (
-                        <div key={idx} className="text-sm text-white/80">
-                          {specialite}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous avancer <span className="text-orange-500">en toute sérénité</span>
               </h2>
