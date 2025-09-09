@@ -416,6 +416,17 @@ const HomePage = () => {
                   </div>
                 )}
               </button>
+              
+              <button
+                onClick={() => {
+                  // Handle urgence action
+                  alert('Service d\'urgence - Contactez-nous au 01 23 45 67 89');
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-red-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <Phone className="h-5 w-5 text-red-500 mr-2" />
+                <span className="text-gray-700 font-medium">Urgence</span>
+              </button>
             </div>
           </div>
         </div>
