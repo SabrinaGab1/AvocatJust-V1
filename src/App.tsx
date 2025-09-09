@@ -540,16 +540,22 @@ const HomePage = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">Ils parlent de nous</h2>
-          <div className="flex justify-center items-center space-x-12 opacity-60">
-            <div className="bg-gray-400 text-white px-6 py-3 rounded-lg text-sm font-medium">
-              BFM Business
-            </div>
-            <div className="bg-gray-400 text-white px-6 py-3 rounded-lg text-sm font-medium">
-              Amy Karnov Group
-            </div>
-            <div className="bg-gray-400 text-white px-6 py-3 rounded-lg text-sm font-medium">
-              Village de la Justice
-            </div>
+          <div className="flex justify-center items-center space-x-12 opacity-70">
+            <img
+              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=200&h=80"
+              alt="BFM Business"
+              className="h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&q=80&w=200&h=80"
+              alt="Amy Karnov Group"
+              className="h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=200&h=80"
+              alt="Village de la Justice"
+              className="h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
           </div>
         </div>
       </section>
