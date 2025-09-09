@@ -282,23 +282,9 @@ const HomePage = () => {
                 </button>
                 
                 {showLanguageMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    {languages.map((lang) => (
-                      
-                  )
-                  )
-                  }
-                )
-                }
-  )
-}<button
-                        key={lang.code}
-                        onClick={(event) => {
-                          setSelectedLanguage(lang.code);
-                          setShowLanguageMenu(false);
-                         // Empêcher la propagation de l'événement
-                         event.stopPropagation();
-                        }}
+                          // Empêcher la propagation de l'événement
+                          event.stopPropagation();
+                      <button
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center justify-between group"
                       >
                         <div className="flex items-center space-x-3">
