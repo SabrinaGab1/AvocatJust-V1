@@ -384,7 +384,7 @@ const HomePage = () => {
       </section>
 
       {/* Text Section before Carousel */}
-      <section className="py-12 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
             TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
@@ -406,7 +406,7 @@ const HomePage = () => {
         </div>
       </section>
       {/* Lawyers Carousel */}
-      <section className="py-12 bg-white overflow-hidden">
+      <section className="py-8 bg-white overflow-hidden">
         
         <div className="relative">
           <div className="flex animate-scroll">
