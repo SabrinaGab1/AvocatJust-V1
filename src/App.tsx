@@ -406,7 +406,7 @@ const HomePage = () => {
         </div>
       </section>
       {/* Lawyers Carousel */}
-      <section className="py-8 bg-white overflow-hidden">
+      <section className="py-4 bg-white overflow-hidden">
         
         <div className="relative">
           <div className="flex animate-scroll">
