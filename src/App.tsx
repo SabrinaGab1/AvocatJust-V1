@@ -284,45 +284,6 @@ const HomePage = () => {
                 <span className="font-medium">Urgence</span>
               </Link>
               
-              <div className="relative">
-                <button
-                  onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  <Globe className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-700">{selectedLanguage}</span>
-                  <ChevronDown className={`h-3 w-3 text-gray-500 transition-transform ${showLanguageMenu ? 'rotate-180' : ''}`} />
-                </button>
-                
-                {showLanguageMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    {[
-                      { code: 'FR', name: 'Français', flag: '🇫🇷' },
-                      { code: 'EN', name: 'English', flag: '🇬🇧' }
-                    ].map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={(event) => {
-                          // Empêcher la propagation de l'événement
-                          event.stopPropagation();
-                          setSelectedLanguage(lang.code);
-                          setShowLanguageMenu(false);
-                        }}
-                        className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center justify-between group"
-                      >
-                        <div className="flex items-center space-x-3">
-                          <span className="text-lg">{lang.flag}</span>
-                          <span className="text-sm text-gray-700">{lang.name}</span>
-                        </div>
-                        {selectedLanguage === lang.code && (
-                          <Check className="h-4 w-4 text-orange-500" />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-              
               <button 
                 onClick={() => setIsLoginChoiceModalOpen(true)}
                 className="text-gray-700 hover:text-orange-500 transition-colors"
