@@ -20,6 +20,7 @@ const HomePage = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
 
   const specialties = [
     'Droit des affaires',
@@ -55,6 +56,15 @@ const HomePage = () => {
     'Harcèlement au travail',
     'Rupture conventionnelle',
     'Accident du travail'
+  ];
+
+  const languages = [
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
   ];
 
   // Mapping intelligent pour reconnaître le langage naturel
@@ -188,6 +198,14 @@ const HomePage = () => {
       setShowSuggestions(false);
     }, 200);
   };
+
+  const handleLanguageSelect = (languageCode: string) => {
+    const params = new URLSearchParams();
+    params.append('lang', languageCode);
+    navigate(`/search?${params.toString()}`);
+    setShowLanguageDropdown(false);
+  };
+
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.append('q', searchQuery);
@@ -381,14 +399,28 @@ const HomePage = () => {
               
               <button
                 onClick={() => {
-                  const params = new URLSearchParams();
-                  params.append('type', 'langue');
-                  navigate(`/search?${params.toString()}`);
+                  setShowLanguageDropdown(!showLanguageDropdown);
                 }}
-                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+                className="relative flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
               >
                 <Globe className="h-5 w-5 text-blue-500 mr-2" />
                 <span className="text-gray-700 font-medium">Langue</span>
+                
+                {/* Language Dropdown */}
+                {showLanguageDropdown && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl z-50">
+                    {languages.map((language) => (
+                      <button
+                        key={language.code}
+                        onClick={() => handleLanguageSelect(language.code)}
+                        className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 first:rounded-t-xl last:rounded-b-xl flex items-center"
+                      >
+                        <span className="mr-3 text-lg">{language.flag}</span>
+                        <span className="text-gray-700">{language.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </button>
             </div>
           </div>
@@ -476,7 +508,7 @@ const HomePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous avancer <span className="text-orange-500">en toute sérénité</span>
+                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour avancer <span className="text-orange-500">en toute sérénité</span>
               </h2>
               
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
