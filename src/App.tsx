@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2, Check } from 'lucide-react';
+import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2, Check, X } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
