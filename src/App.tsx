@@ -286,7 +286,7 @@ const HomePage = () => {
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={(event) => {
+                        onClick={() => {
                           setSelectedLanguage(lang.code);
                           setShowLanguageMenu(false);
                          // Empêcher la propagation de l'événement
@@ -431,7 +431,7 @@ const HomePage = () => {
       </section>
 
       {/* Text Section before Carousel */}
-      <section className="py-16 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
             TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
@@ -454,7 +454,7 @@ const HomePage = () => {
       </section>
 
       {/* Featured Lawyers Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -513,6 +513,7 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
+              )}
             </div>
           </div>
         </div>
