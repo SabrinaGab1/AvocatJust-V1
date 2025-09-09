@@ -24,6 +24,7 @@ const HomePage = () => {
   const [isLoginChoiceModalOpen, setIsLoginChoiceModalOpen] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('FR');
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
 
   const languages = [
     { code: 'FR', name: 'Français', flag: '🇫🇷' },
@@ -31,6 +32,17 @@ const HomePage = () => {
     { code: 'ES', name: 'Español', flag: '🇪🇸' },
     { code: 'DE', name: 'Deutsch', flag: '🇩🇪' },
     { code: 'IT', name: 'Italiano', flag: '🇮🇹' }
+  ];
+
+  const lawyerLanguages = [
+    'Français',
+    'Anglais', 
+    'Espagnol',
+    'Allemand',
+    'Italien',
+    'Arabe',
+    'Chinois',
+    'Russe'
   ];
 
   const specialties = [
@@ -416,14 +428,33 @@ const HomePage = () => {
               
               <button
                 onClick={() => {
-                  const params = new URLSearchParams();
-                  params.append('type', 'langue');
-                  navigate(`/search?${params.toString()}`);
+                  setShowLanguageDropdown(!showLanguageDropdown);
                 }}
-                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+                className="relative flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
               >
                 <Globe className="h-5 w-5 text-blue-500 mr-2" />
                 <span className="text-gray-700 font-medium">Langue</span>
+                
+                {/* Language Dropdown */}
+                {showLanguageDropdown && (
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    {lawyerLanguages.map((language) => (
+                      <button
+                        key={language}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const params = new URLSearchParams();
+                          params.append('language', language);
+                          navigate(`/search?${params.toString()}`);
+                          setShowLanguageDropdown(false);
+                        }}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 transition-colors"
+                      >
+                        {language}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </button>
             </div>
           </div>
