@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2 } from 'lucide-react';
+import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2, Check } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
@@ -22,6 +22,16 @@ const HomePage = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [isLoginChoiceModalOpen, setIsLoginChoiceModalOpen] = useState(false);
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('FR');
+
+  const languages = [
+    { code: 'FR', name: 'Français', flag: '🇫🇷' },
+    { code: 'EN', name: 'English', flag: '🇬🇧' },
+    { code: 'ES', name: 'Español', flag: '🇪🇸' },
+    { code: 'DE', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'IT', name: 'Italiano', flag: '🇮🇹' }
+  ];
 
   const specialties = [
     'Droit des affaires',
@@ -261,10 +271,38 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Globe className="h-4 w-4 text-gray-500" />
-                <span className="text-sm text-gray-700">FR</span>
-                <ChevronDown className="h-3 w-3 text-gray-500" />
+              <div className="relative">
+                <button
+                  onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <Globe className="h-4 w-4 text-gray-500" />
+                  <span className="text-sm text-gray-700">{selectedLanguage}</span>
+                  <ChevronDown className={`h-3 w-3 text-gray-500 transition-transform ${showLanguageMenu ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {showLanguageMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => {
+                          setSelectedLanguage(lang.code);
+                          setShowLanguageMenu(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center justify-between group"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <span className="text-lg">{lang.flag}</span>
+                          <span className="text-sm text-gray-700">{lang.name}</span>
+                        </div>
+                        {selectedLanguage === lang.code && (
+                          <Check className="h-4 w-4 text-orange-500" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
               
               <button 
@@ -425,11 +463,12 @@ const HomePage = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {mockLawyers.map((lawyer) => (
+          <div className="relative overflow-hidden">
+            <div className="flex animate-scroll space-x-6" style={{ width: 'calc(300px * 8 + 1.5rem * 7)' }}>
+              {[...mockLawyers, ...mockLawyers].map((lawyer, index) => (
               <div
-                key={lawyer.id}
-                className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer group"
+                key={`${lawyer.id}-${index}`}
+                className="lawyer-card relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer group flex-shrink-0"
                 onClick={() => navigate(`/avocat/${lawyer.id}`)}
               >
                 <div className="aspect-[3/4] relative">
@@ -472,6 +511,8 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
+              )}
+            </div>
           </div>
         </div>
       </section>
