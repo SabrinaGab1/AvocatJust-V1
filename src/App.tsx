@@ -541,9 +541,15 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">Ils parlent de nous</h2>
           <div className="flex justify-center items-center space-x-12 opacity-60">
-            <img src="https://via.placeholder.com/120x40/666666/FFFFFF?text=BFM+Business" alt="BFM Business" className="h-10" />
-            <img src="https://via.placeholder.com/120x40/666666/FFFFFF?text=Amy+Karnov" alt="Amy Karnov Group" className="h-10" />
-            <img src="https://via.placeholder.com/120x40/666666/FFFFFF?text=Village+Justice" alt="Village de la Justice" className="h-10" />
+            <div className="bg-gray-400 text-white px-6 py-3 rounded-lg text-sm font-medium">
+              BFM Business
+            </div>
+            <div className="bg-gray-400 text-white px-6 py-3 rounded-lg text-sm font-medium">
+              Amy Karnov Group
+            </div>
+            <div className="bg-gray-400 text-white px-6 py-3 rounded-lg text-sm font-medium">
+              Village de la Justice
+            </div>
           </div>
         </div>
       </section>
