@@ -279,11 +279,6 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link to="/urgence" className="flex items-center px-4 py-2 text-red-600 hover:text-red-700 border border-red-200 rounded-full hover:bg-red-50 transition-all duration-200">
-                <Phone className="h-4 w-4 mr-2" />
-                <span className="font-medium">Urgence</span>
-              </Link>
-              
               <button 
                 onClick={() => setIsLoginChoiceModalOpen(true)}
                 className="text-gray-700 hover:text-orange-500 transition-colors"
