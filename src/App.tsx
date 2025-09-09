@@ -413,54 +413,32 @@ const HomePage = () => {
           <button
             onClick={() => navigate('/search')}
             className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
-          >
-            <Search className="h-5 w-5 mr-2" />
-            Nos avocats
-          </button>
-        </div>
-      </section>
-      {/* Lawyers Carousel */}
-      <section className="py-4 bg-white overflow-hidden">
-        
-        <div className="relative">
-          <div className="flex animate-scroll">
-            {[...mockLawyers, ...mockLawyers, ...mockLawyers].map((lawyer, index) => (
-              <div
-                key={`${lawyer.id}-${index}`}
-                className="relative w-80 h-80 mx-3 flex-shrink-0 rounded-xl overflow-hidden"
-                style={{
-                  backgroundImage: `url(${lawyer.photo})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }}
               >
                 {/* Dark overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
+                <div className="absolute inset-0 bg-black/40"></div>
                 
-                {/* Content */}
-                <div className="relative h-full flex flex-col justify-between p-6 text-white">
-                  {/* Top section - Name and location */}
-                  <div>
-                    <h3 className="text-xl font-bold mb-1">
-                      {lawyer.nom}
-                    </h3>
-                    <p className="text-lg font-medium mb-2">
-                      {lawyer.prenom}
-                    </p>
-                    <p className="text-sm opacity-90 mb-4">
-                      {lawyer.ville}
-                    </p>
-                    
-                    {/* Phone icon */}
-                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                      <Phone className="h-4 w-4" />
+                {/* Content overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <div className="flex items-center mb-2">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                      <Star className="h-4 w-4 text-yellow-400" />
                     </div>
+                    <span className="text-sm font-medium">{lawyer.rating}</span>
+                    <span className="text-xs text-white/80 ml-1">({lawyer.reviewCount} avis)</span>
                   </div>
                   
-                  {/* Bottom section - Specialties */}
-                  <div className="space-y-2">
+                  <h3 className="text-xl font-bold mb-1">
+                    {lawyer.prenom} {lawyer.nom}
+                  </h3>
+                  
+                  <p className="text-white/90 text-sm mb-3 flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    {lawyer.ville}
+                  </p>
+                  
+                  <div className="space-y-1">
                     {lawyer.specialites.slice(0, 2).map((specialite, idx) => (
-                      <div key={idx} className="text-sm font-medium">
+                      <div key={idx} className="text-sm text-white/80">
                         {specialite}
                       </div>
                     ))}
