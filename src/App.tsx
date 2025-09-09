@@ -461,14 +461,14 @@ const HomePage = () => {
       {/* About Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl font-bold text-gray-900 mb-8 leading-tight">
                 <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous permettre d'avancer <span className="text-orange-500">en toute sérénité</span>
               </h2>
               
-              <div className="space-y-4 text-gray-600">
-                <p>
+              <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
+                <p className="font-medium">
                   Nos avocats sont sélectionnés sur la base de leur expertise, leur réactivité et leur humanité. <span className="text-orange-500 font-semibold">Ce sont nos héros du droit !</span>
                 </p>
                 
@@ -481,27 +481,27 @@ const HomePage = () => {
                 </p>
               </div>
               
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              <div className="mt-10">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-6">
                   <span className="text-orange-500">Nos avocats de confiance</span> vous conseillent et vous défendent au quotidien
                 </h3>
                 
                 <button
                   onClick={() => navigate('/search')}
-                  className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold"
+                  className="bg-orange-500 text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   Trouver mon Avocat
                 </button>
               </div>
             </div>
             
-            <div className="text-center">
+            <div className="text-center lg:pl-8">
               <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600"
+                src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600"
                 alt="Avocat Super Héros"
-                className="rounded-lg shadow-lg mx-auto"
+                className="rounded-2xl shadow-2xl mx-auto transform hover:scale-105 transition-transform duration-300"
               />
-              <p className="mt-4 text-sm text-gray-500">Avocat Super Héros</p>
+              <p className="mt-6 text-lg font-medium text-gray-600">Avocat Super Héros</p>
             </div>
           </div>
         </div>
