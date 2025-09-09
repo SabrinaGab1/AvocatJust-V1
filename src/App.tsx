@@ -286,7 +286,7 @@ const HomePage = () => {
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={() => {
+                        onClick={(event) => {
                           setSelectedLanguage(lang.code);
                           setShowLanguageMenu(false);
                          // Empêcher la propagation de l'événement
@@ -372,6 +372,7 @@ const HomePage = () => {
                       </button>
                     ))}
                   </div>
+                )}
               </div>
             </div>
 
@@ -512,7 +513,6 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
-              )}
             </div>
           </div>
         </div>
