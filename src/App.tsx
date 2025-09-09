@@ -413,35 +413,68 @@ const HomePage = () => {
           <button
             onClick={() => navigate('/search')}
             className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
+           >
+             Trouver un avocat
+             <ArrowRight className="h-5 w-5 ml-2" />
+           </button>
+        </div>
+      </section>
+
+      {/* Featured Lawyers Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Nos avocats recommandés
+            </h2>
+            <p className="text-gray-600">
+              Découvrez quelques-uns de nos avocats les mieux notés
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {mockLawyers.map((lawyer) => (
+              <div
+                key={lawyer.id}
+                className="relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer group"
+                onClick={() => navigate(`/avocat/${lawyer.id}`)}
               >
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/40"></div>
-                
-                {/* Content overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <div className="flex items-center mb-2">
-                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                      <Star className="h-4 w-4 text-yellow-400" />
-                    </div>
-                    <span className="text-sm font-medium">{lawyer.rating}</span>
-                    <span className="text-xs text-white/80 ml-1">({lawyer.reviewCount} avis)</span>
-                  </div>
+                <div className="aspect-[3/4] relative">
+                  <img
+                    src={lawyer.photo}
+                    alt={`${lawyer.prenom} ${lawyer.nom}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                   
-                  <h3 className="text-xl font-bold mb-1">
-                    {lawyer.prenom} {lawyer.nom}
-                  </h3>
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-black/40"></div>
                   
-                  <p className="text-white/90 text-sm mb-3 flex items-center">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    {lawyer.ville}
-                  </p>
-                  
-                  <div className="space-y-1">
-                    {lawyer.specialites.slice(0, 2).map((specialite, idx) => (
-                      <div key={idx} className="text-sm text-white/80">
-                        {specialite}
+                  {/* Content overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <div className="flex items-center mb-2">
+                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                        <Star className="h-4 w-4 text-yellow-400" />
                       </div>
-                    ))}
+                      <span className="text-sm font-medium">{lawyer.rating}</span>
+                      <span className="text-xs text-white/80 ml-1">({lawyer.reviewCount} avis)</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-1">
+                      {lawyer.prenom} {lawyer.nom}
+                    </h3>
+                    
+                    <p className="text-white/90 text-sm mb-3 flex items-center">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {lawyer.ville}
+                    </p>
+                    
+                    <div className="space-y-1">
+                      {lawyer.specialites.slice(0, 2).map((specialite, idx) => (
+                        <div key={idx} className="text-sm text-white/80">
+                          {specialite}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
