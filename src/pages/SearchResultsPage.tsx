@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, Filter, MapPin, Star, Phone, Video, Building2, ChevronDown, X, Scale, Users, Award, Clock } from 'lucide-react';
+import { Search, Filter, MapPin, Star, Phone, Video, Building2, ChevronDown, X, Scale, Users, Award, Clock, Globe, ArrowRight } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import AnimatedPage from '../components/AnimatedPage';
+import { Link } from 'react-router-dom';
 
 type Lawyer = {
   id: string;
@@ -174,6 +175,37 @@ export default function SearchResultsPage() {
   return (
     <AnimatedPage>
       <div className="min-h-screen bg-gray-50">
+        {/* Header */}
+        <header className="bg-white shadow-sm sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <Link to="/" className="flex items-center">
+                <Scale className="h-8 w-8 text-orange-500" />
+                <span className="ml-2 text-xl font-bold text-gray-900">AvocaJust</span>
+              </Link>
+              
+              <nav className="hidden md:flex space-x-8">
+              </nav>
+
+              <div className="flex items-center space-x-4">
+                <Link 
+                  to="/login"
+                  className="text-gray-700 hover:text-orange-500 transition-colors"
+                >
+                  Connexion
+                </Link>
+                
+                <Link
+                  to="/signup"
+                  className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                >
+                  Vous êtes avocat ?
+                </Link>
+              </div>
+            </div>
+          </div>
+        </header>
+
         {/* Hero Section */}
         <div 
           className="relative bg-cover bg-center py-24"
@@ -386,6 +418,78 @@ export default function SearchResultsPage() {
             </div>
           )}
         </div>
+
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              <div>
+                <div className="flex items-center mb-4">
+                  <Scale className="h-8 w-8 text-orange-500" />
+                  <span className="ml-2 text-xl font-bold">AvocaJust</span>
+                </div>
+                <p className="text-gray-400 text-sm">
+                  La première communauté d'avocats engagés pour une justice accessible et équitable.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Services</h3>
+                <ul className="space-y-2 text-gray-400 text-sm">
+                  <li><Link to="/search" className="hover:text-white transition-colors">Trouver un avocat</Link></li>
+                  <li><Link to="/urgence" className="hover:text-white transition-colors">Urgence 24/7</Link></li>
+                  <li><Link to="/consultation" className="hover:text-white transition-colors">Consultation en ligne</Link></li>
+                  <li><Link to="/devis" className="hover:text-white transition-colors">Devis personnalisé</Link></li>
+                  <li><Link to="/login" className="hover:text-white transition-colors">Connexion</Link></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Informations</h3>
+                <ul className="space-y-2 text-gray-400 text-sm">
+                  <li><Link to="/about" className="hover:text-white transition-colors">À propos</Link></li>
+                  <li><Link to="/terms" className="hover:text-white transition-colors">Conditions d'utilisation</Link></li>
+                  <li><Link to="/privacy" className="hover:text-white transition-colors">Politique de confidentialité</Link></li>
+                  <li><Link to="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Contact</h3>
+                <div className="space-y-2 text-gray-400 text-sm">
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    <span>123 rue de la Justice, 75001 Paris</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Phone className="h-4 w-4 mr-2" />
+                    <span>01 23 45 67 89</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span>contact@avocajust.fr</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t border-gray-800 mt-8 pt-8">
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <p className="text-gray-400 text-sm">© 2025 AvocaJust. Tous droits réservés.</p>
+                <p className="text-gray-400 text-sm mt-4 md:mt-0">
+                  Vous êtes avocat et souhaitez rejoindre notre liste d'avocats à contacter en urgence ? 
+                  <a href="mailto:contact@avocajust.fr" className="text-orange-500 hover:text-orange-400 ml-1">
+                    Envoyez-nous un e-mail
+                  </a>
+                </p>
+                <div className="flex space-x-4 mt-4 md:mt-0">
+                  <Link to="/mentions" className="text-gray-400 hover:text-white text-sm">Mentions légales</Link>
+                  <Link to="/cgv" className="text-gray-400 hover:text-white text-sm">CGV</Link>
+                  <Link to="/cookies" className="text-gray-400 hover:text-white text-sm">Cookies</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
 
         {/* Filter Modal */}
         <Dialog
