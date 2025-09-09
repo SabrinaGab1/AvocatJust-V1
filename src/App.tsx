@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2 } from 'lucide-react';
+import { Dialog } from '@headlessui/react';
 import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -20,7 +21,7 @@ const HomePage = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [isLoginChoiceModalOpen, setIsLoginChoiceModalOpen] = useState(false);
 
   const specialties = [
     'Droit des affaires',
@@ -56,15 +57,6 @@ const HomePage = () => {
     'Harcèlement au travail',
     'Rupture conventionnelle',
     'Accident du travail'
-  ];
-
-  const languages = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
   ];
 
   // Mapping intelligent pour reconnaître le langage naturel
@@ -198,14 +190,6 @@ const HomePage = () => {
       setShowSuggestions(false);
     }, 200);
   };
-
-  const handleLanguageSelect = (languageCode: string) => {
-    const params = new URLSearchParams();
-    params.append('lang', languageCode);
-    navigate(`/search?${params.toString()}`);
-    setShowLanguageDropdown(false);
-  };
-
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.append('q', searchQuery);
@@ -290,12 +274,12 @@ const HomePage = () => {
                 <ChevronDown className="h-3 w-3 text-gray-500" />
               </div>
               
-              <Link 
-                to="/login"
+              <button 
+                onClick={() => setIsLoginChoiceModalOpen(true)}
                 className="text-gray-700 hover:text-orange-500 transition-colors"
               >
                 Connexion
-              </Link>
+              </button>
               
               <button
                 onClick={() => setIsSignupModalOpen(true)}
@@ -399,28 +383,14 @@ const HomePage = () => {
               
               <button
                 onClick={() => {
-                  setShowLanguageDropdown(!showLanguageDropdown);
+                  const params = new URLSearchParams();
+                  params.append('type', 'langue');
+                  navigate(`/search?${params.toString()}`);
                 }}
-                className="relative flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
               >
                 <Globe className="h-5 w-5 text-blue-500 mr-2" />
                 <span className="text-gray-700 font-medium">Langue</span>
-                
-                {/* Language Dropdown */}
-                {showLanguageDropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl z-50">
-                    {languages.map((language) => (
-                      <button
-                        key={language.code}
-                        onClick={() => handleLanguageSelect(language.code)}
-                        className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 first:rounded-t-xl last:rounded-b-xl flex items-center"
-                      >
-                        <span className="mr-3 text-lg">{language.flag}</span>
-                        <span className="text-gray-700">{language.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                )}
               </button>
             </div>
           </div>
@@ -508,7 +478,7 @@ const HomePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour avancer <span className="text-orange-500">en toute sérénité</span>
+                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous avancer <span className="text-orange-500">en toute sérénité</span>
               </h2>
               
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
@@ -875,6 +845,57 @@ const HomePage = () => {
         isOpen={isSignupModalOpen} 
         onClose={() => setIsSignupModalOpen(false)} 
       />
+
+      {/* Login Choice Modal */}
+      <Dialog
+        open={isLoginChoiceModalOpen}
+        onClose={() => setIsLoginChoiceModalOpen(false)}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
+            <div className="text-center">
+              <div className="flex justify-center mb-4">
+                <Scale className="h-12 w-12 text-orange-500" />
+              </div>
+              <Dialog.Title className="text-2xl font-bold text-gray-900 mb-2">
+                Connexion
+              </Dialog.Title>
+              <p className="text-gray-600 mb-8">
+                Choisissez votre type de compte
+              </p>
+
+              <div className="space-y-4">
+                <Link
+                  to="/login?type=avocat"
+                  onClick={() => setIsLoginChoiceModalOpen(false)}
+                  className="w-full flex items-center justify-center px-6 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-semibold"
+                >
+                  <Scale className="h-5 w-5 mr-3" />
+                  Je suis avocat
+                </Link>
+                
+                <Link
+                  to="/login?type=utilisateur"
+                  onClick={() => setIsLoginChoiceModalOpen(false)}
+                  className="w-full flex items-center justify-center px-6 py-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-semibold"
+                >
+                  <Users className="h-5 w-5 mr-3" />
+                  Je suis utilisateur
+                </Link>
+              </div>
+
+              <button
+                onClick={() => setIsLoginChoiceModalOpen(false)}
+                className="mt-6 text-sm text-gray-500 hover:text-gray-700"
+              >
+                Annuler
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
     </div>
   );
 };
