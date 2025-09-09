@@ -25,6 +25,8 @@ const HomePage = () => {
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('FR');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [isUrgenceModalOpen, setIsUrgenceModalOpen] = useState(false);
+  const [urgenceMessage, setUrgenceMessage] = useState('');
 
   const languages = [
     { code: 'FR', name: 'Français', flag: '🇫🇷' },
@@ -435,8 +437,7 @@ const HomePage = () => {
               
               <button
                 onClick={() => {
-                  // Handle urgence action
-                  alert('Service d\'urgence - Contactez-nous au 01 23 45 67 89');
+                  setIsUrgenceModalOpen(true);
                 }}
                 className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-red-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
               >
@@ -949,6 +950,88 @@ const HomePage = () => {
                 className="mt-6 text-sm text-gray-500 hover:text-gray-700"
               >
                 Annuler
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/* Urgence Modal */}
+      <Dialog
+        open={isUrgenceModalOpen}
+        onClose={() => setIsUrgenceModalOpen(false)}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-8 shadow-xl transition-all">
+            <div className="flex items-center justify-between mb-6">
+              <Dialog.Title className="text-2xl font-bold text-gray-900">
+                Urgence 24h/24
+              </Dialog.Title>
+              <button
+                onClick={() => setIsUrgenceModalOpen(false)}
+                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg border border-gray-300"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="text-center mb-8">
+              <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Phone className="h-10 w-10 text-orange-500" />
+              </div>
+              
+              <div className="text-3xl font-bold text-gray-900 mb-4">
+                06.17.32.44.68
+              </div>
+              
+              <p className="text-gray-600 mb-8">
+                Appelez-nous ou décrivez votre situation ci-dessous
+              </p>
+            </div>
+
+            <div className="mb-6">
+              <textarea
+                value={urgenceMessage}
+                onChange={(e) => setUrgenceMessage(e.target.value)}
+                placeholder="Décrivez brièvement votre situation d'urgence..."
+                className="w-full h-32 px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
+              />
+            </div>
+
+            <button
+              onClick={() => {
+                // Handle urgence message submission
+                console.log('Urgence message:', urgenceMessage);
+                setUrgenceMessage('');
+                setIsUrgenceModalOpen(false);
+                alert('Votre message d\'urgence a été envoyé. Nous vous recontacterons rapidement.');
+              }}
+              className="w-full bg-orange-500 text-white py-3 px-6 rounded-lg hover:bg-orange-600 transition-colors font-semibold mb-6"
+            >
+              Envoyer
+            </button>
+
+            <div className="border-t pt-6">
+              <p className="text-sm text-gray-600 mb-2">
+                Vous êtes avocat et souhaitez rejoindre notre liste d'avocats à contacter en urgence ?
+              </p>
+              <a 
+                href="mailto:hello@avocajust.com"
+                className="text-orange-500 hover:text-orange-600 font-medium flex items-center"
+              >
+                <span className="mr-2">📧</span>
+                hello@avocajust.com
+              </a>
+            </div>
+
+            <div className="text-center mt-6">
+              <button
+                onClick={() => setIsUrgenceModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700 font-medium"
+              >
+                Fermer
               </button>
             </div>
           </Dialog.Panel>
