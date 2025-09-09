@@ -497,9 +497,9 @@ const HomePage = () => {
             
             <div className="text-center lg:pl-8">
               <img
-                src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=600"
                 alt="Avocat Super Héros"
-                className="rounded-2xl shadow-2xl mx-auto transform hover:scale-105 transition-transform duration-300"
+                className="rounded-2xl shadow-2xl mx-auto transform hover:scale-105 transition-transform duration-300 w-80 h-96 object-cover"
               />
               <p className="mt-6 text-lg font-medium text-gray-600">Avocat Super Héros</p>
             </div>
