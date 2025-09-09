@@ -295,7 +295,10 @@ const HomePage = () => {
                 
                 {showLanguageMenu && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    {languages.map((lang) => (
+                    {[
+                      { code: 'FR', name: 'Français', flag: '🇫🇷' },
+                      { code: 'EN', name: 'English', flag: '🇬🇧' }
+                    ].map((lang) => (
                       <button
                         key={lang.code}
                         onClick={(event) => {
@@ -450,19 +453,7 @@ const HomePage = () => {
                         }}
                         className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 transition-colors"
                       >
-                        <div className="flex items-center space-x-3">
-                          <span className="text-lg">
-                            {language === 'Français' && '🇫🇷'}
-                            {language === 'Anglais' && '🇬🇧'}
-                            {language === 'Espagnol' && '🇪🇸'}
-                            {language === 'Allemand' && '🇩🇪'}
-                            {language === 'Italien' && '🇮🇹'}
-                            {language === 'Arabe' && '🇸🇦'}
-                            {language === 'Chinois' && '🇨🇳'}
-                            {language === 'Russe' && '🇷🇺'}
-                          </span>
-                          <span>{language}</span>
-                        </div>
+                        {language}
                       </button>
                     ))}
                   </div>
