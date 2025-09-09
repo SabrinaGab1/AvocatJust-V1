@@ -456,15 +456,6 @@ const HomePage = () => {
       {/* Featured Lawyers Section */}
       <section className="-mt-4 pb-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Nos avocats recommandés
-            </h2>
-            <p className="text-gray-600">
-              Découvrez quelques-uns de nos avocats les mieux notés
-            </p>
-          </div>
-          
           <div className="relative overflow-hidden">
             <div className="flex animate-scroll space-x-6" style={{ width: 'calc(300px * 8 + 1.5rem * 7)' }}>
               {[...mockLawyers, ...mockLawyers].map((lawyer, index) => (
