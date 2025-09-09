@@ -507,45 +507,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* CTA Section with Image */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                <span className="text-orange-500">Nos avocats de confiance</span> vous conseillent et vous défendent au quotidien
-              </h2>
-              
-              <button
-                onClick={() => navigate('/search')}
-                className="bg-orange-500 text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                Trouver mon Avocat
-              </button>
-            </div>
-            
-            <div className="flex justify-center lg:justify-end">
-              <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600&h=400"
-                alt="Cabinet d'avocats moderne"
-                className="rounded-2xl shadow-xl w-full max-w-lg h-80 object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-          </div>
-          
-          <div className="text-center">
-            <div className="mb-8">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=600"
-                alt="Avocat Super Héros"
-                className="rounded-2xl shadow-2xl mx-auto transform hover:scale-105 transition-transform duration-300 w-80 h-96 object-cover"
-              />
-              <p className="mt-6 text-lg font-medium text-gray-600">Avocat Super Héros</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
