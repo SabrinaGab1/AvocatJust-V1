@@ -478,23 +478,8 @@ const HomePage = () => {
                 
                 <p>
                   La transparence est notre priorité : vous connaissez le montant exact que vous devez payer. Et parce que nos avocats sont justes, ils déduisent le montant de la 1ère consultation si vous leur confiez votre dossier. Pour savoir si vous pouvez bénéficier de l'aide juridictionnelle après votre 1er rendez-vous.
-                </p>
-              </div>
-            </div>
-            
-            <div>
-              <img
-                src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600"
-                alt="Avocat de confiance"
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Press Section */}
-      <section className="py-16 bg-white">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">Ils parlent de nous</h2>
           <div className="flex justify-center items-center space-x-12 opacity-70">
@@ -557,29 +542,94 @@ const HomePage = () => {
           <p className="text-lg text-gray-600 mb-2">
             <span className="font-bold text-orange-500">AVOCAJUST</span>, c'est un projet engagé !
           </p>
-          <p className="text-gray-600 mb-8">
-            Nous soutenons les associations qui œuvrent pour une société plus juste.
-          </p>
+              className="relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group bg-white"
+            <div className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+              DANS LES MÉDIAS
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              Ils parlent de <span className="text-orange-500">nous</span>
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-500"></div>
+                
+                {/* Logo overlay */}
+                <div className="absolute top-6 left-6">
+                  <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-blue-800 font-bold text-lg">Le Figaro</span>
+                  </div>
+                </div>
+            </p>
           
-          <div className="bg-gray-50 rounded-xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-xl font-bold text-orange-500 mb-6">
-              Cette année, nous soutenons l'association « élève ta voix ».
-            </h3>
-            
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div className="mb-3">
+                  <span className="inline-flex items-center px-3 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold uppercase tracking-wide">
+                    Article Premium
+                  </span>
+              className="relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group bg-white"
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-orange-300 transition-colors leading-tight">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
-                <img
-                  src="https://via.placeholder.com/200x100/FF6B35/FFFFFF?text=Logo+élève+ta+voix"
+                <p className="text-gray-200 text-sm leading-relaxed">
+                  Analyse approfondie de notre impact sur l'écosystème juridique français
                   alt="Logo élève ta voix"
-                  className="mx-auto mb-4"
-                />
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-500"></div>
+                
+                {/* Logo overlay */}
+              className="relative overflow-hidden rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer group bg-white"
+                  <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-red-600 font-bold text-lg">BFM</span>
+                    <span className="text-gray-800 font-medium ml-1">BUSINESS</span>
+                  </div>
+                </div>
+                
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/70 transition-all duration-500"></div>
+                
+                {/* Logo overlay */}
+                <div className="absolute top-6 left-6">
+                  <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-orange-600 font-bold text-sm">VILLAGE JUSTICE</span>
+                  </div>
+                </div>
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div className="mb-3">
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div className="mb-3">
+                  <span className="inline-flex items-center px-3 py-1 bg-green-600 text-white rounded-full text-xs font-semibold uppercase tracking-wide">
+                    Dossier Spécial
+                  </span>
               </div>
-              
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-orange-300 transition-colors leading-tight">
               <div className="text-left">
                 <h4 className="text-lg font-semibold text-gray-900 mb-4">Sa mission</h4>
-                <p className="text-gray-600">
-                  Aider les enfants pour qu'aucun d'entre eux ne rejoigne nos anges partis trop tôt. C'est la raison pour laquelle nous nous engageons à aider davantage de personnes, jour après jour.
+                <p className="text-gray-200 text-sm leading-relaxed">
+                  Une enquête exclusive sur la digitalisation du secteur juridique
                 </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Stats section */}
+          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+              <div className="group">
+                <div className="text-4xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform duration-300">50+</div>
+                <div className="text-gray-600 font-medium">Articles de presse</div>
+              </div>
+              <div className="group">
+                <div className="text-4xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform duration-300">15</div>
+                <div className="text-gray-600 font-medium">Médias partenaires</div>
+              </div>
+              <div className="group">
+                <div className="text-4xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform duration-300">2M+</div>
+                <div className="text-gray-600 font-medium">Vues médias</div>
+              </div>
+              <div className="group">
+                <div className="text-4xl font-bold text-orange-500 mb-2 group-hover:scale-110 transition-transform duration-300">98%</div>
+                <div className="text-gray-600 font-medium">Avis positifs</div>
               </div>
             </div>
           </div>
