@@ -254,13 +254,6 @@ const HomePage = () => {
             </div>
             
             <nav className="hidden md:flex space-x-8">
-              <button 
-                onClick={() => navigate('/search')}
-                className="flex items-center text-gray-700 hover:text-orange-500 transition-colors"
-              >
-                <Search className="h-4 w-4 mr-2" />
-                Trouver un avocat
-              </button>
               <Link to="/urgence" className="flex items-center text-gray-700 hover:text-orange-500 transition-colors">
                 <Phone className="h-4 w-4 mr-2" />
                 Urgence Avocat
