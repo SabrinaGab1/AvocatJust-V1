@@ -478,122 +478,26 @@ const HomePage = () => {
                 
                 <p>
                   La transparence est notre priorité : vous connaissez le montant exact que vous devez payer. Et parce que nos avocats sont justes, ils déduisent le montant de la 1ère consultation si vous leur confiez votre dossier. Pour savoir si vous pouvez bénéficier de l'aide juridictionnelle après votre 1er rendez-vous.
-                </p>
-              </div>
-              
-              <div className="mt-10">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-                  <span className="text-orange-500">Nos avocats de confiance</span> vous conseillent et vous défendent au quotidien
-                </h3>
-                
-                <button
-                  onClick={() => navigate('/search')}
-                  className="bg-orange-500 text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  Trouver mon Avocat
-                </button>
-              </div>
-            </div>
-            
-            <div className="text-center lg:pl-8">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=600"
-                alt="Avocat Super Héros"
-                className="rounded-2xl shadow-2xl mx-auto transform hover:scale-105 transition-transform duration-300 w-80 h-96 object-cover"
-              />
-              <p className="mt-6 text-lg font-medium text-gray-600">Avocat Super Héros</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                <span className="text-orange-500">Nos avocats de confiance</span> vous conseillent et vous défendent au quotidien
-              </h2>
-              
-              <button
-                onClick={() => navigate('/search')}
-                className="bg-orange-500 text-white px-10 py-4 rounded-full hover:bg-orange-600 hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold text-lg inline-flex items-center"
-              >
-                <Search className="h-6 w-6 mr-3" />
-                Trouver mon Avocat
-              </button>
-            </div>
-            
-            <div>
-              <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600&h=400"
-                alt="Cabinet d'avocats moderne"
-                className="rounded-lg shadow-lg w-full hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Press Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">Ils parlent de nous</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="relative group cursor-pointer">
-              <img
-                src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&q=80&w=600&h=400"
-                alt="Article BFM Business - AvocaJust révolutionne l'accès au droit"
-                className="w-full h-64 object-cover rounded-xl shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <div className="flex items-center mb-2">
-                  <div className="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">BFM BUSINESS</div>
-                </div>
-                <h3 className="text-lg font-bold leading-tight">
-                  "AvocaJust révolutionne l'accès au droit en France"
-                </h3>
-                <p className="text-sm opacity-90 mt-1">Une plateforme qui démocratise la justice</p>
-              </div>
-            </div>
-
-            <div className="relative group cursor-pointer">
-              <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=600&h=400"
-                alt="Article Le Figaro - La justice accessible à tous"
-                className="w-full h-64 object-cover rounded-xl shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <div className="flex items-center mb-2">
-                  <div className="bg-blue-800 text-white px-3 py-1 rounded text-sm font-bold">LE FIGARO</div>
-                </div>
-                <h3 className="text-lg font-bold leading-tight">
-                  "Une justice accessible à tous grâce au numérique"
-                </h3>
-                <p className="text-sm opacity-90 mt-1">L'innovation au service du droit</p>
-              </div>
-            </div>
-
-            <div className="relative group cursor-pointer">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=400"
-                alt="Article Village de la Justice - Avocats connectés"
-                className="w-full h-64 object-cover rounded-xl shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl"></div>
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <div className="flex items-center mb-2">
-                  <div className="bg-orange-600 text-white px-3 py-1 rounded text-sm font-bold">VILLAGE JUSTICE</div>
-                </div>
-                <h3 className="text-lg font-bold leading-tight">
-                  "Les avocats à l'ère du digital"
-                </h3>
-                <p className="text-sm opacity-90 mt-1">Modernisation de la profession</p>
-              </div>
-            </div>
+          <div className="flex justify-center items-center space-x-12 opacity-70">
+            <img
+              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=200&h=80"
+              alt="BFM Business"
+              className="h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&q=80&w=200&h=80"
+              alt="Amy Karnov Group"
+              className="h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=200&h=80"
+              alt="Village de la Justice"
+              className="h-12 object-contain grayscale hover:grayscale-0 transition-all duration-300"
+            />
           </div>
         </div>
       </section>
