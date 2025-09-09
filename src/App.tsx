@@ -282,16 +282,9 @@ const HomePage = () => {
                 </button>
                 
                 {showLanguageMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={(event) => {
                           // Empêcher la propagation de l'événement
                           event.stopPropagation();
-                          setSelectedLanguage(lang.code);
-                          setShowLanguageMenu(false);
-                        }}
+                      <button
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center justify-between group"
                       >
                         <div className="flex items-center space-x-3">
@@ -372,7 +365,6 @@ const HomePage = () => {
                       </button>
                     ))}
                   </div>
-                )}
               </div>
             </div>
 
@@ -431,7 +423,7 @@ const HomePage = () => {
       </section>
 
       {/* Text Section before Carousel */}
-      <section className="py-6 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
             TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
