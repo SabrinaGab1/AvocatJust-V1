@@ -289,6 +289,8 @@ const HomePage = () => {
                         onClick={() => {
                           setSelectedLanguage(lang.code);
                           setShowLanguageMenu(false);
+                         // Empêcher la propagation de l'événement
+                         event.stopPropagation();
                         }}
                         className="w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center justify-between group"
                       >
@@ -511,6 +513,7 @@ const HomePage = () => {
                 </div>
               </div>
             ))}
+              )}
             </div>
           </div>
         </div>
