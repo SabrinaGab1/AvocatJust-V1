@@ -284,7 +284,14 @@ const HomePage = () => {
                 {showLanguageMenu && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
                     {languages.map((lang) => (
-                      <button
+                      
+                  )
+                  )
+                  }
+                )
+                }
+  )
+}<button
                         key={lang.code}
                         onClick={(event) => {
                           setSelectedLanguage(lang.code);
