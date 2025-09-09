@@ -454,7 +454,7 @@ const HomePage = () => {
       </section>
 
       {/* Featured Lawyers Section */}
-      <section className="pt-3 pb-8 bg-white">
+      <section className="pt-1 pb-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
