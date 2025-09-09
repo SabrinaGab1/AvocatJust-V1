@@ -230,7 +230,8 @@ const HomePage = () => {
       specialites: ['Droit des affaires', 'Droit commercial'],
       photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300',
       rating: 4.8,
-      reviewCount: 24
+      reviewCount: 24,
+      consultationTypes: ['visio', 'telephone', 'presentiel']
     },
     {
       id: '2',
@@ -240,7 +241,8 @@ const HomePage = () => {
       specialites: ['Droit du travail', 'Droit social'],
       photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300',
       rating: 4.6,
-      reviewCount: 18
+      reviewCount: 18,
+      consultationTypes: ['visio', 'telephone']
     },
     {
       id: '3',
@@ -250,7 +252,8 @@ const HomePage = () => {
       specialites: ['Droit de la famille', 'Droit immobilier'],
       photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300',
       rating: 4.9,
-      reviewCount: 31
+      reviewCount: 31,
+      consultationTypes: ['presentiel']
     },
     {
       id: '4',
@@ -260,10 +263,23 @@ const HomePage = () => {
       specialites: ['Droit pénal', 'Droit des sociétés'],
       photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300',
       rating: 4.7,
-      reviewCount: 22
+      reviewCount: 22,
+      consultationTypes: ['visio', 'telephone', 'presentiel']
     }
   ];
 
+  const getConsultationIcon = (type: string) => {
+    switch (type) {
+      case 'visio':
+        return <Video className="h-4 w-4 text-purple-500" />;
+      case 'telephone':
+        return <Phone className="h-4 w-4 text-green-500" />;
+      case 'presentiel':
+        return <Building2 className="h-4 w-4 text-orange-500" />;
+      default:
+        return null;
+    }
+  };
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -492,6 +508,17 @@ const HomePage = () => {
                         >
                           {specialite}
                         </span>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center space-x-2 mt-3">
+                      {lawyer.consultationTypes.map((type, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-center w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full"
+                        >
+                          {getConsultationIcon(type)}
+                        </div>
                       ))}
                     </div>
                   </div>
