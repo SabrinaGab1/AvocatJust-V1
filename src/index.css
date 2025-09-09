@@ -5,10 +5,10 @@
 /* Animation pour le carrousel */
 @keyframes scroll {
   0% {
-    transform: translateX(calc(-300px * 4 - 1.5rem * 4));
+    transform: translateX(100vw);
   }
   100% {
-    transform: translateX(0);
+    transform: translateX(calc(-300px * 8 - 1.5rem * 7));
   }
 }
 
