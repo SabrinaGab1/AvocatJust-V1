@@ -372,6 +372,7 @@ const HomePage = () => {
                       </button>
                     ))}
                   </div>
+                )}
               </div>
             </div>
 
