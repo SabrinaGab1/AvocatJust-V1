@@ -378,6 +378,18 @@ const HomePage = () => {
                 <Building2 className="h-5 w-5 text-orange-500 mr-2" />
                 <span className="text-gray-700 font-medium">Présentiel</span>
               </button>
+              
+              <button
+                onClick={() => {
+                  const params = new URLSearchParams();
+                  params.append('type', 'langue');
+                  navigate(`/search?${params.toString()}`);
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <Globe className="h-5 w-5 text-blue-500 mr-2" />
+                <span className="text-gray-700 font-medium">Langue</span>
+              </button>
             </div>
           </div>
         </div>
@@ -464,7 +476,7 @@ const HomePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour avancer <span className="text-orange-500">en toute sérénité</span>
+                <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous avancer <span className="text-orange-500">en toute sérénité</span>
               </h2>
               
               <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
