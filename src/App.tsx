@@ -463,7 +463,7 @@ const HomePage = () => {
               {[...mockLawyers, ...mockLawyers].map((lawyer, index) => (
               <div
                 key={`${lawyer.id}-${index}`}
-                className="lawyer-card relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer group flex-shrink-0"
+                className="lawyer-card relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer group flex-shrink-0 border-2 border-orange-200 hover:border-orange-400"
                 onClick={() => navigate(`/avocat/${lawyer.id}`)}
               >
                 <div className="aspect-[3/4] relative">
@@ -475,22 +475,6 @@ const HomePage = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                   
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <div className="flex items-center mb-2">
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-4 w-4 ${
-                              i < Math.floor(lawyer.rating)
-                                ? 'text-yellow-400 fill-current'
-                                : 'text-gray-300'
-                            }`}
-                          />
-                        ))}
-                        <span className="ml-2 text-sm">{lawyer.rating} ({lawyer.reviewCount})</span>
-                      </div>
-                    </div>
-                    
                     <h3 className="text-xl font-bold mb-1">
                       {lawyer.prenom} {lawyer.nom}
                     </h3>
