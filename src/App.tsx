@@ -279,11 +279,6 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link to="/urgence" className="flex items-center px-4 py-2 text-red-600 hover:text-red-700 border border-red-200 rounded-full hover:bg-red-50 transition-all duration-200">
-                <Phone className="h-4 w-4 mr-2" />
-                <span className="font-medium">Urgence</span>
-              </Link>
-              
               <div className="relative">
                 <button
                   onClick={() => setShowLanguageMenu(!showLanguageMenu)}
@@ -393,7 +388,7 @@ const HomePage = () => {
             </div>
 
             {/* Quick consultation type buttons */}
-            <div className="flex justify-center space-x-4 mt-2">
+            <div className="flex justify-center space-x-4 mt-6">
               <button
                 onClick={() => {
                   const params = new URLSearchParams();
@@ -429,37 +424,6 @@ const HomePage = () => {
                 <Building2 className="h-5 w-5 text-orange-500 mr-2" />
                 <span className="text-gray-700 font-medium">Présentiel</span>
               </button>
-              
-              <button
-                onClick={() => {
-                  setShowLanguageDropdown(!showLanguageDropdown);
-                }}
-                className="relative flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
-              >
-                <Globe className="h-5 w-5 text-blue-500 mr-2" />
-                <span className="text-gray-700 font-medium">Langue</span>
-                
-                {/* Language Dropdown */}
-                {showLanguageDropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                    {lawyerLanguages.map((language) => (
-                      <button
-                        key={language}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const params = new URLSearchParams();
-                          params.append('language', language);
-                          navigate(`/search?${params.toString()}`);
-                          setShowLanguageDropdown(false);
-                        }}
-                        className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 transition-colors"
-                      >
-                        {language}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </button>
             </div>
           </div>
         </div>
@@ -485,6 +449,57 @@ const HomePage = () => {
              Trouver un avocat
              <ArrowRight className="h-5 w-5 ml-2" />
            </button>
+
+          {/* Urgence and Language buttons */}
+          <div className="flex justify-center space-x-4 mt-4">
+            <Link to="/urgence" className="flex items-center px-6 py-3 text-red-600 hover:text-red-700 border border-red-200 rounded-full hover:bg-red-50 transition-all duration-200">
+              <Phone className="h-4 w-4 mr-2" />
+              <span className="font-medium">Urgence</span>
+            </Link>
+            
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setShowLanguageDropdown(!showLanguageDropdown);
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <Globe className="h-5 w-5 text-blue-500 mr-2" />
+                <span className="text-gray-700 font-medium">Langue</span>
+              </button>
+              
+              {/* Language Dropdown */}
+              {showLanguageDropdown && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  {lawyerLanguages.map((language) => (
+                    <button
+                      key={language}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const params = new URLSearchParams();
+                        params.append('language', language);
+                        navigate(`/search?${params.toString()}`);
+                        setShowLanguageDropdown(false);
+                      }}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 transition-colors flex items-center"
+                    >
+                      <span className="mr-3">
+                        {language === 'Français' && '🇫🇷'}
+                        {language === 'Anglais' && '🇬🇧'}
+                        {language === 'Espagnol' && '🇪🇸'}
+                        {language === 'Allemand' && '🇩🇪'}
+                        {language === 'Italien' && '🇮🇹'}
+                        {language === 'Arabe' && '🇸🇦'}
+                        {language === 'Chinois' && '🇨🇳'}
+                        {language === 'Russe' && '🇷🇺'}
+                      </span>
+                      {language}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -500,6 +515,55 @@ const HomePage = () => {
                 onClick={() => navigate(`/avocat/${lawyer.id}`)}
               >
                 <div className="aspect-[3/4] relative">
+                  <img
+                    src={lawyer.photo}
+                    alt={`${lawyer.prenom} ${lawyer.nom}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-black/40"></div>
+                  
+                  {/* Content overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <div className="flex items-center mb-2">
+                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                        <Star className="h-4 w-4 text-yellow-400" />
+                      </div>
+                      <span className="text-sm font-medium">{lawyer.rating}</span>
+                      <span className="text-xs text-white/80 ml-1">({lawyer.reviewCount} avis)</span>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-1">
+                      {lawyer.prenom} {lawyer.nom}
+                    </h3>
+                    
+                    <p className="text-white/90 text-sm mb-3 flex items-center">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {lawyer.ville}
+                    </p>
+                    
+                    <div className="space-y-1">
+                      {lawyer.specialites.slice(0, 2).map((specialite, idx) => (
+                        <div key={idx} className="text-sm text-white/80">
+                          {specialite}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 <span className="text-orange-500">AVOCAJUST</span> est votre <span className="text-orange-500">allié</span> pour vous avancer <span className="text-orange-500">en toute sérénité</span>
               </h2>
