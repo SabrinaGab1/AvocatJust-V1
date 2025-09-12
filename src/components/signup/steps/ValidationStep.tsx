@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 type ValidationStepProps = {
   onBack: () => void;
+  onNext: () => void;
 };
 
-export default function ValidationStep({ onBack }: ValidationStepProps) {
+export default function ValidationStep({ onNext, onBack }: ValidationStepProps) {
   const navigate = useNavigate();
   
   return (
@@ -38,10 +39,10 @@ export default function ValidationStep({ onBack }: ValidationStepProps) {
           Retour
         </button>
         <button
-          onClick={() => navigate('/')}
+          onClick={onNext}
           className="px-6 py-2 text-sm font-medium text-white bg-orange-500 hover:bg-orange-600 rounded-lg transition-colors"
         >
-          Retourner à l'accueil
+          Connexion
         </button>
       </div>
     </div>

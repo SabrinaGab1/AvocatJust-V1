@@ -12,6 +12,9 @@ import LawyerBookingPage from './pages/LawyerBookingPage';
 import BookingFormPage from './pages/BookingFormPage';
 import AnimatedPage from './components/AnimatedPage';
 import { useLanguage } from './contexts/LanguageContext';
+import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import SignupContinuedPage from './pages/SignupContinued';
+import GocardlessCallback from './pages/GoCardlessCallback';
 
 const avocats = [
   {
@@ -1077,6 +1080,7 @@ export default function App() {
             <Footer />
           </>
         } />
+        <Route path="/verify-email" element={<ConfirmEmailPage />} />
         <Route path="/recherche" element={
           <>
             <nav className="bg-white shadow-[0_1px_3px_0_rgba(0,0,0,0.1)] sticky top-0 z-50 backdrop-blur-sm bg-white/90 border-b border-gray-100">
@@ -1200,6 +1204,8 @@ export default function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard/*" element={<DashboardPage />} />
+        <Route path="/signup-continued" element={<SignupContinuedPage />} />
+        <Route path="/gocardless-callback" element={<GocardlessCallback />} />
       </Routes>
     </AnimatePresence>
   );

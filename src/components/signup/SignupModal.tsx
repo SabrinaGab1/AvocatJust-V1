@@ -5,16 +5,18 @@ import { Fragment } from 'react';
 import SubscriptionStep from './steps/SubscriptionStep';
 import AccountStep from './steps/AccountStep';
 import ValidationStep from './steps/ValidationStep';
+import PaymentStep from './steps/PaymentStep'; // Add this import
 
 export type SignupModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const steps = [
-  { id: 'subscription', title: 'Abonnement' },
+const steps = [  
   { id: 'account', title: 'Compte' },
-  { id: 'validation', title: 'Validation' }
+  { id: 'validation', title: 'Validation' },
+  { id: 'subscription', title: 'Abonnement' },
+  { id: 'payment', title: 'Paiement' }
 ];
 
 export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
@@ -38,11 +40,19 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return <SubscriptionStep onNext={handleNext} />;
-      case 1:
         return <AccountStep onNext={handleNext} onBack={handleBack} />;
-      case 2:
+      case 1:
         return <ValidationStep onBack={handleBack} onClose={onClose} />;
+      case 2:
+        return <SubscriptionStep onNext={handleNext} />;
+      case 3:
+        return (
+          <PaymentStep
+            subscription={formData.subscription}
+            onNext={handleNext}
+            onBack={handleBack}
+          />
+        );
       default:
         return null;
     }
