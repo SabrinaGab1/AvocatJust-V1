@@ -176,6 +176,7 @@ const mockMessages: Message[] = [
 ];
 
 export default function MessagingPage() {
+  const [isLocked, setIsLocked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(mockConversations[0]);
   const [newMessage, setNewMessage] = useState('');
@@ -188,7 +189,25 @@ export default function MessagingPage() {
   const optionsMenuRef = useRef<HTMLDivElement>(null);
   const recordingInterval = useRef<NodeJS.Timeout>();
 
+  const access_token = sessionStorage.getItem("access_token");
   useEffect(() => {
+    async function verifyKeys() {
+      const response = await fetch("http://localhost:8000/lawyer/me", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${access_token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await response.json();
+      const publicKey = data.public_key;
+      const privateKey = localStorage.getItem("private_key");
+      if (!publicKey || !privateKey) {
+        setIsLocked(true);
+      }
+    }
+    verifyKeys();
+
     if (isRecording) {
       recordingInterval.current = setInterval(() => {
         setRecordingTime(prev => prev + 1);
@@ -293,6 +312,30 @@ export default function MessagingPage() {
     console.log('Exporting chat history');
     setShowOptionsMenu(false);
   };
+
+  if (isLocked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="mb-4 text-orange-500">
+            {/* You can use a lock icon here */}
+            <AlertCircle className="w-12 h-12 mx-auto" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Accès verrouillé</h2>
+          <p className="text-gray-600 mb-4">
+            Veuillez configurer vos clés publiques et privées pour accéder à la messagerie.
+          </p>
+          {/* Optionally, add a button to redirect to the setup page */}
+          <button
+            onClick={() => window.location.href = '/profile-setup'}
+            className="px-6 py-2 bg-orange-500 text-white rounded-lg"
+          >
+            Configurer mes clés
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <AnimatedPage>

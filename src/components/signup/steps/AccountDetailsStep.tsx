@@ -46,7 +46,7 @@ export default function AccountDetailsStep({ onNext }: AccountDetailsStepProps) 
 			console.log(JSON.stringify(data.address))
 
 			const address_response = await fetch(`${BACKEND_URL}/user/address/`, {
-				method: "PUT",
+				method: "POST",
 				headers: {
 					"Authorization": `Bearer ${access_token}`,
 					"Content-Type": "application/json",

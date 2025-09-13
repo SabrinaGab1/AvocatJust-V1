@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Scale, User, Calendar, Activity, Settings, HelpCircle, LogOut, Bell, Search, ChevronDown, MapPin, Phone, Mail, Building, Briefcase, UserCircle, Upload, X, Camera, AlertCircle, FileText, Users, MessageSquare, Globe, Euro, Clock } from 'lucide-react';
+import { Scale, User, Calendar, Activity, Settings, HelpCircle, Key, LogOut, Bell, Search, ChevronDown, MapPin, Phone, Mail, Building, Briefcase, UserCircle, Upload, X, Camera, AlertCircle, FileText, Users, MessageSquare, Globe, Euro, Clock } from 'lucide-react';
 import { Link, Routes, Route } from 'react-router-dom';
 import { Dialog } from '@headlessui/react';
 import AnimatedPage from '../components/AnimatedPage';
@@ -10,10 +10,13 @@ import PublicProfilePage from './PublicProfilePage';
 import PersonalProfilePage from './PersonalProfilePage';
 import SettingsPage from './SettingsPage';
 import HelpPage from './HelpPage';
+import KeysPage from './KeysPage';
+import { set } from 'date-fns';
 
 export default function DashboardPage() {
-  const [profilePhoto] = useState("https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200");
-  const [lawyerName] = useState({ firstName: 'Marie', lastName: 'Dupont' });
+  const [profilePhoto, setProfilePhoto] = useState("https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200");
+  const [lawyerName, setLawyerName] = useState({ firstName: 'Marie', lastName: 'Dupont' });
+  const [barreau, setBarreau] = useState('');
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
@@ -23,6 +26,27 @@ export default function DashboardPage() {
         setShowProfileMenu(false);
       }
     }
+
+    async function fetchLawyer() {
+      const access_token = sessionStorage.getItem("access_token");
+      const response = await fetch("http://localhost:8000/lawyer/me", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${access_token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await response.json();
+
+      setProfilePhoto(`http://localhost:8000${data.profile_picture}`);
+      setLawyerName({
+        firstName: data.name || '',
+        lastName: data.lastname || ''
+      });
+
+      setBarreau(data.barreau || '');
+    }
+    fetchLawyer();
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -54,7 +78,7 @@ export default function DashboardPage() {
                     />
                     <div className="text-sm">
                       <p className="font-medium text-gray-900">Me {lawyerName.firstName} {lawyerName.lastName}</p>
-                      <p className="text-gray-500">Avocat au Barreau de Paris</p>
+                      <p className="text-gray-500">Avocat au Barreau de {barreau}</p>
                     </div>
                     <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${showProfileMenu ? 'rotate-180' : ''}`} />
                   </button>
@@ -160,6 +184,13 @@ export default function DashboardPage() {
                 <span>Agenda</span>
               </Link>
               <Link
+                to="/dashboard/cles"
+                className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
+              >
+                <Key className="h-5 w-5" />
+                <span>Clés de chiffrement</span>
+              </Link>
+              <Link
                 to="/dashboard/messagerie"
                 className="flex items-center space-x-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium"
               >
@@ -210,6 +241,7 @@ export default function DashboardPage() {
               <Route index element={<PersonalProfilePage />} />
               <Route path="public-profile" element={<PublicProfilePage />} />
               <Route path="agenda" element={<AgendaPage />} />
+              <Route path="cles" element={<KeysPage />} />
               <Route path="messagerie" element={<MessagingPage />} />
               <Route path="activites" element={<ActivitiesPage />} />
               <Route path="parametres" element={<SettingsPage />} />
