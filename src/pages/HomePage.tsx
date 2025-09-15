@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Dialog } from '@headlessui/react';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -9,6 +10,7 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const specialties = [
     'Droit des affaires',
@@ -61,6 +63,18 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
+              <button
+                onClick={() => setIsLoginModalOpen(true)}
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                Connexion
+              </button>
+              <Link 
+                to="/signup"
+                className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+              >
+                Vous êtes avocat ?
+              </Link>
             </div>
           </div>
         </div>
@@ -418,6 +432,69 @@ const HomePage = () => {
           </div>
         </div>
       </footer>
+
+      {/* Login Choice Modal */}
+      <Dialog
+        open={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 shadow-xl transition-all">
+            <div className="text-center">
+              <div className="mx-auto h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <Scale className="h-8 w-8 text-blue-600" />
+              </div>
+              
+              <Dialog.Title className="text-xl font-semibold text-gray-900 mb-2">
+                Choisissez votre profil
+              </Dialog.Title>
+              
+              <p className="text-gray-600 mb-6">
+                Sélectionnez le type de compte pour vous connecter
+              </p>
+
+              <div className="space-y-3">
+                <button
+                  onClick={() => {
+                    setIsLoginModalOpen(false);
+                    navigate('/client-login');
+                  }}
+                  className="w-full flex items-center justify-center px-6 py-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
+                >
+                  <Users className="h-6 w-6 text-blue-600 mr-3" />
+                  <div className="text-left">
+                    <div className="font-medium text-gray-900">Je suis utilisateur</div>
+                    <div className="text-sm text-gray-600">Je cherche un avocat</div>
+                  </div>
+                </button>
+                
+                <button
+                  onClick={() => {
+                    setIsLoginModalOpen(false);
+                    navigate('/login');
+                  }}
+                  className="w-full flex items-center justify-center px-6 py-4 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors group"
+                >
+                  <Scale className="h-6 w-6 text-orange-600 mr-3" />
+                  <div className="text-left">
+                    <div className="font-medium text-gray-900">Je suis avocat</div>
+                    <div className="text-sm text-gray-600">J'ai un cabinet d'avocat</div>
+                  </div>
+                </button>
+              </div>
+
+              <button
+                onClick={() => setIsLoginModalOpen(false)}
+                className="mt-4 text-sm text-gray-500 hover:text-gray-700"
+              >
+                Annuler
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
     </div>
   );
 };
