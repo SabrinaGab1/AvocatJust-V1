@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import UserDashboardPage from './pages/UserDashboardPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
@@ -814,6 +815,7 @@ const HomePage = () => {
                 <li><Link to="/devis" className="hover:text-white transition-colors">Devis personnalisé</Link></li>
                 <li><Link to="/login" className="hover:text-white transition-colors">Connexion</Link></li>
                 <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
+                <li><Link to="/admin-dashboard" className="hover:text-white transition-colors">Espace admin</Link></li>
               </ul>
             </div>
             
@@ -1185,6 +1187,7 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/dashboard/*" element={<DashboardPage />} />
       <Route path="/user-dashboard/*" element={<UserDashboardPage />} />
+      <Route path="/admin-dashboard/*" element={<AdminDashboardPage />} />
       <Route path="/search" element={<SearchResultsPage />} />
       <Route path="/avocat/:id" element={<LawyerProfilePage />} />
       <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
