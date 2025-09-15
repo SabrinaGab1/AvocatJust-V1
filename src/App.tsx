@@ -813,6 +813,7 @@ const HomePage = () => {
                 <li><Link to="/consultation" className="hover:text-white transition-colors">Consultation en ligne</Link></li>
                 <li><Link to="/devis" className="hover:text-white transition-colors">Devis personnalisé</Link></li>
                 <li><Link to="/login" className="hover:text-white transition-colors">Connexion</Link></li>
+                <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
               </ul>
             </div>
             
