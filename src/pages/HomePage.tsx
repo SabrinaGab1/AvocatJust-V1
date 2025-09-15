@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import AuthModal from '../components/AuthModal';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -9,6 +10,7 @@ const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const specialties = [
     'Droit des affaires',
@@ -33,6 +35,12 @@ const HomePage = () => {
     if (searchQuery) params.append('q', searchQuery);
     if (selectedSpecialty) params.append('specialty', selectedSpecialty);
     if (selectedLocation) params.append('location', selectedLocation);
+
+        {/* Auth Modal */}
+        <AuthModal 
+          isOpen={isAuthModalOpen} 
+          onClose={() => setIsAuthModalOpen(false)} 
+        />
     
     navigate(`/search?${params.toString()}`);
   };
@@ -61,12 +69,12 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link 
-                to="/login"
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
                 {t('login')}
-              </Link>
+              </button>
               <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
                 OK
               </button>
