@@ -28,7 +28,6 @@ const HomePage = () => {
   const [availableNow, setAvailableNow] = useState(false);
   const [isLoginChoiceModalOpen, setIsLoginChoiceModalOpen] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('FR');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [isUrgenceModalOpen, setIsUrgenceModalOpen] = useState(false);
   const [urgenceMessage, setUrgenceMessage] = useState('');
