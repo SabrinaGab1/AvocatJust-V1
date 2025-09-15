@@ -305,15 +305,15 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <Link 
-                to="/login"
-                className="text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                Connexion
-              </Link>
               <button 
                 onClick={() => setIsLoginChoiceModalOpen(true)}
                 className="text-gray-700 hover:text-orange-500 transition-colors"
+              >
+                Connexion
+              </button>
+              
+              <button
+                onClick={() => setIsSignupModalOpen(true)}
                 className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
               >
                 Vous êtes avocat ?
@@ -873,22 +873,26 @@ const HomePage = () => {
                 Connexion
               </Dialog.Title>
               <p className="text-gray-600 mb-8">
+                Choisissez votre type de compte
+              </p>
+
+              <div className="space-y-4">
                 <Link
                   to="/login?type=avocat"
-                <Link 
-                  to="/signup"
-                  className="text-gray-700 hover:text-blue-600 transition-colors"
+                  onClick={() => setIsLoginChoiceModalOpen(false)}
+                  className="w-full flex items-center justify-center px-6 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-semibold"
                 >
-                  Vous êtes avocat ?
+                  <Scale className="h-5 w-5 mr-3" />
+                  Je suis avocat
                 </Link>
-                <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
-                  OK
-                </button>
-                <Link 
-                  to="/login"
-                  className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                
+                <Link
+                  to="/login?type=utilisateur"
+                  onClick={() => setIsLoginChoiceModalOpen(false)}
+                  className="w-full flex items-center justify-center px-6 py-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-semibold"
                 >
-                  Connexion
+                  <Users className="h-5 w-5 mr-3" />
+                  Je suis utilisateur
                 </Link>
               </div>
 
