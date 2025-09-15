@@ -316,13 +316,6 @@ const HomePage = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setIsSignupModalOpen(true)}
-                className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-              >
-                Vous êtes avocat ?
-              </button>
-              
-              <button
-                onClick={() => setIsSignupModalOpen(true)}
                 className="text-gray-700 hover:text-orange-500 transition-colors"
               >
                 Vous êtes avocat ?
@@ -340,7 +333,7 @@ const HomePage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-orange-50 to-white">
+      <section className="pt-20 pb-12 bg-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
@@ -404,7 +397,7 @@ const HomePage = () => {
                 onClick={() => {
                   setIsUrgenceModalOpen(true);
                 }}
-                className="flex items-center px-6 py-3 bg-white border border-red-200 rounded-full hover:bg-red-50 transition-all duration-200 shadow-sm"
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-red-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm w-32"
               >
                 <Phone className="h-4 w-4 text-red-500 mr-2" />
                 <span className="text-red-500 font-medium">Urgence</span>
