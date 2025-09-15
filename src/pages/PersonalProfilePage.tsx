@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MapPin, Phone, Mail, Building, Briefcase, Upload, X, Camera, AlertCircle, FileText, Users, Euro, Building2, Video, Star, Calendar } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import AnimatedPage from '../components/AnimatedPage';
@@ -22,18 +22,18 @@ export default function PersonalProfilePage() {
   const photoInputRef = useRef<HTMLInputElement>(null);
   const [profilePhoto, setProfilePhoto] = useState("https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200");
   const [formData, setFormData] = useState({
-    nom: 'Dupont',
-    prenom: 'Marie',
-    email: 'marie.dupont@cabinet-avocat.fr',
-    telephone: '06 12 34 56 78',
-    barreau: 'Paris',
-    cabinet: 'Cabinet Dupont & Associés',
-    siret: '123 456 789 00012',
-    adresse: '123 Avenue des Champs-Élysées, 75008 Paris'
+    nom: '',
+    prenom: '',
+    email: '',
+    telephone: '',
+    barreau: '',
+    cabinet: '',
+    siret: '',
+    adresse: ''
   });
 
   const [appointmentPreferences, setAppointmentPreferences] = useState<AppointmentPreference[]>([
-    { type: 'cabinet', enabled: true, price: 150 },
+    { type: 'cabinet', enabled: true, price: 100 },
     { type: 'visio', enabled: true, price: 120 },
     { type: 'telephone', enabled: true, price: 100 }
   ]);
@@ -41,9 +41,25 @@ export default function PersonalProfilePage() {
   const [offersInstallments, setOffersInstallments] = useState(false);
   const [isAppointmentPrefsModalOpen, setIsAppointmentPrefsModalOpen] = useState(false);
 
-  const handleProfilePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfilePhotoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+
+      const access_token = sessionStorage.getItem("access_token");
+      const formData = new FormData();
+      formData.append("file", file); // selectedFile is a File object from an <input type="file">
+
+      const response = await fetch("http://localhost:8000/user/upload_picture/", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${access_token}` // Do NOT set Content-Type, browser will set it
+        },
+        body: formData
+      });
+
+      const data = await response.json();
+      console.log(data);
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfilePhoto(reader.result as string);
@@ -131,6 +147,56 @@ export default function PersonalProfilePage() {
   const handleAppointmentPrefsSubmit = () => {
     setIsAppointmentPrefsModalOpen(false);
   };
+
+  function formatAddress(address: any) {
+    if (!address) return '';
+    return `${address.street || ''}, ${address.postal_code || ''}, ${address.city || ''}, ${address.country || ''}`;
+  }
+
+  useEffect(() => {
+    async function fetchLawyer() {
+      const access_token = sessionStorage.getItem("access_token");
+      const response = await fetch("http://localhost:8000/lawyer/me/", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${access_token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await response.json();
+      setProfilePhoto(`http://localhost:8000${data.profile_picture}`);
+
+      setFormData({
+        nom: data.lastname || '',
+        prenom: data.name || '',
+        email: data.email || '',
+        telephone: data.phone || '',
+        barreau: data.barreau || '',
+        cabinet: 'Place holder',
+        siret: data.siret || '',
+        adresse: formatAddress(data.address) || ''
+      });
+      
+      setAppointmentPreferences([
+        {
+          type: 'cabinet',
+          enabled: data.cabinet_price > 0,
+          price: data.cabinet_price || 0
+        },
+        {
+          type: 'visio',
+          enabled: data.online_price > 0,
+          price: data.online_price || 0
+        },
+        {
+          type: 'telephone',
+          enabled: data.phone_price > 0,
+          price: data.phone_price || 0
+        }
+      ]);
+    }
+    fetchLawyer();
+  }, []);
 
   return (
     <AnimatedPage>

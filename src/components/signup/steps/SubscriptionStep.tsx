@@ -2,7 +2,8 @@ import React from 'react';
 import { CreditCard, Clock } from 'lucide-react';
 
 type SubscriptionStepProps = {
-  onNext: (data: { subscription: 'engagement' | 'sans-engagement' }) => void;
+  onNext: (data: { subscription: 'ENGAGEMENT' | 'SANS-ENGAGEMENT' }) => void;
+  onBack?: () => void;
 };
 
 export default function SubscriptionStep({ onNext }: SubscriptionStepProps) {
@@ -10,7 +11,7 @@ export default function SubscriptionStep({ onNext }: SubscriptionStepProps) {
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div
-          onClick={() => onNext({ subscription: 'engagement' })}
+          onClick={() => onNext({ subscription: 'ENGAGEMENT' })}
           className="relative rounded-2xl border-2 border-orange-200 p-6 cursor-pointer hover:border-orange-500 transition-colors group"
         >
           <div className="absolute -top-4 right-4 bg-orange-500 text-white px-4 py-1 rounded-full text-sm">
@@ -41,7 +42,7 @@ export default function SubscriptionStep({ onNext }: SubscriptionStepProps) {
         </div>
 
         <div
-          onClick={() => onNext({ subscription: 'sans-engagement' })}
+          onClick={() => onNext({ subscription: 'SANS-ENGAGEMENT' })}
           className="rounded-2xl border-2 border-gray-200 p-6 cursor-pointer hover:border-orange-500 transition-colors"
         >
           <div className="flex items-center mb-4">

@@ -11,6 +11,10 @@ import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
 import BookingFormPage from './pages/BookingFormPage';
 import SignupModal from './components/signup/SignupModal';
+import ConfirmEmailPage from './pages/ConfirmEmailPage';
+import SignupContinuedPage from './pages/SignupContinued';
+import GocardlessCallback from './pages/GoCardlessCallback';
+
 
 const HomePage = () => {
   const { t } = useLanguage();
@@ -320,7 +324,7 @@ const HomePage = () => {
 
             <div className="flex items-center space-x-4">
               <button
-                onClick={() => setIsSignupModalOpen(true)}
+                onClick={() => navigate('/signup')}
                 className="text-gray-700 hover:text-orange-500 transition-colors"
               >
                 Vous êtes avocat ?
@@ -1179,8 +1183,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/verify-email" element={<ConfirmEmailPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      <Route path="/signup-continued" element={<SignupContinuedPage />} />
+      <Route path="/gocardless-callback" element={<GocardlessCallback />} />
       <Route path="/dashboard/*" element={<DashboardPage />} />
       <Route path="/search" element={<SearchResultsPage />} />
       <Route path="/avocat/:id" element={<LawyerProfilePage />} />

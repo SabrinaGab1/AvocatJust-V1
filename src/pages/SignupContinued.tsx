@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Scale } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SubscriptionStep from '../components/signup/steps/SubscriptionStep';
-import AccountStep from '../components/signup/steps/AccountStep';
+import AccountDetailsStep from '../components/signup/steps/AccountDetailsStep';
 import ValidationStep from '../components/signup/steps/ValidationStep';
 import PaymentStep from '../components/signup/steps/PaymentStep';
 import AnimatedPage from '../components/AnimatedPage';
@@ -10,15 +10,12 @@ import LoginStep from '../components/signup/steps/LoginStep';
 import RdvStep from '../components/signup/steps/RdvStep';
 
 const steps = [
-  { id: 'account', title: 'Compte' },
-  { id: 'validation', title: 'Validation' },
-  { id: 'rdv', title: 'Rendez-vous' },
-  // { id: 'login', title: 'Connexion' },
-  // { id: 'subscription', title: 'Abonnement'},
-  // { id: 'payment', title: 'Paiement' },
+  { id: 'account details', title: 'Détails du compte' },
+  { id: 'subscription', title: 'Abonnement'},
+  { id: 'payment', title: 'Paiement' },
 ];
 
-export default function SignupPage() {
+export default function SignupContinuedPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     subscription: null,
@@ -39,23 +36,17 @@ export default function SignupPage() {
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return <AccountStep onNext={handleNext}/>;
+        return <AccountDetailsStep onNext={handleNext}/>;
       case 1:
-        return <ValidationStep onNext={handleNext} onBack={handleBack} />;
+        return <SubscriptionStep onNext={handleNext} onBack={handleBack}/>;
       case 2:
-        return <RdvStep onBack={handleBack} />;
-      // case 2:
-      //   return <LoginStep onNext={handleNext} onBack={handleBack} />;
-      // case 3:
-      //   return <SubscriptionStep onNext={handleNext} onBack={handleBack}/>;
-      // case 4:
-      //   return (
-      //     <PaymentStep
-      //       subscription={formData.subscription}
-      //       onNext={handleNext}
-      //       onBack={handleBack}
-      //     />
-      //   );
+        return (
+          <PaymentStep
+            subscription={formData.subscription}
+            onNext={handleNext}
+            onBack={handleBack}
+          />
+        );
       default:
         return null;
     }
@@ -70,13 +61,6 @@ export default function SignupPage() {
               <Link to="/" className="flex items-center">
                 <Scale className="h-8 w-8 text-orange-500" />
                 <span className="ml-2 text-xl font-semibold text-gray-900">AvocaJust</span>
-              </Link>
-
-              <Link 
-                to="/signup"
-                className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
-              >
-                Je suis avocat
               </Link>
             </div>
           </div>
@@ -134,12 +118,9 @@ export default function SignupPage() {
                         {step.title}
                       </span>
                       <span className="block text-xs text-gray-400 mt-0.5">
-                        {index === 0 && 'Créez votre compte'}
-                        {index === 1 && 'Confirmez votre email'}
-                        {index === 2 && 'Vérifiez votre identité'}
-                        {/* {index === 2 && 'Connectez-vous'}
-                        {index === 3 && 'Choisissez votre formule'}
-                        {index === 4 && 'Procédez au paiement'} */}
+                        {index === 0 && 'Entrez les détails de votre compte'}
+                        {index === 1 && 'Choisissez votre formule'}
+                        {index === 2 && 'Procédez au paiement'}
                       </span>
                     </div>
                   </div>

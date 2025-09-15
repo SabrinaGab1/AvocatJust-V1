@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MapPin, Phone, Mail, Globe, Facebook, Linkedin, Twitter, Plus, X, Instagram, Youtube, Star, Share2, Building2, Video, Reply, Play, Eye, EyeOff, Camera, Upload, Trash2 } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import AnimatedPage from '../components/AnimatedPage';
@@ -55,11 +55,7 @@ export default function PublicProfilePage() {
   const [editingMedia, setEditingMedia] = useState<'header' | 'profile' | 'gallery' | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
-  const [consultationTypes] = useState<{ type: ConsultationType; price: number }[]>([
-    { type: 'cabinet', price: 150 },
-    { type: 'visio', price: 120 },
-    { type: 'telephone', price: 100 }
-  ]);
+  const [consultationTypes, setConsultationTypes] = useState<{ type: ConsultationType; price: number }[]>([]);
 
   const [socialLinks] = useState({
     website: 'https://www.cabinet-dupont.fr',
@@ -138,17 +134,33 @@ export default function PublicProfilePage() {
     }
   };
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    const access_token = sessionStorage.getItem("access_token");
+
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       switch (editingMedia) {
         case 'header':
           setBannerImage(reader.result as string);
           break;
         case 'profile':
+          
+          const formData = new FormData();
+          formData.append("file", file); // selectedFile is a File object from an <input type="file">
+
+          const response = await fetch("http://localhost:8000/user/upload_picture/", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${access_token}` // Do NOT set Content-Type, browser will set it
+            },
+            body: formData
+          });
+
+          const data = await response.json();
+          console.log(data);
           setProfilePhoto(reader.result as string);
           break;
         case 'gallery':
@@ -167,6 +179,36 @@ export default function PublicProfilePage() {
   const handleRemoveMedia = (id: string) => {
     setMedia(prev => prev.filter(item => item.id !== id));
   };
+
+  useEffect(() => {
+    async function fetchLawyer() {
+      const access_token = sessionStorage.getItem("access_token");
+      const response = await fetch("http://localhost:8000/lawyer/me", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${access_token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await response.json();
+
+      const types: { type: ConsultationType; price: number }[] = [];
+      if (data.cabinet_price > 0) {
+        types.push({ type: 'cabinet', price: data.cabinet_price });
+      }
+      if (data.online_price > 0) {
+        types.push({ type: 'visio', price: data.online_price });
+      }
+      if (data.phone_price > 0) {
+        types.push({ type: 'telephone', price: data.phone_price });
+      }
+      setConsultationTypes(types);
+
+      setProfilePhoto(`http://localhost:8000${data.profile_picture}`);
+
+    }
+    fetchLawyer();
+  }, []);
 
   return (
     <AnimatedPage>

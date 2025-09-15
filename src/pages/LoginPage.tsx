@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { Scale, Zap } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import AnimatedPage from '../components/AnimatedPage';
+import { BACKEND_URL } from "../config/constants";
 
 const loginSchema = z.object({
   email: z.string().email('Email invalide'),
@@ -23,10 +24,43 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema)
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    // TODO: Implement actual authentication
-    console.log('Login data:', data);
-    navigate('/dashboard');
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+    const formData = new URLSearchParams();
+    formData.append("grant_type", "password");
+    formData.append("username", data.email);
+    formData.append("password", data.password);
+    const response = await fetch("http://localhost:8000/auth/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: formData.toString()
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || "Login failed");
+    }
+
+    const result = await response.json();
+    console.log("Login successful!");
+    sessionStorage.setItem("access_token", result.access_token);
+
+    const subscriptionStatus = await fetch(`${BACKEND_URL}/gocardless/status`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${result.access_token}`
+      }
+    });
+    const subscription = await subscriptionStatus.json();
+    console.log("Subscription status:", subscription);
+    if (subscription.status == "active") {
+      navigate('/dashboard')
+    }
+    else {
+      navigate('/signup-continued');
+    }
+    
   };
 
   const handleDirectLogin = () => {
