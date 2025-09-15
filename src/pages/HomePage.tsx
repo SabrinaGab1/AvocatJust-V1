@@ -407,7 +407,6 @@ const HomePage = () => {
                 <li><Link to="/consultation" className="hover:text-white transition-colors">{t('consultation')}</Link></li>
                 <li><Link to="/legal-advice" className="hover:text-white transition-colors">{t('legal_advice')}</Link></li>
                 <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
-                <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
               </ul>
             </div>
             
