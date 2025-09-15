@@ -7,6 +7,9 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import AuthModal from './components/AuthModal';
 import DashboardPage from './pages/DashboardPage';
+import ClientLoginPage from './pages/ClientLoginPage';
+import ClientRegisterPage from './pages/ClientRegisterPage';
+import ClientDashboardPage from './pages/ClientDashboardPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
@@ -1190,6 +1193,9 @@ function App() {
         <Route path="/client/login" element={<ClientLoginPage />} />
         <Route path="/client/register" element={<ClientRegisterPage />} />
         <Route path="/client/dashboard" element={<ClientDashboardPage />} />
+            <Route path="/client/login" element={<ClientLoginPage />} />
+            <Route path="/client/register" element={<ClientRegisterPage />} />
+            <Route path="/client/dashboard" element={<ClientDashboardPage />} />
       <Route path="/avocat/:id" element={<LawyerProfilePage />} />
       <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
       <Route path="/avocat/:id/formulaire" element={<BookingFormPage />} />
