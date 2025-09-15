@@ -8,18 +8,8 @@ const HomePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-
-  const specialties = [
-    'Droit des affaires',
-    'Droit de la famille',
-    'Droit pénal',
-    'Droit immobilier',
-    'Droit du travail',
-    'Droit fiscal'
-  ];
 
   const locations = [
     'Paris',
@@ -33,7 +23,6 @@ const HomePage = () => {
   const handleSearch = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.append('q', searchQuery);
-    if (selectedSpecialty) params.append('specialty', selectedSpecialty);
     if (selectedLocation) params.append('location', selectedLocation);
     
     navigate(`/search?${params.toString()}`);
@@ -84,38 +73,24 @@ const HomePage = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            {t('hero_title')}
+            Trouvez votre <span className="text-orange-500">avocat de confiance</span>
           </h1>
           <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            {t('hero_subtitle')}
+            La plateforme qui vous met en relation avec les avocats justes
           </p>
 
           {/* Search Bar */}
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div className="relative">
+            <div className="mb-6">
+              <div className="relative max-w-2xl mx-auto">
                 <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder={t('search_placeholder')}
+                  placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
-              </div>
-              
-              <div className="relative">
-                <select
-                  value={selectedLocation}
-                  onChange={(e) => setSelectedLocation(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
-                >
-                  <option value="">{t('select_location')}</option>
-                  {locations.map((location) => (
-                    <option key={location} value={location}>{location}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
             </div>
             
@@ -123,7 +98,7 @@ const HomePage = () => {
               onClick={handleSearch}
               className="w-full bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
             >
-              {t('search_lawyers')}
+              Rechercher des avocats
             </button>
 
             {/* Quick consultation type buttons */}
@@ -173,10 +148,10 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('why_choose_us')}
+              Pourquoi nous choisir ?
             </h2>
             <p className="text-xl text-gray-600">
-              {t('features_subtitle')}
+              Une plateforme moderne pour une justice accessible
             </p>
           </div>
 
@@ -186,10 +161,10 @@ const HomePage = () => {
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('verified_lawyers')}
+                Avocats vérifiés
               </h3>
               <p className="text-gray-600">
-                {t('verified_lawyers_desc')}
+                Tous nos avocats sont vérifiés et certifiés
               </p>
             </div>
 
@@ -198,10 +173,10 @@ const HomePage = () => {
                 <Award className="h-8 w-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('expert_advice')}
+                Conseils experts
               </h3>
               <p className="text-gray-600">
-                {t('expert_advice_desc')}
+                Des conseils juridiques de qualité professionnelle
               </p>
             </div>
 
@@ -210,10 +185,10 @@ const HomePage = () => {
                 <Clock className="h-8 w-8 text-purple-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('quick_response')}
+                Réponse rapide
               </h3>
               <p className="text-gray-600">
-                {t('quick_response_desc')}
+                Obtenez une réponse dans les 24h
               </p>
             </div>
           </div>
@@ -225,10 +200,10 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('how_it_works')}
+              Comment ça marche ?
             </h2>
             <p className="text-xl text-gray-600">
-              {t('how_it_works_subtitle')}
+              En quelques étapes simples
             </p>
           </div>
 
@@ -238,10 +213,10 @@ const HomePage = () => {
                 1
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t('step_1')}
+                Décrivez votre situation
               </h3>
               <p className="text-gray-600">
-                {t('step_1_desc')}
+                Expliquez votre problématique juridique
               </p>
             </div>
 
@@ -250,10 +225,10 @@ const HomePage = () => {
                 2
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t('step_2')}
+                Trouvez votre avocat
               </h3>
               <p className="text-gray-600">
-                {t('step_2_desc')}
+                Parcourez les profils d'avocats qualifiés
               </p>
             </div>
 
@@ -262,10 +237,10 @@ const HomePage = () => {
                 3
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t('step_3')}
+                Prenez rendez-vous
               </h3>
               <p className="text-gray-600">
-                {t('step_3_desc')}
+                Réservez une consultation en ligne ou au cabinet
               </p>
             </div>
 
@@ -274,10 +249,10 @@ const HomePage = () => {
                 4
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t('step_4')}
+                Obtenez des conseils
               </h3>
               <p className="text-gray-600">
-                {t('step_4_desc')}
+                Recevez des conseils juridiques personnalisés
               </p>
             </div>
           </div>
@@ -289,10 +264,10 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              {t('featured_lawyers')}
+              Avocats recommandés
             </h2>
             <p className="text-xl text-gray-600">
-              {t('featured_lawyers_subtitle')}
+              Découvrez nos avocats les mieux notés
             </p>
           </div>
 
@@ -336,7 +311,7 @@ const HomePage = () => {
                   </div>
                   
                   <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                    {t('view_profile')}
+                    Voir le profil
                   </button>
                 </div>
               </div>
@@ -349,23 +324,23 @@ const HomePage = () => {
       <section className="py-20 bg-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
-            {t('cta_title')}
+            Prêt à trouver votre avocat ?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            {t('cta_subtitle')}
+            Rejoignez des milliers de clients satisfaits
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/signup"
               className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
             >
-              {t('get_started')}
+              Commencer
             </Link>
             <Link
               to="/lawyers"
               className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white hover:text-blue-600 transition-colors font-semibold"
             >
-              {t('browse_lawyers')}
+              Parcourir les avocats
             </Link>
           </div>
         </div>
@@ -381,40 +356,40 @@ const HomePage = () => {
                 <span className="ml-2 text-xl font-bold">AvocatConnect</span>
               </div>
               <p className="text-gray-400">
-                {t('footer_description')}
+                La plateforme de référence pour trouver votre avocat
               </p>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">{t('services')}</h3>
+              <h3 className="text-lg font-semibold mb-4">Services</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/lawyers" className="hover:text-white transition-colors">{t('find_lawyer')}</Link></li>
-                <li><Link to="/consultation" className="hover:text-white transition-colors">{t('consultation')}</Link></li>
-                <li><Link to="/legal-advice" className="hover:text-white transition-colors">{t('legal_advice')}</Link></li>
+                <li><Link to="/lawyers" className="hover:text-white transition-colors">Trouver un avocat</Link></li>
+                <li><Link to="/consultation" className="hover:text-white transition-colors">Consultation</Link></li>
+                <li><Link to="/legal-advice" className="hover:text-white transition-colors">Conseils juridiques</Link></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">{t('company')}</h3>
+              <h3 className="text-lg font-semibold mb-4">Entreprise</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/about" className="hover:text-white transition-colors">{t('about')}</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition-colors">{t('contact')}</Link></li>
-                <li><Link to="/careers" className="hover:text-white transition-colors">{t('careers')}</Link></li>
+                <li><Link to="/about" className="hover:text-white transition-colors">À propos</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link to="/careers" className="hover:text-white transition-colors">Carrières</Link></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">{t('legal')}</h3>
+              <h3 className="text-lg font-semibold mb-4">Légal</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><Link to="/privacy" className="hover:text-white transition-colors">{t('privacy_policy')}</Link></li>
-                <li><Link to="/terms" className="hover:text-white transition-colors">{t('terms_of_service')}</Link></li>
-                <li><Link to="/cookies" className="hover:text-white transition-colors">{t('cookie_policy')}</Link></li>
+                <li><Link to="/privacy" className="hover:text-white transition-colors">Politique de confidentialité</Link></li>
+                <li><Link to="/terms" className="hover:text-white transition-colors">Conditions d'utilisation</Link></li>
+                <li><Link to="/cookies" className="hover:text-white transition-colors">Politique des cookies</Link></li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 AvocatConnect. {t('all_rights_reserved')}</p>
+            <p>&copy; 2024 AvocatConnect. Tous droits réservés.</p>
           </div>
         </div>
       </footer>
