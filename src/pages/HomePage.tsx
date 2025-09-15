@@ -61,6 +61,21 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
+              <Link 
+                to="/login"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t('login')}
+              </Link>
+              <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                OK
+              </button>
+              <Link 
+                to="/signup"
+                className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+              >
+                Vous êtes avocat ?
+              </Link>
             </div>
           </div>
         </div>
