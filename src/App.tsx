@@ -880,19 +880,19 @@ const HomePage = () => {
                 <Link
                   to="/login?type=avocat"
                   onClick={() => setIsLoginChoiceModalOpen(false)}
-                  className="w-full flex items-center justify-center px-6 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-semibold"
-                >
+                  to="/signup"
+                  className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
                   <Scale className="h-5 w-5 mr-3" />
-                  Je suis avocat
+                  Vous êtes avocat ?
                 </Link>
                 
                 <Link
                   to="/login?type=utilisateur"
                   onClick={() => setIsLoginChoiceModalOpen(false)}
-                  className="w-full flex items-center justify-center px-6 py-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-semibold"
-                >
+                  to="/login"
+                  className="text-gray-700 hover:text-orange-500 transition-colors"
                   <Users className="h-5 w-5 mr-3" />
-                  Je suis utilisateur
+                  Connexion
                 </Link>
               </div>
 
