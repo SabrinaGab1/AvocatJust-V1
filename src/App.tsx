@@ -20,9 +20,6 @@ import ClientRegisterPage from './pages/ClientRegisterPage';
 import ClientDashboardPage from './pages/ClientDashboardPage';
 
 const HomePage = () => {
-  const { t } = useLanguage();
-  const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
