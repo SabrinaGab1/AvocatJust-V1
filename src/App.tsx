@@ -373,20 +373,20 @@ const HomePage = () => {
                   // Handle filter functionality
                   console.log('Filter clicked');
                 }}
-                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm w-32"
+                className="flex items-center px-6 py-3 bg-white border border-orange-200 rounded-full hover:bg-orange-50 transition-all duration-200 shadow-sm"
               >
-                <Filter className="h-5 w-5 text-blue-500 mr-2" />
-                <span className="text-gray-700 font-medium">Filtre</span>
+                <Filter className="h-4 w-4 text-orange-500 mr-2" />
+                <span className="text-orange-500 font-medium">Filtres</span>
               </button>
               
               <button
                 onClick={() => {
                   setIsUrgenceModalOpen(true);
                 }}
-                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-red-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm w-32"
+                className="flex items-center px-6 py-3 bg-white border border-red-200 rounded-full hover:bg-red-50 transition-all duration-200 shadow-sm"
               >
-                <Phone className="h-5 w-5 text-red-500 mr-2" />
-                <span className="text-gray-700 font-medium">Urgence</span>
+                <Phone className="h-4 w-4 text-red-500 mr-2" />
+                <span className="text-red-500 font-medium">Urgence</span>
               </button>
             </div>
           </div>
