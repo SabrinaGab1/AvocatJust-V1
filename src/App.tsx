@@ -30,7 +30,7 @@ const HomePage = () => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [selectedConsultationType, setSelectedConsultationType] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [filterLanguage, setFilterLanguage] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [availableNow, setAvailableNow] = useState(false);
 
@@ -357,8 +357,8 @@ const HomePage = () => {
                   <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 max-h-80 overflow-y-auto">
                     {filteredSuggestions.map((suggestion, index) => (
                       <button
-                        key={index}
-                        onClick={() => handleSuggestionClick(suggestion)}
+                        value={filterLanguage}
+                        onChange={(e) => setFilterLanguage(e.target.value)}
                         className="w-full text-left px-6 py-3 hover:bg-orange-50 transition-colors border-b border-gray-100 last:border-b-0 first:rounded-t-2xl last:rounded-b-2xl group"
                       >
                         <div className="flex items-center">
