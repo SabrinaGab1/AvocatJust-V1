@@ -873,15 +873,13 @@ const HomePage = () => {
                 Connexion
               </Dialog.Title>
               <p className="text-gray-600 mb-8">
-                Choisissez votre type de compte
-              </p>
                 <Link
                   to="/login?type=avocat"
                 <Link 
-                  to="/signup"
+                  to="/login"
                   className="text-gray-700 hover:text-blue-600 transition-colors"
                 >
-                  Vous êtes avocat ?
+                  Connexion
                 </Link>
                 <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
                   OK
