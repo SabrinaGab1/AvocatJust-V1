@@ -1021,6 +1021,20 @@ const HomePage = () => {
 
             <div className="p-8">
               <div className="space-y-8">
+                {/* Barre de recherche */}
+                <div className="mb-6">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      value={filters.searchQuery}
+                      onChange={(e) => setFilters({ ...filters, searchQuery: e.target.value })}
+                      placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
+                      className="w-full pl-12 pr-4 py-3 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
                 {/* Type de consultation */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Type de consultation</h3>
