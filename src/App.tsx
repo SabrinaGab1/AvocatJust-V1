@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2, Check, X } from 'lucide-react';
+import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2, Check, X, Filter } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
@@ -368,6 +368,17 @@ const HomePage = () => {
 
             {/* Quick consultation type buttons */}
             <div className="flex justify-center space-x-4 mt-2">
+              <button
+                onClick={() => {
+                  // Handle filter functionality
+                  console.log('Filter clicked');
+                }}
+                className="flex items-center px-6 py-3 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:scale-105 transition-all duration-200 shadow-sm"
+              >
+                <Filter className="h-5 w-5 text-blue-500 mr-2" />
+                <span className="text-gray-700 font-medium">Filtre</span>
+              </button>
+              
               <button
                 onClick={() => {
                   setIsUrgenceModalOpen(true);
