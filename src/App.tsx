@@ -1095,26 +1095,6 @@ const HomePage = () => {
                 </div>
               </div>
 
-              {/* Spécialité */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Spécialité
-                </label>
-                <div className="relative">
-                  <select
-                    value={filters.specialite}
-                    onChange={(e) => setFilters({...filters, specialite: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
-                  >
-                    <option value="">Toutes les spécialités</option>
-                    {specialties.map((specialty) => (
-                      <option key={specialty} value={specialty}>{specialty}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-                </div>
-              </div>
-
               {/* Disponible maintenant */}
               <div className="flex items-center">
                 <input
