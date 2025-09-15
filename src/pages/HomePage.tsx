@@ -62,10 +62,10 @@ const HomePage = () => {
 
             <div className="flex items-center space-x-4">
               <Link 
-                to="/login"
+                to="/client-login"
                 className="text-gray-700 hover:text-blue-600 transition-colors"
               >
-                {t('login')}
+                Connexion
               </Link>
               <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
                 OK

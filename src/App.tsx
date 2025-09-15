@@ -4,6 +4,8 @@ import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Awa
 import { Dialog } from '@headlessui/react';
 import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
+import ClientLoginPage from './pages/ClientLoginPage';
+import ClientSignupPage from './pages/ClientSignupPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import SearchResultsPage from './pages/SearchResultsPage';
@@ -1166,6 +1168,8 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/client-login" element={<ClientLoginPage />} />
+      <Route path="/client-signup" element={<ClientSignupPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/dashboard/*" element={<DashboardPage />} />
       <Route path="/search" element={<SearchResultsPage />} />
