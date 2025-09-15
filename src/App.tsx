@@ -876,18 +876,18 @@ const HomePage = () => {
                 <Link
                   to="/login?type=avocat"
                 <Link 
-                  to="/login"
+                  to="/signup"
                   className="text-gray-700 hover:text-blue-600 transition-colors"
                 >
-                  Connexion
+                  Vous êtes avocat ?
                 </Link>
                 <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
                   OK
                 </button>
-                  onClick={() => setIsLoginChoiceModalOpen(false)}
+                <Link 
                   to="/login"
+                  className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
                 >
-                  <Users className="h-5 w-5 mr-3" />
                   Connexion
                 </Link>
               </div>
