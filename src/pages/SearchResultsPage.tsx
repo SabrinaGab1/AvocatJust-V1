@@ -4,7 +4,6 @@ import { Search, Filter, MapPin, Star, Phone, Video, Building2, ChevronDown, X, 
 import { Dialog } from '@headlessui/react';
 import AnimatedPage from '../components/AnimatedPage';
 import { Link } from 'react-router-dom';
-import AuthModal from '../components/AuthModal';
 
 type Lawyer = {
   id: string;
@@ -102,7 +101,6 @@ export default function SearchResultsPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [filters, setFilters] = useState({
     ville: '',
     specialite: '',
@@ -190,12 +188,12 @@ export default function SearchResultsPage() {
               </nav>
 
               <div className="flex items-center space-x-4">
-                <button
-                  onClick={() => setIsAuthModalOpen(true)}
+                <Link 
+                  to="/login"
                   className="text-gray-700 hover:text-orange-500 transition-colors"
                 >
                   Connexion
-                </button>
+                </Link>
                 
                 <Link
                   to="/signup"
@@ -604,12 +602,6 @@ export default function SearchResultsPage() {
             </Dialog.Panel>
           </div>
         </Dialog>
-
-        {/* Auth Modal */}
-        <AuthModal 
-          isOpen={isAuthModalOpen} 
-          onClose={() => setIsAuthModalOpen(false)} 
-        />
       </div>
     </AnimatedPage>
   );
