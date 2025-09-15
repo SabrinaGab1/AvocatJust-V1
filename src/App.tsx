@@ -305,21 +305,21 @@ const HomePage = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => setIsLoginChoiceModalOpen(true)}
-                className="text-gray-700 hover:text-orange-500 transition-colors"
-              >
-                Connexion
-              </button>
-              
-              <button
-                onClick={() => setIsSignupModalOpen(true)}
                 className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
               >
                 Vous êtes avocat ?
               </button>
             </div>
           </div>
+              <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                OK
+              </button>
+              <Link 
+                to="/login"
+                className="text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t('login')}
+              </Link>
         </div>
       </header>
 
@@ -880,19 +880,19 @@ const HomePage = () => {
                 <Link
                   to="/login?type=avocat"
                   onClick={() => setIsLoginChoiceModalOpen(false)}
-                  to="/signup"
-                  className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors"
+                  className="w-full flex items-center justify-center px-6 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-semibold"
+                >
                   <Scale className="h-5 w-5 mr-3" />
-                  Vous êtes avocat ?
+                  Je suis avocat
                 </Link>
                 
                 <Link
                   to="/login?type=utilisateur"
                   onClick={() => setIsLoginChoiceModalOpen(false)}
-                  to="/login"
-                  className="text-gray-700 hover:text-orange-500 transition-colors"
+                  className="w-full flex items-center justify-center px-6 py-4 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-semibold"
+                >
                   <Users className="h-5 w-5 mr-3" />
-                  Connexion
+                  Je suis utilisateur
                 </Link>
               </div>
 
