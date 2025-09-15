@@ -407,6 +407,7 @@ const HomePage = () => {
                 <li><Link to="/consultation" className="hover:text-white transition-colors">{t('consultation')}</Link></li>
                 <li><Link to="/legal-advice" className="hover:text-white transition-colors">{t('legal_advice')}</Link></li>
                 <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
+                <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
               </ul>
             </div>
             
@@ -425,7 +426,6 @@ const HomePage = () => {
                 <li><Link to="/privacy" className="hover:text-white transition-colors">{t('privacy_policy')}</Link></li>
                 <li><Link to="/terms" className="hover:text-white transition-colors">{t('terms_of_service')}</Link></li>
                 <li><Link to="/cookies" className="hover:text-white transition-colors">{t('cookie_policy')}</Link></li>
-                <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
               </ul>
             </div>
           </div>
