@@ -1,32 +1,29 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import SecondHomePage from './pages/SecondHomePage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-import DashboardPage from './pages/DashboardPage';
+import HomePage from './pages/HomePage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
 import BookingFormPage from './pages/BookingFormPage';
-import ClientLoginPage from './pages/ClientLoginPage';
-import ClientSignupPage from './pages/ClientSignupPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 function App() {
   return (
-    <div className="App">
+    <LanguageProvider>
       <Routes>
-        <Route path="/" element={<SecondHomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/client-login" element={<ClientLoginPage />} />
-        <Route path="/client-signup" element={<ClientSignupPage />} />
-        <Route path="/dashboard/*" element={<DashboardPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/search" element={<SearchResultsPage />} />
         <Route path="/avocat/:id" element={<LawyerProfilePage />} />
         <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
         <Route path="/avocat/:id/formulaire" element={<BookingFormPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/dashboard/*" element={<DashboardPage />} />
       </Routes>
-    </div>
+    </LanguageProvider>
   );
 }
 
