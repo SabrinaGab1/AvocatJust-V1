@@ -92,7 +92,7 @@ const HomePage = () => {
 
           {/* Search Bar */}
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                 <input
@@ -105,19 +105,18 @@ const HomePage = () => {
               </div>
               
               <div className="relative">
-                <select
+                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Rechercher par spécialité (ex: droit des affaires, divorce...)"
                   value={selectedSpecialty}
                   onChange={(e) => setSelectedSpecialty(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
-                >
-                  <option value="">{t('select_specialty')}</option>
-                  {specialties.map((specialty) => (
-                    <option key={specialty} value={specialty}>{specialty}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
               </div>
-              
+            </div>
+            
+            <div className="grid grid-cols-1 gap-4 mb-6">
               <div className="relative">
                 <select
                   value={selectedLocation}
