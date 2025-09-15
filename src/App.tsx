@@ -1084,25 +1084,19 @@ const HomePage = () => {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-lg font-semibold text-gray-900 mb-3">Langue</label>
+                {/* Search Bar */}
+                <div className="mb-6">
                   <div className="relative">
-                    <select
-                      value={selectedLanguage}
-                      onChange={(e) => setSelectedLanguage(e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white text-gray-700"
-                    >
-                      <option value="">Toutes les langues</option>
-                      <option value="Français">Français</option>
-                      <option value="Anglais">Anglais</option>
-                      <option value="Espagnol">Espagnol</option>
-                      <option value="Allemand">Allemand</option>
-                      <option value="Italien">Italien</option>
-                    </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
+                      className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    />
                   </div>
                 </div>
-              </div>
 
               {/* Spécialité */}
               <div className="mb-8">
