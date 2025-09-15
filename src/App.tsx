@@ -6,6 +6,7 @@ import { useLanguage } from './contexts/LanguageContext';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
+import UserDashboardPage from './pages/UserDashboardPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
@@ -1182,6 +1183,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/dashboard/*" element={<DashboardPage />} />
+      <Route path="/user-dashboard/*" element={<UserDashboardPage />} />
       <Route path="/search" element={<SearchResultsPage />} />
       <Route path="/avocat/:id" element={<LawyerProfilePage />} />
       <Route path="/avocat/:id/reservation" element={<LawyerBookingPage />} />
