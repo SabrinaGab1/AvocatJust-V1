@@ -401,11 +401,13 @@ const HomePage = () => {
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">{t('services')}</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link to="/lawyers" className="hover:text-white transition-colors">{t('find_lawyer')}</Link></li>
-                <li><Link to="/consultation" className="hover:text-white transition-colors">{t('consultation')}</Link></li>
-                <li><Link to="/legal-advice" className="hover:text-white transition-colors">{t('legal_advice')}</Link></li>
+              <h3 className="text-lg font-semibold mb-4">Services</h3>
+              <ul className="space-y-2 text-gray-400 text-sm">
+                <li><Link to="/search" className="hover:text-white transition-colors">Trouver un avocat</Link></li>
+                <li><Link to="/urgence" className="hover:text-white transition-colors">Urgence 24/7</Link></li>
+                <li><Link to="/consultation" className="hover:text-white transition-colors">Consultation en ligne</Link></li>
+                <li><Link to="/devis" className="hover:text-white transition-colors">Devis personnalisé</Link></li>
+                <li><Link to="/login" className="hover:text-white transition-colors">Connexion</Link></li>
                 <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
               </ul>
             </div>
