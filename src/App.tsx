@@ -875,8 +875,6 @@ const HomePage = () => {
               <p className="text-gray-600 mb-8">
                 Choisissez votre type de compte
               </p>
-
-              <div className="space-y-4">
                 <Link
                   to="/login?type=avocat"
                 <Link 
