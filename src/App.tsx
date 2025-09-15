@@ -3,6 +3,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { Search, Scale, Globe, ChevronDown, Star, MapPin, ArrowRight, Users, Award, Clock, CheckCircle, Phone, Video, Building2, Check, X, Filter } from 'lucide-react';
 import { Dialog } from '@headlessui/react';
 import { useLanguage } from './contexts/LanguageContext';
+import { Building2 } from 'lucide-react';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
@@ -27,6 +28,14 @@ const HomePage = () => {
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [isUrgenceModalOpen, setIsUrgenceModalOpen] = useState(false);
   const [urgenceMessage, setUrgenceMessage] = useState('');
+  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    consultationType: '',
+    ville: '',
+    langue: '',
+    specialite: '',
+    disponibleMaintenant: false
+  });
 
   const languages = [
     { code: 'FR', name: 'Français', flag: '🇫🇷' },
@@ -369,10 +378,7 @@ const HomePage = () => {
             {/* Quick consultation type buttons */}
             <div className="flex justify-center space-x-4 mt-2">
               <button
-                onClick={() => {
-                  // Handle filter functionality
-                  console.log('Filter clicked');
-                }}
+                onClick={() => setIsFiltersModalOpen(true)}
                 className="flex items-center px-6 py-3 bg-white border border-orange-200 rounded-full hover:bg-orange-50 transition-all duration-200 shadow-sm"
               >
                 <Filter className="h-4 w-4 text-orange-500 mr-2" />
@@ -976,6 +982,172 @@ const HomePage = () => {
                 className="text-gray-500 hover:text-gray-700 font-medium"
               >
                 Fermer
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/* Filters Modal */}
+      <Dialog
+        open={isFiltersModalOpen}
+        onClose={() => setIsFiltersModalOpen(false)}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white shadow-xl transition-all">
+            {/* Header */}
+            <div className="bg-orange-500 px-6 py-4 text-white">
+              <div className="flex items-center justify-between">
+                <Dialog.Title className="text-xl font-semibold">
+                  Trouver votre avocat
+                </Dialog.Title>
+                <button
+                  onClick={() => setIsFiltersModalOpen(false)}
+                  className="text-white hover:text-gray-200"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-6">
+              {/* Type de consultation */}
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Type de consultation</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  <button
+                    onClick={() => setFilters({...filters, consultationType: 'cabinet'})}
+                    className={`p-4 border-2 rounded-lg text-center transition-colors ${
+                      filters.consultationType === 'cabinet'
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <Building2 className="h-8 w-8 mx-auto mb-2 text-gray-600" />
+                    <div className="font-medium text-gray-900">Au cabinet</div>
+                    <div className="text-sm text-gray-500">Rendez-vous en personne</div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setFilters({...filters, consultationType: 'visio'})}
+                    className={`p-4 border-2 rounded-lg text-center transition-colors ${
+                      filters.consultationType === 'visio'
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <Video className="h-8 w-8 mx-auto mb-2 text-gray-600" />
+                    <div className="font-medium text-gray-900">Visioconférence</div>
+                    <div className="text-sm text-gray-500">Consultation en ligne</div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setFilters({...filters, consultationType: 'telephone'})}
+                    className={`p-4 border-2 rounded-lg text-center transition-colors ${
+                      filters.consultationType === 'telephone'
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <Phone className="h-8 w-8 mx-auto mb-2 text-gray-600" />
+                    <div className="font-medium text-gray-900">Téléphone</div>
+                    <div className="text-sm text-gray-500">Appel téléphonique</div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Ville et Langue */}
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Ville
+                  </label>
+                  <select
+                    value={filters.ville}
+                    onChange={(e) => setFilters({...filters, ville: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  >
+                    <option value="">Toutes les villes</option>
+                    {locations.map((location) => (
+                      <option key={location} value={location}>{location}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Langue
+                  </label>
+                  <select
+                    value={filters.langue}
+                    onChange={(e) => setFilters({...filters, langue: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  >
+                    <option value="">Toutes les langues</option>
+                    {lawyerLanguages.map((lang) => (
+                      <option key={lang} value={lang}>{lang}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Spécialité */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Spécialité
+                </label>
+                <div className="relative">
+                  <select
+                    value={filters.specialite}
+                    onChange={(e) => setFilters({...filters, specialite: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none bg-white"
+                  >
+                    <option value="">Toutes les spécialités</option>
+                    {specialties.map((specialty) => (
+                      <option key={specialty} value={specialty}>{specialty}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Disponible maintenant */}
+              <div className="flex items-center">
+                <input
+                  id="disponible-maintenant"
+                  type="checkbox"
+                  checked={filters.disponibleMaintenant}
+                  onChange={(e) => setFilters({...filters, disponibleMaintenant: e.target.checked})}
+                  className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-300 rounded"
+                />
+                <label htmlFor="disponible-maintenant" className="ml-2 text-sm text-gray-700">
+                  Disponible maintenant
+                </label>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
+              <button
+                onClick={() => setIsFiltersModalOpen(false)}
+                className="px-6 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={() => {
+                  // Apply filters and close modal
+                  handleSearch();
+                  setIsFiltersModalOpen(false);
+                }}
+                className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+              >
+                Rechercher
               </button>
             </div>
           </Dialog.Panel>
