@@ -15,9 +15,6 @@ import LawyerProfilePage from './pages/LawyerProfilePage';
 import LawyerBookingPage from './pages/LawyerBookingPage';
 import BookingFormPage from './pages/BookingFormPage';
 import SignupModal from './components/signup/SignupModal';
-import ClientLoginPage from './pages/ClientLoginPage';
-import ClientRegisterPage from './pages/ClientRegisterPage';
-import ClientDashboardPage from './pages/ClientDashboardPage';
 
 const HomePage = () => {
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
