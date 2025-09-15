@@ -31,6 +31,12 @@ const HomePage = () => {
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [isUrgenceModalOpen, setIsUrgenceModalOpen] = useState(false);
   const [urgenceMessage, setUrgenceMessage] = useState('');
+  const [filters, setFilters] = useState({
+    consultationType: '',
+    ville: '',
+    langue: '',
+    searchQuery: ''
+  });
 
   const languages = [
     { code: 'FR', name: 'Français', flag: '🇫🇷' },
@@ -1022,7 +1028,7 @@ const HomePage = () => {
             <div className="p-8">
               <div className="space-y-8">
                 {/* Barre de recherche */}
-                <div className="mb-6">
+                <div>
                   <div className="relative">
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <input
@@ -1030,7 +1036,7 @@ const HomePage = () => {
                       value={filters.searchQuery}
                       onChange={(e) => setFilters({ ...filters, searchQuery: e.target.value })}
                       placeholder="Décrivez votre problématique (ex: licenciement, divorce, création d'entreprise, etc)"
-                      className="w-full pl-12 pr-4 py-3 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full pl-12 pr-4 py-4 text-base border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent placeholder-gray-500"
                     />
                   </div>
                 </div>
