@@ -36,12 +36,6 @@ const HomePage = () => {
     if (selectedSpecialty) params.append('specialty', selectedSpecialty);
     if (selectedLocation) params.append('location', selectedLocation);
 
-        {/* Auth Modal */}
-        <AuthModal 
-          isOpen={isAuthModalOpen} 
-          onClose={() => setIsAuthModalOpen(false)} 
-        />
-    
     navigate(`/search?${params.toString()}`);
   };
 
