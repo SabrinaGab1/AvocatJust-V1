@@ -30,7 +30,6 @@ const HomePage = () => {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   const [selectedConsultationType, setSelectedConsultationType] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [availableNow, setAvailableNow] = useState(false);
 
