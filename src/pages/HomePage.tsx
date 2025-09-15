@@ -349,8 +349,8 @@ const HomePage = () => {
                     </div>
                     <span className="text-lg font-semibold text-gray-900">150€/h</span>
                   </div>
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                  
+                  <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
                     {t('view_profile')}
                   </button>
                 </div>
@@ -406,6 +406,7 @@ const HomePage = () => {
                 <li><Link to="/lawyers" className="hover:text-white transition-colors">{t('find_lawyer')}</Link></li>
                 <li><Link to="/consultation" className="hover:text-white transition-colors">{t('consultation')}</Link></li>
                 <li><Link to="/legal-advice" className="hover:text-white transition-colors">{t('legal_advice')}</Link></li>
+                <li><Link to="/user-dashboard" className="hover:text-white transition-colors">Espace utilisateur</Link></li>
               </ul>
             </div>
             
