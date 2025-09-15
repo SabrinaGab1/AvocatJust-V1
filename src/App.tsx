@@ -21,6 +21,11 @@ const HomePage = () => {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [selectedConsultationType, setSelectedConsultationType] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [availableNow, setAvailableNow] = useState(false);
   const [isLoginChoiceModalOpen, setIsLoginChoiceModalOpen] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('FR');
@@ -47,6 +52,18 @@ const HomePage = () => {
     'Russe'
   ];
 
+  const cities = [
+    'Paris',
+    'Lyon', 
+    'Marseille',
+    'Toulouse',
+    'Nice',
+    'Nantes',
+    'Strasbourg',
+    'Montpellier',
+    'Bordeaux',
+    'Lille'
+  ];
   const specialties = [
     'Droit des affaires',
     'Droit de la famille',
@@ -369,10 +386,7 @@ const HomePage = () => {
             {/* Quick consultation type buttons */}
             <div className="flex justify-center space-x-4 mt-2">
               <button
-                onClick={() => {
-                  // Handle filter functionality
-                  console.log('Filter clicked');
-                }}
+                onClick={() => setIsFilterModalOpen(true)}
                 className="flex items-center px-6 py-3 bg-white border border-orange-200 rounded-full hover:bg-orange-50 transition-all duration-200 shadow-sm"
               >
                 <Filter className="h-4 w-4 text-orange-500 mr-2" />
@@ -977,6 +991,163 @@ const HomePage = () => {
               >
                 Fermer
               </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/* Filter Modal */}
+      <Dialog
+        open={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        className="relative z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white shadow-xl transition-all">
+            {/* Header */}
+            <div className="bg-orange-500 px-8 py-6 text-white">
+              <div className="flex items-center justify-between">
+                <Dialog.Title className="text-2xl font-bold">
+                  Trouver votre avocat
+                </Dialog.Title>
+                <button
+                  onClick={() => setIsFilterModalOpen(false)}
+                  className="text-white hover:text-orange-200 transition-colors"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-8">
+              <div className="space-y-8">
+                {/* Type de consultation */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Type de consultation</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button
+                      onClick={() => setSelectedConsultationType(selectedConsultationType === 'cabinet' ? '' : 'cabinet')}
+                      className={`p-6 rounded-xl border-2 transition-all ${
+                        selectedConsultationType === 'cabinet'
+                          ? 'border-orange-500 bg-orange-50'
+                          : 'border-gray-200 hover:border-orange-300'
+                      }`}
+                    >
+                      <Building2 className="h-8 w-8 text-gray-600 mx-auto mb-3" />
+                      <div className="font-semibold text-gray-900">Au cabinet</div>
+                      <div className="text-sm text-gray-500 mt-1">Rendez-vous en personne</div>
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedConsultationType(selectedConsultationType === 'visio' ? '' : 'visio')}
+                      className={`p-6 rounded-xl border-2 transition-all ${
+                        selectedConsultationType === 'visio'
+                          ? 'border-orange-500 bg-orange-50'
+                          : 'border-gray-200 hover:border-orange-300'
+                      }`}
+                    >
+                      <Video className="h-8 w-8 text-gray-600 mx-auto mb-3" />
+                      <div className="font-semibold text-gray-900">Visioconférence</div>
+                      <div className="text-sm text-gray-500 mt-1">Consultation en ligne</div>
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedConsultationType(selectedConsultationType === 'telephone' ? '' : 'telephone')}
+                      className={`p-6 rounded-xl border-2 transition-all ${
+                        selectedConsultationType === 'telephone'
+                          ? 'border-orange-500 bg-orange-50'
+                          : 'border-gray-200 hover:border-orange-300'
+                      }`}
+                    >
+                      <Phone className="h-8 w-8 text-gray-600 mx-auto mb-3" />
+                      <div className="font-semibold text-gray-900">Téléphone</div>
+                      <div className="text-sm text-gray-500 mt-1">Appel téléphonique</div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Ville et Langue */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-lg font-semibold text-gray-900 mb-3">
+                      Ville
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={selectedCity}
+                        onChange={(e) => setSelectedCity(e.target.value)}
+                        className="w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none"
+                      >
+                        <option value="">Toutes les villes</option>
+                        {cities.map((city) => (
+                          <option key={city} value={city}>{city}</option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-lg font-semibold text-gray-900 mb-3">
+                      Langue
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={selectedLanguage}
+                        onChange={(e) => setSelectedLanguage(e.target.value)}
+                        className="w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent appearance-none"
+                      >
+                        <option value="">Toutes les langues</option>
+                        {lawyerLanguages.map((language) => (
+                          <option key={language} value={language}>{language}</option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Disponible maintenant */}
+                <div>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={availableNow}
+                      onChange={(e) => setAvailableNow(e.target.checked)}
+                      className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                    />
+                    <span className="ml-3 text-gray-900">Disponible maintenant</span>
+                  </label>
+                </div>
+
+                {/* Buttons */}
+                <div className="flex justify-end space-x-4 pt-6">
+                  <button
+                    onClick={() => setIsFilterModalOpen(false)}
+                    className="px-8 py-3 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors font-medium"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    onClick={() => {
+                      // Apply filters and close modal
+                      setIsFilterModalOpen(false);
+                      // Navigate to search results with filters
+                      const params = new URLSearchParams();
+                      if (searchQuery) params.append('q', searchQuery);
+                      if (selectedConsultationType) params.append('type', selectedConsultationType);
+                      if (selectedCity) params.append('city', selectedCity);
+                      if (selectedLanguage) params.append('language', selectedLanguage);
+                      if (availableNow) params.append('available', 'now');
+                      navigate(`/search?${params.toString()}`);
+                    }}
+                    className="px-8 py-3 bg-orange-500 text-white hover:bg-orange-600 rounded-lg transition-colors font-medium"
+                  >
+                    Rechercher
+                  </button>
+                </div>
+              </div>
             </div>
           </Dialog.Panel>
         </div>
