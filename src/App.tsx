@@ -1012,21 +1012,6 @@ const HomePage = () => {
         className="relative z-50"
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white shadow-xl transition-all">
-            {/* Header */}
-            <div className="bg-orange-500 px-8 py-6 text-white">
-              <div className="flex items-center justify-between">
-                <Dialog.Title className="text-2xl font-bold">
-                  Trouver votre avocat
-                </Dialog.Title>
-                <button
-                  onClick={() => setIsFilterModalOpen(false)}
-                  className="text-white hover:text-orange-200 transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
             </div>
 
             <div className="p-8">
