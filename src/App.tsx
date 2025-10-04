@@ -454,7 +454,7 @@ const HomePage = () => {
       </section>
 
       {/* Text Section after Carousel */}
-      <section className="py-20 bg-white">
+      <section className="pt-8 pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
             TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
