@@ -394,31 +394,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Text Section before Carousel */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
-            TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
-          </p>
-          <p className="text-xl text-gray-900 mb-2">
-            Sur <span className="font-bold">AVOCAJUST</span>, ce ne sont pas juste des avocats.
-          </p>
-          <p className="text-xl text-gray-900 mb-8">
-            Ce sont des <span className="text-orange-500 font-bold">avocats justes</span> pour vos droits !
-          </p>
-          
-          <button
-            onClick={() => navigate('/search')}
-            className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
-           >
-             Trouver un avocat
-             <ArrowRight className="h-5 w-5 ml-2" />
-           </button>
-        </div>
-      </section>
-
       {/* Featured Lawyers Section */}
-      <section className="-mt-4 pb-8 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden">
             <div className="flex animate-scroll space-x-6" style={{ width: 'calc(300px * 8 + 1.5rem * 7)' }}>
@@ -473,6 +450,29 @@ const HomePage = () => {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Text Section after Carousel */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm text-gray-500 uppercase tracking-wide mb-4">
+            TROUVEZ UN AVOCAT EN LIGNE AUTOUR DE VOUS
+          </p>
+          <p className="text-xl text-gray-900 mb-2">
+            Sur <span className="font-bold">AVOCAJUST</span>, ce ne sont pas juste des avocats.
+          </p>
+          <p className="text-xl text-gray-900 mb-8">
+            Ce sont des <span className="text-orange-500 font-bold">avocats justes</span> pour vos droits !
+          </p>
+
+          <button
+            onClick={() => navigate('/search')}
+            className="bg-orange-500 text-white px-8 py-3 rounded-full hover:bg-orange-600 transition-colors font-semibold inline-flex items-center"
+           >
+             Trouver un avocat
+             <ArrowRight className="h-5 w-5 ml-2" />
+           </button>
         </div>
       </section>
 
