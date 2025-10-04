@@ -1012,8 +1012,8 @@ const HomePage = () => {
         className="relative z-50"
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-            </div>
-
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white shadow-xl transition-all max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="space-y-8">
                 {/* Barre de recherche */}
